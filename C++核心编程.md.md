@@ -109,7 +109,7 @@ int main() {
 
 打印结果：
 
-![1545017602518](assets/1545017602518.png)
+![输入图片说明](/imgs/2024-03-29/yCOi2a7KGzQnmk1i.png)
 
 
 
@@ -5066,5 +5066,5 @@ int main() {
 - 文件输入流对象 可以通过read函数，以二进制方式读数据
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTE5ODU2NDUxOF19
+eyJoaXN0b3J5IjpbLTUxNzUyODI4MSwxMTk4NTY0NTE4XX0=
 -->
