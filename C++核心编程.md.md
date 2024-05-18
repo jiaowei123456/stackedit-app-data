@@ -3812,9 +3812,9 @@ int main() {
 
 **典型的菱形继承案例：**
 
+![输入图片说明](/imgs/2024-05-18/Gpfx3PvIlBOpNCjP.jpeg)
 
 
-![IMG_256](assets/clip_image002.jpg)
 
 
 
@@ -5066,5 +5066,6 @@ int main() {
 - 文件输入流对象 可以通过read函数，以二进制方式读数据
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTUxNzUyODI4MSwxMTk4NTY0NTE4XX0=
+eyJoaXN0b3J5IjpbOTc0ODgwOTAsLTUxNzUyODI4MSwxMTk4NT
+Y0NTE4XX0=
 -->
