@@ -1,0 +1,876 @@
+
+
+
+
+# 论文绘图代码
+[原文链接](https://www.mdpi.com/2079-6374/14/4/208)
+作者：焦炜，2024年5月28日
+主要包含biosensors全部的画图代码，代码与图像可能存在部分细节不匹配的地方，所有内容仅供参考。
+## Fig2 方位相关曲线、多子图曲线
+![输入图片说明](/imgs/2024-05-28/MB6HXnIrIq1m9pxE.svg+xml)
+```Matlab
+clc;
+
+clear all;
+
+close all;
+
+%% 导入数据
+
+arr = ['M11';'M12';'M13';'M21';'M22';'M23';'M31';'M32';'M33'];
+
+figure(1);
+
+% 画其他阵元
+
+for i = 1:9
+
+filename = arr(i,:);
+
+if strcmp(filename,'M11')
+
+M1 = ones([1,3601]);
+
+M2 = ones([1,3601]);
+
+M3 = ones([1,3601]);
+
+M4 = ones([1,3601]);
+
+else
+
+load(['..\..\get_ring\data_400_600\10and0\',filename,'\data_mean.mat']) %%%%%%%%%%%%%%%%%%%%%%修改文件夹路径
+
+M1 = data_mean;
+
+load(['..\..\get_ring\data_400_600\20and0\',filename,'\data_mean.mat'])
+
+M2 = data_mean;
+
+load(['..\..\get_ring\data_400_600\30and0\',filename,'\data_mean.mat'])
+
+M3 = data_mean;
+
+load(['..\..\get_ring\data_400_600\40and0\',filename,'\data_mean.mat'])
+
+M4 = data_mean;
+
+end
+
+%% 曲线平滑
+
+% 中值滤波
+
+y1 = medfilt1(M1,100);
+
+y2 = medfilt1(M2,100);
+
+y3 = medfilt1(M3,100);
+
+y4 = medfilt1(M4,100);
+
+% 消除开始阶段的误差
+
+y1(1:3) = y1(4);
+
+y2(1:3) = y2(4);
+
+y3(1:3) = y3(4);
+
+y4(1:3) = y4(4);
+
+h(i) = subplot(3, 3, i);
+
+%需要画的线；'LineWidth'设置线宽,'Color'设置颜色（QQ的截图功能可以当取色器用）;'LineStyle'更改线型
+
+thta=0:0.1:360;
+
+plot(thta,y1,'LineWidth',2,'Color',[055/255,103/255,149/255]);hold on; %%%%%%%%%%%%%%%调色
+
+plot(thta,y2,'LineWidth',2,'Color',[114/255,188/255,213/255]);hold on;
+
+plot(thta,y3,'LineWidth',2,'Color',[255/255,208/255,111/255]);hold on;
+
+plot(thta,y4,'LineWidth',2,'Color',[231/255,098/255,084/255]);hold on;
+
+%'FontSize'设置所有的字的大小（刻度、坐标轴、图例等）
+
+% 坐标区调整
+
+set(gca, 'Box', 'on', ... % 边框
+
+'XGrid', 'on', 'YGrid', 'off', ... % 垂直网格线
+
+'TickDir', 'out', 'TickLength', [.01 .01], ... % 刻度
+
+'XMinorTick', 'off', 'YMinorTick', 'off', ... % 小刻度
+
+'XColor', [.1 .1 .1], 'YColor', [.1 .1 .1],... % 坐标轴颜色
+
+'XTick', 0:90:360,... % 刻度位置、间隔
+
+'Xlim' , [0 360], ... % 坐标轴范围
+
+'XTickLabelRotation',0,... % X刻度旋转角度
+
+'FontSize',18,... % 刻度标签字体
+
+'FontName','Times new roman', ... % 背景颜色
+
+'Color',[1 1 1], ...
+
+'tickdir','in'); % 刻度向内
+
+% 'Yticklabel',{[0:0.0002:0.001]},... % Y坐标轴刻度标签
+
+% 'YTick', 0:0.0002:0.001,... % 刻度位置、间隔
+
+% 'Ylim' , [0 0.001], ... % 坐标轴范围) ...
+
+% set(gca,'FontWeight','bold'); %字体是否加粗
+
+% 'Xticklabel',{'20-10deg','30-10deg','40-10deg'},...% X坐标轴刻度标签
+
+%设置坐标轴名称的字体，可以覆盖上述设置
+
+set(gca, 'TickLabelInterpreter', 'latex') % 修改为-号
+
+ytickformat('$%g$')
+
+xlabel(filename,'fontsize',15);
+
+% ylabel('Obj','fontsize',25);
+
+% hYLabel = ylabel('MSE');
+
+%
+
+% set(hYLabel, 'FontName', 'Times new roman')
+
+% set(hYLabel, 'FontSize', 15)
+
+%设置y轴范围
+
+if strcmp(filename,'M22')||strcmp(filename,'M33')
+
+ylim([0,0.6]);
+
+elseif strcmp(filename,'M32')||strcmp(filename,'M23')
+
+ylim([-0.3,0.3]);
+
+elseif strcmp(filename,'M11')
+
+ylim([0,1.5])
+
+else
+
+ylim([-0.1,0.1]);
+
+end
+
+%设置y刻度如何显示
+
+if strcmp(filename,'M22')||strcmp(filename,'M33')
+
+yticks(0:0.6:0.6);
+
+elseif strcmp(filename,'M32')||strcmp(filename,'M23')
+
+yticks(-0.3:0.3:0.3);
+
+elseif strcmp(filename,'M11')
+
+yticks(0:0.5:1.5);
+
+else
+
+yticks(-0.1:0.1:0.1);
+
+end
+
+%% 图例
+
+if strcmp(filename,'M11')
+
+hLegend = legend({'10°','20°','30°','40°'}, ...
+
+'Orientation','vertical', ...
+
+'Location','southWest',...
+
+'NumColumns',2);%前两个数字是左下角xy，后两个数字是长宽'Position',[0.130 0.714 0.208 0.214]
+
+% 标签及Legend的字体字号
+
+set(hLegend, 'FontName', 'Times new roman')
+
+set(hLegend, 'FontSize', 12)
+
+set(hLegend,'Box','off')
+
+% Legend位置微调
+
+% P = hLegend.Position;
+
+% hLegend.Position = P + [-0.515 0.62 0 0]; %调整位置
+
+end
+
+end
+
+% 设置图标题和轴标签
+
+% title('MSE between different degrees');
+
+%设置输出的图的大小
+
+set(gcf,'PaperUnits','centimeters') %图像单位为cm
+
+set(gcf,'PaperSize',[30,15]) %设置纸张的大小为厘米宽，厘米高
+
+set(gcf,'PaperPositionMode','manual') %将纸张位置模式设置为手动，这意味着你将手动指定纸张的位置。
+
+set(gcf,'PaperPosition',[0,0,30,15]); %设置图形在纸张上的位置和大小。这里，图形位于纸张左下角，宽度为厘米，高度为厘米。
+
+set(gcf,'Renderer','painters'); %设置图形的渲染器为'painters'，这是一种渲染方法，通常用于生成矢量图形。
+
+%保存文件夹
+
+path = '.\_and0'; %%%%%%%%%%%%%%%%%%%%%%修改保存文件夹
+
+mkdir(path);
+
+% %输出'test1'pdf
+
+% print([path,'\1'],'-dpdf')
+
+%输出'1.jpg';3是图片名
+
+print([path,'\4'],'-djpeg','-r1200')
+
+%输出'1.svg'
+
+print([path,'\4'],'-dsvg','-r1200')
+```
+## Fig3 误差棒
+![输入图片说明](/imgs/2024-05-28/QFtms5qQ5UX6zsM7.svg+xml)
+```Matlab
+clc;
+clear all;
+close all;
+%出射变化 交流分量
+Energy_Spectrum_Density_all = [0.000452396 0.000385702 0.000283732 0.000159202;
+0.000459912 0.000387815 0.000254514 0.000158446;
+0.000450873 0.000387995 0.000352154 0.000368364;
+0.000442014 0.000370504 0.000276115 0.000210242];
+sd = [1.90716E-05 1.19749E-05 9.59344E-06 1.0365E-05;
+1.81364E-05 1.29693E-05 2.5414E-06 1.99807E-06;
+2.71434E-05 1.38411E-05 1.41533E-05 2.13028E-05;
+3.38342E-06 7.14968E-06 4.32193E-06 4.1139E-06];
+%出射变化 直流分量
+% Energy_Spectrum_Density_all = [8.91E-06 3.11E-05 4.13E-05 5.87E-05;
+% 1.04E-05 2.98E-05 2.95E-06 3.81E-05;
+% 6.88E-06 4.27E-05 4.86E-04 2.53E-03;
+% 1.01E-06 1.99E-06 1.13E-05 4.24E-05];
+%
+% sd = [8.67628E-07 3.01922E-06 6.28296E-06 6.34378E-06 ;
+% 1.72503E-06 9.72304E-06 2.39257E-07 3.01153E-07;
+% 2.85077E-06 1.39403E-05 6.98125E-05 7.31197E-05 ;
+% 2.53471E-07 4.53218E-07 2.55168E-06 2.61953E-06];
+%入射变化 交流分量
+% Energy_Spectrum_Density_all = [0.000424775 0.00039638 0.000359282 0.000392339;
+% 0.000436308 0.000353076 0.000254981 0.000245002;
+% 0.000450385 0.000381913 0.000251867 0.000197751;
+% 0.00044467 0.00037379 0.000260667 0.000189052];
+% sd = [1.06523E-05 8.59806E-06 2.47772E-05 1.27847E-05;
+% 2.36606E-05 1.82318E-06 6.2211E-06 1.64119E-05;
+% 2.41731E-05 1.9273E-05 1.97656E-05 3.13702E-05;
+% 3.34317E-07 8.40187E-06 4.12205E-06 1.44969E-05];
+%入射变化 直流分量
+% Energy_Spectrum_Density_all = [8.75E-06 4.08E-04 1.20E-03 1.73E-03;
+% 3.76E-06 2.57E-04 1.16E-04 2.49E-05;
+% 2.97E-06 2.94E-06 7.18E-07 2.42E-05;
+% 1.26E-06 8.07E-08 2.80E-07 1.46E-07
+% ];
+% sd = [7.88976E-07 6.43296E-07 4.90748E-05 7.90106E-05;
+% 1.48958E-06 9.23031E-06 3.94643E-06 1.89799E-06;
+% 8.98181E-09 6.14029E-07 2.06294E-07 2.2043E-06;
+% 9.54306E-07 1.36129E-07 2.06737E-07 1.82208E-07];
+%% 画图
+thta = 1:4;
+% 图片尺寸设置（单位：厘米）
+figureUnits = 'centimeters';
+figureWidth = 15;
+figureHeight = 5;
+%窗口设置
+figureHandle = figure;
+set(gcf, Units=figureUnits, Position=[0 0 figureWidth figureHeight]); % 定义一个新的视图
+hold on
+%需要画的线；'LineWidth'设置线宽,'Color'设置颜色（QQ的截图功能可以当取色器用）;'LineStyle'更改线型
+GO(1) = errorbar(thta,Energy_Spectrum_Density_all(1,:),sd(1,:),'LineWidth',2,'Color',[038/255,70/255,83/255]);hold on; %%%%%%%%%%%%%%%调色
+GO(2) = errorbar(thta,Energy_Spectrum_Density_all(2,:),sd(2,:),'LineWidth',2,'Color',[42/255,157/255,142/255]);hold on;
+GO(3) = errorbar(thta,Energy_Spectrum_Density_all(3,:),sd(3,:),'LineWidth',2,'Color',[233/255,196/255,107/255]);hold on;
+GO(4) = errorbar(thta,Energy_Spectrum_Density_all(4,:),sd(4,:),'LineWidth',2,'Color',[243/255,162/255,097/255]);hold on;
+% 误差棒
+%% 'FontSize'设置所有的字的大小（刻度、坐标轴、图例等）
+% 坐标区调整
+set(gca, 'Box', 'on', ... % 边框
+'XGrid', 'on', 'YGrid', 'off', ... % 垂直网格线
+'TickDir', 'out', 'TickLength', [.01 .01], ... % 刻度
+'XMinorTick', 'off', 'YMinorTick', 'off', ... % 小刻度
+'XColor', [.1 .1 .1], 'YColor', [.1 .1 .1],... % 坐标轴颜色
+'Ylim' , [0.000 0.0006], ... % 坐标轴范围 %%%%%%%%%%%%%%%%%%%%%%%注意修改
+'XTick', 1:1:4,... % 刻度位置、间隔
+'Xlim' , [1 4], ... % 坐标轴范围
+'Xticklabel',{'10 deg','20 deg','30 deg','40 deg'},... % X坐标轴刻度标签
+'FontSize',15,... % 刻度标签字体和字号
+'FontName','Times new roman', ... % 背景颜色
+'Color',[1 1 1], ...
+'tickdir','in'); % 刻度向内
+% 'Yticklabel',{[0:0.0002:0.001]},... % Y坐标轴刻度标签
+% 'YTick', 0:0.0002:0.001,... % 刻度位置、间隔
+% 'Ylim' , [0 0.001], ... % 坐标轴范围) ...
+% set(gca,'FontWeight','bold'); %字体是否加粗
+% 'Xticklabel',{'20-10deg','30-10deg','40-10deg'},...% X坐标轴刻度标签
+%设置坐标轴名称的字体，可以覆盖上述设置
+% xlabel(filename,'fontsize',19);
+% ylabel('Obj','fontsize',25);
+hYLabel = ylabel('ESD');
+set(hYLabel, 'FontName', 'Times new roman')
+set(hYLabel, 'FontSize', 12)
+hLegend = legend([GO(1),GO(2),GO(3),GO(4)], ...
+'M12', 'M13', 'M21', 'M31',...
+'Location', 'southwest'); %%%%%%%%%%%%%%%%%
+% % Legend位置微调
+% P = hLegend.Position;
+% hLegend.Position = P + [0.015 0.03 0 0]; %调整位置
+% 标签及Legend的字体字号
+set(hLegend, 'FontName', 'Times new roman')
+set(hLegend, 'FontSize', 10)
+% 消除边框
+set(hLegend,'Box','off')
+% 设置图标题和轴标签
+% title('ESD with different incdent degrees');
+%% 图片输出
+figW = figureWidth;
+figH = figureHeight;
+set(figureHandle,'PaperUnits',figureUnits);
+set(figureHandle,'PaperPosition',[0 0 figW figH]);
+fileout = '.\0and_ac'; %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+mkdir(fileout);
+%输出'1.svg'
+print(figureHandle,[fileout,'\1.svg'],'-r1200','-dsvg');
+% %输出'1.pdf'
+% print(figureHandle,[fileout,'\1.pdf'],'-dpdf')
+%输出'1.jpg';3是图片名
+print(figureHandle,[fileout,'\1.jpg'],'-djpeg','-r1200')
+```
+
+## Fig4 (b) 堆叠柱状图
+![输入图片说明](/imgs/2024-05-28/fpcvPA0X9fG9bN67.svg+xml)
+
+```Matlab
+clc;
+
+clear all;
+
+close all;
+
+%出射变化 交流分量
+
+%% 画图
+
+thta1 = 1:5;
+
+thta2 = 1:4;
+
+thta3 = 1:3;
+
+thta4 = 1:2;
+
+thta5 = 1;
+
+% 0度入射
+
+data1 = [0 0.034427086 0.067819353 0.142666343 0.234714082];
+
+% 10度入射
+
+data2 = [0.009156152 0.015912051 0.084246436 0.149025032 0];
+
+% 20度入射
+
+data3 = [0.003661406 0.029993063 0.08512715 0 0];
+
+% 30度入射
+
+data4 = [0.00666765 0.025676922 0 0 0];
+
+% 40度入射
+
+data5 = [0.008611319 0 0 0 0];
+
+data = [data1; data2; data3; data4; data5]';
+
+% 图片尺寸设置（单位：厘米）
+
+figureUnits = 'centimeters';
+
+figureWidth = 12;
+
+figureHeight = 7;
+
+%窗口设置
+
+figureHandle = figure;
+
+set(gcf, Units=figureUnits, Position=[0 0 figureWidth figureHeight]); % 定义一个新的视图
+
+hold on
+
+%需要画的线；'LineWidth'设置线宽,'Color'设置颜色（QQ的截图功能可以当取色器用）;'LineStyle'更改线型
+
+GO = bar(thta1,data,0.5,'stacked','EdgeColor','k');hold on; %%%%%%%%%%%%%%%调色
+
+% 赋色
+
+GO(1).FaceColor = [231/255,098/255,084/255];
+
+GO(2).FaceColor = [247/255,170/255,088/255];
+
+GO(3).FaceColor = [255/255,208/255,111/255];
+
+GO(4).FaceColor = [170/255,220/255,224/255];
+
+GO(5).FaceColor = [082/255,143/255,173/255];
+
+%% 'FontSize'设置所有的字的大小（刻度、坐标轴、图例等）
+
+% 坐标区调整
+
+set(gca, 'Box', 'on', ... % 边框
+
+'XGrid', 'off', 'YGrid', 'on', ... % 垂直网格线
+
+'TickDir', 'out', 'TickLength', [.01 .01], ... % 刻度
+
+'XMinorTick', 'off', 'YMinorTick', 'off', ... % 小刻度
+
+'XColor', [.1 .1 .1], 'YColor', [.1 .1 .1],... % 坐标轴颜色
+
+'Ylim' , [0.000 0.4], ... % 坐标轴范围 %%%%%%%%%%%%%%%%%%%%%%%注意修改
+
+'YTick' , 0:0.1:0.4, ... % 坐标轴范围
+
+'XTick', 1:1:5,... % 刻度位置、间隔
+
+'Xlim' , [0.5 5.5], ... % 坐标轴范围
+
+'Xticklabel',{'0°', '10°','20°','30°','40°'},... % X坐标轴刻度标签
+
+'XTickLabelRotation', 0,...
+
+'FontSize',13,... % 刻度标签字体和字号
+
+'FontName','Times new roman', ... % 背景颜色
+
+'Color',[1 1 1], ...
+
+'tickdir','in'); % 刻度向内
+
+%设置坐标轴名称的字体，可以覆盖上述设置
+
+hLegend = legend([GO(1),GO(2),GO(3),GO(4),GO(5)], ...
+
+'θ = 0°', 'θ = 10°', 'θ = 20°', 'θ = 30°', 'θ = 40°',...
+
+'Location', 'northwest'); %%%%%%%%%%%%%%%%%
+
+% 标签及Legend的字体字号
+
+set(hLegend, 'FontName', 'Times new roman')
+
+set(hLegend, 'FontSize', 12)
+
+% 消除边框
+
+set(hLegend,'Box','off')
+
+%% 图片输出
+
+figW = figureWidth;
+
+figH = figureHeight;
+
+set(figureHandle,'PaperUnits',figureUnits);
+
+set(figureHandle,'PaperPosition',[0 0 figW figH]);
+
+fileout = '.\1'; %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+mkdir(fileout);
+
+%输出'1.svg'
+
+print(figureHandle,[fileout,'\3.svg'],'-r1200','-dsvg');
+
+%输出'1.jpg';3是图片名
+
+print(figureHandle,[fileout,'\3.jpg'],'-djpeg','-r1200')
+```
+
+## Fig4 (b)  多条曲线图
+![输入图片说明](/imgs/2024-05-28/FHhJvO1KYNOSCNqR.svg+xml)
+```Matlab
+clc;
+
+clear all;
+
+close all;
+
+%% 导入数据
+
+t=linspace(0,40,40);
+
+t1 = cos(t.*pi()/180); %%%cos后的变量
+
+f1=zeros(1,40);
+
+f2=zeros(1,40);
+
+f3=zeros(1,40);
+
+f4=zeros(1,40);
+
+f5=zeros(1,40);
+
+f6=zeros(1,40);
+
+for ii=1:length(t)
+
+f1(ii) = 0.9517-0.936*cos(t(ii).*pi()/180);
+
+f2(ii) = 1.0913-1.084*cos(t(ii).*pi()/180);
+
+f3(ii) = 0.9809-0.9686*cos(t(ii).*pi()/180);
+
+f4(ii) = 0.00668+0.000013*t(ii);
+
+f5(ii) = 0.02832-0.00012*t(ii);
+
+f6(ii) = 0.07041+0.0008*t(ii);
+
+end
+
+%% 画图
+
+% 图片尺寸设置（单位：厘米）
+
+figureUnits = 'centimeters';
+
+figureWidth = 15;
+
+figureHeight = 10;
+
+%窗口设置
+
+figureHandle = figure;
+
+set(gcf, Units=figureUnits, Position=[0 0 figureWidth figureHeight]); % 定义一个新的视图
+
+hold on
+
+%% 左边图
+
+%需要画的线；'LineWidth'设置线宽,'Color'设置颜色（QQ的截图功能可以当取色器用）;'LineStyle'更改线型
+
+GO(1) = plot(t,f1,'-r','LineWidth',2);hold on; %%%%%%%%%%%%%%%调色
+
+GO(2) = plot(t,f2,'--r','LineWidth',2);hold on;
+
+GO(3) = plot(t,f3,'-..r','LineWidth',2);hold on;
+
+GO(4) = plot(t,f4,'-k','LineWidth',2);hold on;
+
+GO(5) = plot(t,f5,'--k','LineWidth',2);hold on;
+
+GO(6) = plot(t,f6,'-..k','LineWidth',2);hold on;
+
+%% 'FontSize'设置所有的字的大小（刻度、坐标轴、图例等）
+
+% 坐标区调整
+
+set(gca, 'Box', 'on', ... % 边框
+
+'XGrid', 'off', 'YGrid', 'on', ... % 垂直网格线
+
+'TickDir', 'out', 'TickLength', [.01 .01], ... % 刻度
+
+'XMinorTick', 'off', 'YMinorTick', 'off', ... % 小刻度
+
+'XColor', [.1 .1 .1], 'YColor', [.1 .1 .1],... % 坐标轴颜色
+
+'YTick', 0:0.1:0.3,...
+
+'Ylim' , [0.000 0.3], ... % 坐标轴范围 %%%%%%%%%%%%%%%%%%%%%%%注意修改
+
+'XTick', 0:10:40,... % 刻度位置、间隔
+
+'Xlim' , [0 40], ... % 坐标轴范围
+
+'Xticklabel',{'0°', '10°','20°','30°','40°'},... % X坐标轴刻度标签
+
+'FontSize',15,... % 刻度标签字体和字号
+
+'FontName','Times new roman', ... % 背景颜色
+
+'Color',[1 1 1], ...
+
+'tickdir','in'); % 刻度向内
+
+%%
+
+hLegend = legend([GO(1),GO(2),GO(3),GO(4),GO(5),GO(6)], ...
+
+'{\itζ} ({\itθ} = 0°)', '{\itζ} ({\itθ} = 10°)', '{\itζ} ({\itθ} = Mean)', '{\itθ} ({\itζ} = 0°)', '{\itθ} ({\itζ} = 10°)', '{\itθ} ({\itζ} = 20°)',...
+
+'Location', 'northwest'); %%%%%%%%%%%%%%%%%
+
+% 标签及Legend的字体字号
+
+set(hLegend, 'FontName', 'Times new roman')
+
+set(hLegend, 'FontSize', 15)
+
+% 消除边框
+
+set(hLegend,'Box','off')
+
+%% 图片输出
+
+figW = figureWidth;
+
+figH = figureHeight;
+
+set(figureHandle,'PaperUnits',figureUnits);
+
+set(figureHandle,'PaperPosition',[0 0 figW figH]);
+
+fileout = '.\3\'; %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+mkdir(fileout);
+
+%输出'1.svg'
+
+print(figureHandle,[fileout,'\2.svg'],'-r1200','-dsvg');
+
+% %输出'1.pdf'
+
+% print(figureHandle,[fileout,'\1.pdf'],'-dpdf')
+
+%输出'1.jpg';3是图片名
+
+print(figureHandle,[fileout,'\2.jpg'],'-djpeg','-r1200')
+```
+## Fig5  FDH曲线
+![输入图片说明](/imgs/2024-05-28/OTmi9UU8e8iQiROd.svg+xml)
+```Matlab
+clear all; close all; clc;
+
+%% 导入数据
+
+%10度角
+
+load("..\..\..\origin_data\final\10and0\LDOP.mat")
+
+LDOP_10 = LDOP;
+
+% 20度角原始的
+
+load("..\..\..\origin_data\final\20and20\LDOP.mat")
+
+LDOP_20 = LDOP;
+
+% 40度角
+
+load("..\..\..\origin_data\final\40and0\LDOP.mat")
+
+LDOP_40 = LDOP;
+
+%10和40的裁剪大小
+
+rect1 = [1249 1110 1114 927];
+
+%原始20的裁剪地方
+
+rect2 = [1201 1024 1114 927];
+
+% 复原后20的裁剪地方
+
+rect3 = [1274 1024 1114 927];
+
+%% 裁剪
+
+% 全1矩阵计算1-b
+
+ones1 = ones(928,1115);
+
+LDOP_crop_10 = imcrop(LDOP_10,rect1);
+
+LDOP_crop_40 = imcrop(LDOP_40,rect1);
+
+LDOP_crop_20 = imcrop(LDOP_20,rect2);
+
+%% 滤波
+
+% %中值滤波
+
+W = [5,5];
+
+LDOP_crop_10 = medfilt2(LDOP_crop_10, W);
+
+LDOP_crop_40 = medfilt2(LDOP_crop_40, W);
+
+LDOP_crop_20 = medfilt2(LDOP_crop_20, W);
+
+%%
+
+%计算fdh
+
+edges = 0:0.001:1;
+
+[counts5, edges] = histcounts(LDOP_crop_10, edges, 'Normalization', 'probability');
+
+[counts6, edges] = histcounts(LDOP_crop_20, edges, 'Normalization', 'probability');
+
+[counts8, edges] = histcounts(LDOP_crop_40, edges, 'Normalization', 'probability');
+
+%% 画图
+
+thta = 0.001:0.001:1;
+
+% 图片尺寸设置（单位：厘米）
+
+figureUnits = 'centimeters';
+
+figureWidth = 15;
+
+figureHeight = 8;
+
+%窗口设置
+
+figureHandle = figure(1);
+
+set(gcf, Units=figureUnits, Position=[0 0 figureWidth figureHeight]); % 定义一个新的视图
+
+hold on
+
+%需要画的线；'LineWidth'设置线宽,'Color'设置颜色（QQ的截图功能可以当取色器用）;'LineStyle'更改线型
+
+GO(1) = plot(thta,smooth(counts5),'-k','LineWidth',3);hold on; %%%%%%%%%%%%%%%调色
+
+GO(2) = plot(thta,smooth(counts6),'-r','LineWidth',3);hold on;
+
+GO(4) = plot(thta,smooth(counts8),'-.k','LineWidth',3);hold on;
+
+%% 'FontSize'设置所有的字的大小（刻度、坐标轴、图例等）
+
+% 坐标区调整
+
+set(gca, 'Box', 'on', ... % 边框
+
+'XGrid', 'off', 'YGrid', 'off', ... % 垂直网格线
+
+'TickDir', 'out', 'TickLength', [.01 .01], ... % 刻度
+
+'XMinorTick', 'off', 'YMinorTick', 'off', ... % 小刻度
+
+'XColor', [.1 .1 .1], 'YColor', [.1 .1 .1],... % 坐标轴颜色
+
+'Ylim' , [0.000 0.015], ... % 坐标轴范围 %%%%%%%%%%%%%%%%%%%%%%%注意修改
+
+'XTick', 0.1:0.25:0.6,... % 刻度位置、间隔
+
+'Xlim' , [0.1 0.6],... % 坐标轴范围
+
+'Xticklabel',{"0.1","0.35","0.6"},... % X坐标轴刻度标签
+
+'FontSize',15,... % 刻度标签字体和字号
+
+'FontName','Times new roman', ... % 背景颜色
+
+'Color',[1 1 1], ...
+
+'tickdir','in'); % 刻度向内
+
+% 'Yticklabel',{[0:0.0002:0.001]},... % Y坐标轴刻度标签
+
+% 'YTick', 0:0.0002:0.001,... % 刻度位置、间隔
+
+% 'Ylim' , [0 0.001], ... % 坐标轴范围) ...
+
+% set(gca,'FontWeight','bold'); %字体是否加粗
+
+% 'Xticklabel',{'20-10deg','30-10deg','40-10deg'},...% X坐标轴刻度标签
+
+%设置坐标轴名称的字体，可以覆盖上述设置
+
+% xlabel(filename,'fontsize',19);
+
+% ylabel('Obj','fontsize',25);
+
+% Y轴字
+
+% hYLabel = ylabel('ESD');
+
+% set(hYLabel, 'FontName', 'Times new roman')
+
+% set(hYLabel, 'FontSize', 15)
+
+%% legend
+
+hLegend = legend([GO(1),GO(2),GO(4)], ...
+
+'(10, 0)','(20, 20)','(40, 0)',...
+
+'Location', 'northwest'); %%%%%%%%%%%%%%%%%
+
+% 标签及Legend的字体字号
+
+set(hLegend, 'FontName', 'Times new roman')
+
+set(hLegend, 'FontSize', 15)
+
+% 消除边框
+
+set(hLegend,'Box','off')
+
+%% 图片输出
+
+figW = figureWidth;
+
+figH = figureHeight;
+
+set(figureHandle,'PaperUnits',figureUnits);
+
+set(figureHandle,'PaperPosition',[0 0 figW figH]);
+
+fileout = '.\fdhLDOP\'; %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+mkdir(fileout);
+
+savefig(figureHandle,[fileout,'\1.fig'])
+
+% %输出'1.svg'
+
+% print(figureHandle,[fileout,'\5.svg'],'-r1200','-dsvg');
+
+% %输出'1.jpg';3是图片名
+
+% print(figureHandle,[fileout,'\5.jpg'],'-djpeg','-r1200')
+```
+
+<!--stackedit_data:
+eyJoaXN0b3J5IjpbNjQwOTQ0OTA4XX0=
+-->
