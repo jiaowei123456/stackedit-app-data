@@ -136,33 +136,25 @@ for i = 1:9
 end
 
 % 设置图标题和轴标签
-
 % title('MSE between different degrees');
 
 %设置输出的图的大小
-
 set(gcf,'PaperUnits','centimeters') %图像单位为cm
 set(gcf,'PaperSize',[30,15]) %设置纸张的大小为厘米宽，厘米高
 set(gcf,'PaperPositionMode','manual') %将纸张位置模式设置为手动，这意味着你将手动指定纸张的位置。
 set(gcf,'PaperPosition',[0,0,30,15]); %设置图形在纸张上的位置和大小。这里，图形位于纸张左下角，宽度为厘米，高度为厘米。
 set(gcf,'Renderer','painters'); %设置图形的渲染器为'painters'，这是一种渲染方法，通常用于生成矢量图形。
 
+%%保存图片
 %保存文件夹
-
 path = '.\_and0'; %%%%%%%%%%%%%%%%%%%%%%修改保存文件夹
-
 mkdir(path);
 
 % %输出'test1'pdf
-
 % print([path,'\1'],'-dpdf')
-
 %输出'1.jpg';3是图片名
-
 print([path,'\4'],'-djpeg','-r1200')
-
 %输出'1.svg'
-
 print([path,'\4'],'-dsvg','-r1200')
 ```
 ## Fig3 误差棒
@@ -784,5 +776,5 @@ savefig(figureHandle,[fileout,'\1.fig'])
 ```
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTYxMTE1OTUwM119
+eyJoaXN0b3J5IjpbMTY3MjcwMDA0M119
 -->
