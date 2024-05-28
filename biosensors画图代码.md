@@ -35,120 +35,92 @@ for i = 1:9
 		M3 = data_mean;
 		load(['..\..\get_ring\data_400_600\40and0\',filename,'\data_mean.mat'])
 		M4 = data_mean;
-
-end
+	end
 
 %% 曲线平滑
 
-% 中值滤波
+	% 中值滤波
+	y1 = medfilt1(M1,100);
+	y2 = medfilt1(M2,100);
+	y3 = medfilt1(M3,100);
+	y4 = medfilt1(M4,100);
 
-y1 = medfilt1(M1,100);
+	% 消除开始阶段的误差
 
-y2 = medfilt1(M2,100);
+	y1(1:3) = y1(4);
+	y2(1:3) = y2(4);
+	y3(1:3) = y3(4);
+	y4(1:3) = y4(4);
 
-y3 = medfilt1(M3,100);
+	h(i) = subplot(3, 3, i);
 
-y4 = medfilt1(M4,100);
+	%需要画的线；'LineWidth'设置线宽,'Color'设置颜色（QQ的截图功能可以当取色器用）;'LineStyle'更改线型
 
-% 消除开始阶段的误差
+	thta=0:0.1:360;
+	plot(thta,y1,'LineWidth',2,'Color',[055/255,103/255,149/255]);hold on; %%%%%%%%%%%%%%%调色
+	plot(thta,y2,'LineWidth',2,'Color',[114/255,188/255,213/255]);hold on;
+	plot(thta,y3,'LineWidth',2,'Color',[255/255,208/255,111/255]);hold on;
+	plot(thta,y4,'LineWidth',2,'Color',[231/255,098/255,084/255]);hold on;
 
-y1(1:3) = y1(4);
+	%'FontSize'设置所有的字的大小（刻度、坐标轴、图例等）
 
-y2(1:3) = y2(4);
+	% 坐标区调整
+	set(gca, 'Box', 'on', ... % 边框
+	'XGrid', 'on', 'YGrid', 'off', ... % 垂直网格线
+	'TickDir', 'out', 'TickLength', [.01 .01], ... % 刻度
+	'XMinorTick', 'off', 'YMinorTick', 'off', ... % 小刻度
+	'XColor', [.1 .1 .1], 'YColor', [.1 .1 .1],... % 坐标轴颜色
+	'XTick', 0:90:360,... % 刻度位置、间隔
+	'Xlim' , [0 360], ... % 坐标轴范围
+	'XTickLabelRotation',0,... % X刻度旋转角度
+	'FontSize',18,... % 刻度标签字体
+	'FontName','Times new roman', ... % 背景颜色
+	'Color',[1 1 1], ...
+	'tickdir','in'); % 刻度向内
+	% 'Yticklabel',{[0:0.0002:0.001]},... % Y坐标轴刻度标签
+	% 'YTick', 0:0.0002:0.001,... % 刻度位置、间隔
+	% 'Ylim' , [0 0.001], ... % 坐标轴范围) ...
 
-y3(1:3) = y3(4);
+	% set(gca,'FontWeight','bold'); %字体是否加粗
+	% 'Xticklabel',{'20-10deg','30-10deg','40-10deg'},...% X坐标轴刻度标签
 
-y4(1:3) = y4(4);
+	%设置坐标轴名称的字体，可以覆盖上述设置
 
-h(i) = subplot(3, 3, i);
+	set(gca, 'TickLabelInterpreter', 'latex') % 修改为-号
 
-%需要画的线；'LineWidth'设置线宽,'Color'设置颜色（QQ的截图功能可以当取色器用）;'LineStyle'更改线型
+	ytickformat('$%g$')
 
-thta=0:0.1:360;
+	xlabel(filename,'fontsize',15);
 
-plot(thta,y1,'LineWidth',2,'Color',[055/255,103/255,149/255]);hold on; %%%%%%%%%%%%%%%调色
+	% ylabel('Obj','fontsize',25);
 
-plot(thta,y2,'LineWidth',2,'Color',[114/255,188/255,213/255]);hold on;
+	% hYLabel = ylabel('MSE');
 
-plot(thta,y3,'LineWidth',2,'Color',[255/255,208/255,111/255]);hold on;
+	%
 
-plot(thta,y4,'LineWidth',2,'Color',[231/255,098/255,084/255]);hold on;
+	% set(hYLabel, 'FontName', 'Times new roman')
 
-%'FontSize'设置所有的字的大小（刻度、坐标轴、图例等）
+	% set(hYLabel, 'FontSize', 15)
 
-% 坐标区调整
+	%设置y轴范围
 
-set(gca, 'Box', 'on', ... % 边框
+	if strcmp(filename,'M22')||strcmp(filename,'M33')
 
-'XGrid', 'on', 'YGrid', 'off', ... % 垂直网格线
+	ylim([0,0.6]);
 
-'TickDir', 'out', 'TickLength', [.01 .01], ... % 刻度
+	elseif strcmp(filename,'M32')||strcmp(filename,'M23')
 
-'XMinorTick', 'off', 'YMinorTick', 'off', ... % 小刻度
+	ylim([-0.3,0.3]);
 
-'XColor', [.1 .1 .1], 'YColor', [.1 .1 .1],... % 坐标轴颜色
+	elseif strcmp(filename,'M11')
 
-'XTick', 0:90:360,... % 刻度位置、间隔
+	ylim([0,1.5])
 
-'Xlim' , [0 360], ... % 坐标轴范围
+	else
 
-'XTickLabelRotation',0,... % X刻度旋转角度
+	ylim([-0.1,0.1]);
 
-'FontSize',18,... % 刻度标签字体
-
-'FontName','Times new roman', ... % 背景颜色
-
-'Color',[1 1 1], ...
-
-'tickdir','in'); % 刻度向内
-
-% 'Yticklabel',{[0:0.0002:0.001]},... % Y坐标轴刻度标签
-
-% 'YTick', 0:0.0002:0.001,... % 刻度位置、间隔
-
-% 'Ylim' , [0 0.001], ... % 坐标轴范围) ...
-
-% set(gca,'FontWeight','bold'); %字体是否加粗
-
-% 'Xticklabel',{'20-10deg','30-10deg','40-10deg'},...% X坐标轴刻度标签
-
-%设置坐标轴名称的字体，可以覆盖上述设置
-
-set(gca, 'TickLabelInterpreter', 'latex') % 修改为-号
-
-ytickformat('$%g$')
-
-xlabel(filename,'fontsize',15);
-
-% ylabel('Obj','fontsize',25);
-
-% hYLabel = ylabel('MSE');
-
-%
-
-% set(hYLabel, 'FontName', 'Times new roman')
-
-% set(hYLabel, 'FontSize', 15)
-
-%设置y轴范围
-
-if strcmp(filename,'M22')||strcmp(filename,'M33')
-
-ylim([0,0.6]);
-
-elseif strcmp(filename,'M32')||strcmp(filename,'M23')
-
-ylim([-0.3,0.3]);
-
-elseif strcmp(filename,'M11')
-
-ylim([0,1.5])
-
-else
-
-ylim([-0.1,0.1]);
-
-end
+	end
 
 %设置y刻度如何显示
 
@@ -853,5 +825,5 @@ savefig(figureHandle,[fileout,'\1.fig'])
 ```
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTQ0ODA0OTUyM119
+eyJoaXN0b3J5IjpbODI4NjIyNTI1XX0=
 -->
