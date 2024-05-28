@@ -6,7 +6,7 @@
 [原文链接](https://www.mdpi.com/2079-6374/14/4/208)
 作者：焦炜，2024年5月28日
 主要包含biosensors全部的画图代码，代码与图像可能存在部分细节不匹配的地方，所有内容仅供参考。
-## Fig2 方位相关曲线、多子图曲线
+## Fig. 2 方位相关曲线、多子图曲线
 ![输入图片说明](/imgs/2024-05-28/MB6HXnIrIq1m9pxE.svg+xml)
 ```Matlab
 clc;
@@ -776,5 +776,5 @@ savefig(figureHandle,[fileout,'\1.fig'])
 ```
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTY3MjcwMDA0M119
+eyJoaXN0b3J5IjpbMTQwMzczMTE3LDE2NzI3MDAwNDNdfQ==
 -->
