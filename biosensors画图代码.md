@@ -10,7 +10,6 @@
 ![输入图片说明](/imgs/2024-05-28/MB6HXnIrIq1m9pxE.svg+xml)
 ```Matlab
 clc;
-
 clear all;
 
 close all;
@@ -872,5 +871,5 @@ savefig(figureHandle,[fileout,'\1.fig'])
 ```
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbNjQwOTQ0OTA4XX0=
+eyJoaXN0b3J5IjpbMTc1MTAyNjgxMF19
 -->
