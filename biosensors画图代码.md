@@ -97,62 +97,42 @@ for i = 1:9
 	%设置y轴范围
 	if strcmp(filename,'M22')||strcmp(filename,'M33')
 		ylim([0,0.6]);
-		elseif strcmp(filename,'M32')||strcmp(filename,'M23')
+	elseif strcmp(filename,'M32')||strcmp(filename,'M23')
 		ylim([-0.3,0.3]);
-		elseif strcmp(filename,'M11')
+	elseif strcmp(filename,'M11')
 		ylim([0,1.5])
-		else
+	else
 		ylim([-0.1,0.1]);
 	end
 
-%设置y刻度如何显示
+	%设置y刻度如何显示
 
-if strcmp(filename,'M22')||strcmp(filename,'M33')
-
-yticks(0:0.6:0.6);
-
-elseif strcmp(filename,'M32')||strcmp(filename,'M23')
-
-yticks(-0.3:0.3:0.3);
-
-elseif strcmp(filename,'M11')
-
-yticks(0:0.5:1.5);
-
-else
-
-yticks(-0.1:0.1:0.1);
-
-end
+	if strcmp(filename,'M22')||strcmp(filename,'M33')
+		yticks(0:0.6:0.6);
+	elseif strcmp(filename,'M32')||strcmp(filename,'M23')
+		yticks(-0.3:0.3:0.3);
+	elseif strcmp(filename,'M11')
+		yticks(0:0.5:1.5);
+	else
+		yticks(-0.1:0.1:0.1);
+	end
 
 %% 图例
 
-if strcmp(filename,'M11')
+	if strcmp(filename,'M11')
+		hLegend = legend({'10°','20°','30°','40°'}, ...
+		'Orientation','vertical', ...
+		'Location','southWest',...
+		'NumColumns',2);%前两个数字是左下角xy，后两个数字是长宽'Position',[0.130 0.714 0.208 0.214]
 
-hLegend = legend({'10°','20°','30°','40°'}, ...
-
-'Orientation','vertical', ...
-
-'Location','southWest',...
-
-'NumColumns',2);%前两个数字是左下角xy，后两个数字是长宽'Position',[0.130 0.714 0.208 0.214]
-
-% 标签及Legend的字体字号
-
-set(hLegend, 'FontName', 'Times new roman')
-
-set(hLegend, 'FontSize', 12)
-
-set(hLegend,'Box','off')
-
-% Legend位置微调
-
-% P = hLegend.Position;
-
-% hLegend.Position = P + [-0.515 0.62 0 0]; %调整位置
-
-end
-
+		% 标签及Legend的字体字号
+		set(hLegend, 'FontName', 'Times new roman')
+		set(hLegend, 'FontSize', 12)
+		set(hLegend,'Box','off')
+		% Legend位置微调
+		% P = hLegend.Position;
+		% hLegend.Position = P + [-0.515 0.62 0 0]; %调整位置
+	end
 end
 
 % 设置图标题和轴标签
@@ -162,13 +142,9 @@ end
 %设置输出的图的大小
 
 set(gcf,'PaperUnits','centimeters') %图像单位为cm
-
 set(gcf,'PaperSize',[30,15]) %设置纸张的大小为厘米宽，厘米高
-
 set(gcf,'PaperPositionMode','manual') %将纸张位置模式设置为手动，这意味着你将手动指定纸张的位置。
-
 set(gcf,'PaperPosition',[0,0,30,15]); %设置图形在纸张上的位置和大小。这里，图形位于纸张左下角，宽度为厘米，高度为厘米。
-
 set(gcf,'Renderer','painters'); %设置图形的渲染器为'painters'，这是一种渲染方法，通常用于生成矢量图形。
 
 %保存文件夹
@@ -808,5 +784,5 @@ savefig(figureHandle,[fileout,'\1.fig'])
 ```
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTEwNjMzODg0MzNdfQ==
+eyJoaXN0b3J5IjpbMTYxMTE1OTUwM119
 -->
