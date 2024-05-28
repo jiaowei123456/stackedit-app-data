@@ -11,48 +11,30 @@
 ```Matlab
 clc;
 clear all;
-
 close all;
 
 %% 导入数据
-
 arr = ['M11';'M12';'M13';'M21';'M22';'M23';'M31';'M32';'M33'];
 
 figure(1);
-
 % 画其他阵元
-
 for i = 1:9
-
-filename = arr(i,:);
-
-if strcmp(filename,'M11')
-
-M1 = ones([1,3601]);
-
-M2 = ones([1,3601]);
-
-M3 = ones([1,3601]);
-
-M4 = ones([1,3601]);
-
-else
-
-load(['..\..\get_ring\data_400_600\10and0\',filename,'\data_mean.mat']) %%%%%%%%%%%%%%%%%%%%%%修改文件夹路径
-
-M1 = data_mean;
-
-load(['..\..\get_ring\data_400_600\20and0\',filename,'\data_mean.mat'])
-
-M2 = data_mean;
-
-load(['..\..\get_ring\data_400_600\30and0\',filename,'\data_mean.mat'])
-
-M3 = data_mean;
-
-load(['..\..\get_ring\data_400_600\40and0\',filename,'\data_mean.mat'])
-
-M4 = data_mean;
+	filename = arr(i,:);
+	% M11置1即可
+	if strcmp(filename,'M11')
+		M1 = ones([1,3601]);
+		M2 = ones([1,3601]);
+		M3 = ones([1,3601]);
+		M4 = ones([1,3601]);
+	else
+		load(['..\..\get_ring\data_400_600\10and0\',filename,'\data_mean.mat']) %%%%%%%%%%%%%%%%%%%%%%修改文件夹路径
+		M1 = data_mean;
+		load(['..\..\get_ring\data_400_600\20and0\',filename,'\data_mean.mat'])
+		M2 = data_mean;
+		load(['..\..\get_ring\data_400_600\30and0\',filename,'\data_mean.mat'])
+		M3 = data_mean;
+		load(['..\..\get_ring\data_400_600\40and0\',filename,'\data_mean.mat'])
+		M4 = data_mean;
 
 end
 
@@ -871,5 +853,5 @@ savefig(figureHandle,[fileout,'\1.fig'])
 ```
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTc1MTAyNjgxMF19
+eyJoaXN0b3J5IjpbLTQ0ODA0OTUyM119
 -->
