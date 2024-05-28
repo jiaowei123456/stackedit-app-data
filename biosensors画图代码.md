@@ -66,60 +66,43 @@ for i = 1:9
 
 	% 坐标区调整
 	set(gca, 'Box', 'on', ... % 边框
-	'XGrid', 'on', 'YGrid', 'off', ... % 垂直网格线
-	'TickDir', 'out', 'TickLength', [.01 .01], ... % 刻度
-	'XMinorTick', 'off', 'YMinorTick', 'off', ... % 小刻度
-	'XColor', [.1 .1 .1], 'YColor', [.1 .1 .1],... % 坐标轴颜色
-	'XTick', 0:90:360,... % 刻度位置、间隔
-	'Xlim' , [0 360], ... % 坐标轴范围
-	'XTickLabelRotation',0,... % X刻度旋转角度
-	'FontSize',18,... % 刻度标签字体
-	'FontName','Times new roman', ... % 背景颜色
-	'Color',[1 1 1], ...
-	'tickdir','in'); % 刻度向内
-	% 'Yticklabel',{[0:0.0002:0.001]},... % Y坐标轴刻度标签
-	% 'YTick', 0:0.0002:0.001,... % 刻度位置、间隔
-	% 'Ylim' , [0 0.001], ... % 坐标轴范围) ...
+			'XGrid', 'on', 'YGrid', 'off', ... % 垂直网格线
+			'TickDir', 'out', 'TickLength', [.01 .01], ... % 刻度
+			'XMinorTick', 'off', 'YMinorTick', 'off', ... % 小刻度
+			'XColor', [.1 .1 .1], 'YColor', [.1 .1 .1],... % 坐标轴颜色
+			'XTick', 0:90:360,... % 刻度位置、间隔
+			'Xlim' , [0 360], ... % 坐标轴范围
+			'XTickLabelRotation',0,... % X刻度旋转角度
+			'FontSize',18,... % 刻度标签字体
+			'FontName','Times new roman', ... % 背景颜色
+			'Color',[1 1 1], ...
+			'tickdir','in'); % 刻度向内
+			% 'Yticklabel',{[0:0.0002:0.001]},... % Y坐标轴刻度标签
+			% 'YTick', 0:0.0002:0.001,... % 刻度位置、间隔
+			% 'Ylim' , [0 0.001], ... % 坐标轴范围) ...
 
 	% set(gca,'FontWeight','bold'); %字体是否加粗
 	% 'Xticklabel',{'20-10deg','30-10deg','40-10deg'},...% X坐标轴刻度标签
 
 	%设置坐标轴名称的字体，可以覆盖上述设置
-
 	set(gca, 'TickLabelInterpreter', 'latex') % 修改为-号
-
 	ytickformat('$%g$')
-
 	xlabel(filename,'fontsize',15);
-
 	% ylabel('Obj','fontsize',25);
-
 	% hYLabel = ylabel('MSE');
-
 	%
-
 	% set(hYLabel, 'FontName', 'Times new roman')
-
 	% set(hYLabel, 'FontSize', 15)
 
 	%设置y轴范围
-
 	if strcmp(filename,'M22')||strcmp(filename,'M33')
-
-	ylim([0,0.6]);
-
-	elseif strcmp(filename,'M32')||strcmp(filename,'M23')
-
-	ylim([-0.3,0.3]);
-
-	elseif strcmp(filename,'M11')
-
-	ylim([0,1.5])
-
-	else
-
-	ylim([-0.1,0.1]);
-
+		ylim([0,0.6]);
+		elseif strcmp(filename,'M32')||strcmp(filename,'M23')
+		ylim([-0.3,0.3]);
+		elseif strcmp(filename,'M11')
+		ylim([0,1.5])
+		else
+		ylim([-0.1,0.1]);
 	end
 
 %设置y刻度如何显示
@@ -825,5 +808,5 @@ savefig(figureHandle,[fileout,'\1.fig'])
 ```
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbODI4NjIyNTI1XX0=
+eyJoaXN0b3J5IjpbLTEwNjMzODg0MzNdfQ==
 -->
