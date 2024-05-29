@@ -254,8 +254,8 @@ hYLabel = ylabel('ESD');
 set(hYLabel, 'FontName', 'Times new roman')
 set(hYLabel, 'FontSize', 12)
 hLegend = legend([GO(1),GO(2),GO(3),GO(4)], ...
-'M12', 'M13', 'M21', 'M31',...
-'Location', 'southwest'); %%%%%%%%%%%%%%%%%
+	'M12', 'M13', 'M21', 'M31',...
+	'Location', 'southwest'); %%%%%%%%%%%%%%%%%
 
 % % Legend位置微调
 % P = hLegend.Position;
@@ -289,119 +289,71 @@ print(figureHandle,[fileout,'\1.jpg'],'-djpeg','-r1200')
 
 ```Matlab
 clc;
-
 clear all;
-
 close all;
 
 %出射变化 交流分量
-
 %% 画图
-
 thta1 = 1:5;
-
 thta2 = 1:4;
-
 thta3 = 1:3;
-
 thta4 = 1:2;
-
 thta5 = 1;
 
 % 0度入射
-
 data1 = [0 0.034427086 0.067819353 0.142666343 0.234714082];
-
 % 10度入射
-
 data2 = [0.009156152 0.015912051 0.084246436 0.149025032 0];
-
 % 20度入射
-
 data3 = [0.003661406 0.029993063 0.08512715 0 0];
-
 % 30度入射
-
 data4 = [0.00666765 0.025676922 0 0 0];
-
 % 40度入射
-
 data5 = [0.008611319 0 0 0 0];
 
 data = [data1; data2; data3; data4; data5]';
 
 % 图片尺寸设置（单位：厘米）
-
 figureUnits = 'centimeters';
-
 figureWidth = 12;
-
 figureHeight = 7;
 
 %窗口设置
-
 figureHandle = figure;
-
 set(gcf, Units=figureUnits, Position=[0 0 figureWidth figureHeight]); % 定义一个新的视图
-
 hold on
 
 %需要画的线；'LineWidth'设置线宽,'Color'设置颜色（QQ的截图功能可以当取色器用）;'LineStyle'更改线型
-
 GO = bar(thta1,data,0.5,'stacked','EdgeColor','k');hold on; %%%%%%%%%%%%%%%调色
 
 % 赋色
-
 GO(1).FaceColor = [231/255,098/255,084/255];
-
 GO(2).FaceColor = [247/255,170/255,088/255];
-
 GO(3).FaceColor = [255/255,208/255,111/255];
-
 GO(4).FaceColor = [170/255,220/255,224/255];
-
 GO(5).FaceColor = [082/255,143/255,173/255];
 
 %% 'FontSize'设置所有的字的大小（刻度、坐标轴、图例等）
-
 % 坐标区调整
-
 set(gca, 'Box', 'on', ... % 边框
-
-'XGrid', 'off', 'YGrid', 'on', ... % 垂直网格线
-
-'TickDir', 'out', 'TickLength', [.01 .01], ... % 刻度
-
-'XMinorTick', 'off', 'YMinorTick', 'off', ... % 小刻度
-
-'XColor', [.1 .1 .1], 'YColor', [.1 .1 .1],... % 坐标轴颜色
-
-'Ylim' , [0.000 0.4], ... % 坐标轴范围 %%%%%%%%%%%%%%%%%%%%%%%注意修改
-
-'YTick' , 0:0.1:0.4, ... % 坐标轴范围
-
-'XTick', 1:1:5,... % 刻度位置、间隔
-
-'Xlim' , [0.5 5.5], ... % 坐标轴范围
-
-'Xticklabel',{'0°', '10°','20°','30°','40°'},... % X坐标轴刻度标签
-
-'XTickLabelRotation', 0,...
-
-'FontSize',13,... % 刻度标签字体和字号
-
-'FontName','Times new roman', ... % 背景颜色
-
-'Color',[1 1 1], ...
-
-'tickdir','in'); % 刻度向内
-
+	'XGrid', 'off', 'YGrid', 'on', ... % 垂直网格线
+	'TickDir', 'out', 'TickLength', [.01 .01], ... % 刻度
+	'XMinorTick', 'off', 'YMinorTick', 'off', ... % 小刻度
+	'XColor', [.1 .1 .1], 'YColor', [.1 .1 .1],... % 坐标轴颜色
+	'Ylim' , [0.000 0.4], ... % 坐标轴范围 %%%%%%%%%%%%%%%%%%%%%%%注意修改
+	'YTick' , 0:0.1:0.4, ... % 坐标轴范围
+	'XTick', 1:1:5,... % 刻度位置、间隔
+	'Xlim' , [0.5 5.5], ... % 坐标轴范围
+	'Xticklabel',{'0°', '10°','20°','30°','40°'},... % X坐标轴刻度标签
+	'XTickLabelRotation', 0,...
+	'FontSize',13,... % 刻度标签字体和字号
+	'FontName','Times new roman', ... % 背景颜色
+	'Color',[1 1 1], ...
+	'tickdir','in'); % 刻度向内
+	
 %设置坐标轴名称的字体，可以覆盖上述设置
-
 hLegend = legend([GO(1),GO(2),GO(3),GO(4),GO(5)], ...
-
 'θ = 0°', 'θ = 10°', 'θ = 20°', 'θ = 30°', 'θ = 40°',...
-
 'Location', 'northwest'); %%%%%%%%%%%%%%%%%
 
 % 标签及Legend的字体字号
@@ -789,6 +741,6 @@ savefig(figureHandle,[fileout,'\1.fig'])
 ```
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTUzMzYxODQ0OCwxNDAzNzMxMTcsMTY3Mj
-cwMDA0M119
+eyJoaXN0b3J5IjpbLTE2NDYwNTA0MzIsMTQwMzczMTE3LDE2Nz
+I3MDAwNDNdfQ==
 -->
