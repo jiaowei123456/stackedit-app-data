@@ -403,113 +403,67 @@ for ii=1:length(t)
 end
 
 %% 画图
-
 % 图片尺寸设置（单位：厘米）
-
 figureUnits = 'centimeters';
-
 figureWidth = 15;
-
 figureHeight = 10;
 
 %窗口设置
-
 figureHandle = figure;
-
 set(gcf, Units=figureUnits, Position=[0 0 figureWidth figureHeight]); % 定义一个新的视图
-
 hold on
 
 %% 左边图
-
 %需要画的线；'LineWidth'设置线宽,'Color'设置颜色（QQ的截图功能可以当取色器用）;'LineStyle'更改线型
-
 GO(1) = plot(t,f1,'-r','LineWidth',2);hold on; %%%%%%%%%%%%%%%调色
-
 GO(2) = plot(t,f2,'--r','LineWidth',2);hold on;
-
 GO(3) = plot(t,f3,'-..r','LineWidth',2);hold on;
-
 GO(4) = plot(t,f4,'-k','LineWidth',2);hold on;
-
 GO(5) = plot(t,f5,'--k','LineWidth',2);hold on;
-
 GO(6) = plot(t,f6,'-..k','LineWidth',2);hold on;
 
 %% 'FontSize'设置所有的字的大小（刻度、坐标轴、图例等）
-
 % 坐标区调整
-
 set(gca, 'Box', 'on', ... % 边框
-
-'XGrid', 'off', 'YGrid', 'on', ... % 垂直网格线
-
-'TickDir', 'out', 'TickLength', [.01 .01], ... % 刻度
-
-'XMinorTick', 'off', 'YMinorTick', 'off', ... % 小刻度
-
-'XColor', [.1 .1 .1], 'YColor', [.1 .1 .1],... % 坐标轴颜色
-
-'YTick', 0:0.1:0.3,...
-
-'Ylim' , [0.000 0.3], ... % 坐标轴范围 %%%%%%%%%%%%%%%%%%%%%%%注意修改
-
-'XTick', 0:10:40,... % 刻度位置、间隔
-
-'Xlim' , [0 40], ... % 坐标轴范围
-
-'Xticklabel',{'0°', '10°','20°','30°','40°'},... % X坐标轴刻度标签
-
-'FontSize',15,... % 刻度标签字体和字号
-
-'FontName','Times new roman', ... % 背景颜色
-
-'Color',[1 1 1], ...
-
-'tickdir','in'); % 刻度向内
+	'XGrid', 'off', 'YGrid', 'on', ... % 垂直网格线
+	'TickDir', 'out', 'TickLength', [.01 .01], ... % 刻度
+	'XMinorTick', 'off', 'YMinorTick', 'off', ... % 小刻度
+	'XColor', [.1 .1 .1], 'YColor', [.1 .1 .1],... % 坐标轴颜色
+	'YTick', 0:0.1:0.3,...
+	'Ylim' , [0.000 0.3], ... % 坐标轴范围 %%%%%%%%%%%%%%%%%%%%%%%注意修改
+	'XTick', 0:10:40,... % 刻度位置、间隔
+	'Xlim' , [0 40], ... % 坐标轴范围
+	'Xticklabel',{'0°', '10°','20°','30°','40°'},... % X坐标轴刻度标签
+	'FontSize',15,... % 刻度标签字体和字号
+	'FontName','Times new roman', ... % 背景颜色
+	'Color',[1 1 1], ...
+	'tickdir','in'); % 刻度向内
 
 %%
 
 hLegend = legend([GO(1),GO(2),GO(3),GO(4),GO(5),GO(6)], ...
-
-'{\itζ} ({\itθ} = 0°)', '{\itζ} ({\itθ} = 10°)', '{\itζ} ({\itθ} = Mean)', '{\itθ} ({\itζ} = 0°)', '{\itθ} ({\itζ} = 10°)', '{\itθ} ({\itζ} = 20°)',...
-
-'Location', 'northwest'); %%%%%%%%%%%%%%%%%
+	'{\itζ} ({\itθ} = 0°)', '{\itζ} ({\itθ} = 10°)', '{\itζ} ({\itθ} = Mean)', '{\itθ} ({\itζ} = 0°)', '{\itθ} ({\itζ} = 10°)', '{\itθ} ({\itζ} = 20°)',...
+	'Location', 'northwest'); %%%%%%%%%%%%%%%%%
 
 % 标签及Legend的字体字号
-
 set(hLegend, 'FontName', 'Times new roman')
-
 set(hLegend, 'FontSize', 15)
 
 % 消除边框
-
 set(hLegend,'Box','off')
 
 %% 图片输出
-
 figW = figureWidth;
-
 figH = figureHeight;
-
 set(figureHandle,'PaperUnits',figureUnits);
-
 set(figureHandle,'PaperPosition',[0 0 figW figH]);
-
 fileout = '.\3\'; %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
 mkdir(fileout);
-
 %输出'1.svg'
-
 print(figureHandle,[fileout,'\2.svg'],'-r1200','-dsvg');
-
 % %输出'1.pdf'
-
 % print(figureHandle,[fileout,'\1.pdf'],'-dpdf')
-
 %输出'1.jpg';3是图片名
-
 print(figureHandle,[fileout,'\2.jpg'],'-djpeg','-r1200')
 ```
 ## Fig5  FDH曲线
@@ -518,27 +472,16 @@ print(figureHandle,[fileout,'\2.jpg'],'-djpeg','-r1200')
 clear all; close all; clc;
 
 %% 导入数据
-
 %10度角
-
 load("..\..\..\origin_data\final\10and0\LDOP.mat")
-
 LDOP_10 = LDOP;
-
 % 20度角原始的
-
 load("..\..\..\origin_data\final\20and20\LDOP.mat")
-
 LDOP_20 = LDOP;
-
 % 40度角
-
 load("..\..\..\origin_data\final\40and0\LDOP.mat")
-
 LDOP_40 = LDOP;
-
 %10和40的裁剪大小
-
 rect1 = [1249 1110 1114 927];
 
 %原始20的裁剪地方
@@ -711,6 +654,6 @@ savefig(figureHandle,[fileout,'\1.fig'])
 ```
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTE4NDc2MTIwMzIsMTQwMzczMTE3LDE2Nz
-I3MDAwNDNdfQ==
+eyJoaXN0b3J5IjpbODMzNTExNDc0LDE0MDM3MzExNywxNjcyNz
+AwMDQzXX0=
 -->
