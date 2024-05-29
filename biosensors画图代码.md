@@ -353,39 +353,26 @@ set(gca, 'Box', 'on', ... % 边框
 	
 %设置坐标轴名称的字体，可以覆盖上述设置
 hLegend = legend([GO(1),GO(2),GO(3),GO(4),GO(5)], ...
-'θ = 0°', 'θ = 10°', 'θ = 20°', 'θ = 30°', 'θ = 40°',...
-'Location', 'northwest'); %%%%%%%%%%%%%%%%%
+	'θ = 0°', 'θ = 10°', 'θ = 20°', 'θ = 30°', 'θ = 40°',...
+	'Location', 'northwest'); %%%%%%%%%%%%%%%%%
 
 % 标签及Legend的字体字号
-
 set(hLegend, 'FontName', 'Times new roman')
-
 set(hLegend, 'FontSize', 12)
 
 % 消除边框
-
 set(hLegend,'Box','off')
 
 %% 图片输出
-
 figW = figureWidth;
-
 figH = figureHeight;
-
 set(figureHandle,'PaperUnits',figureUnits);
-
 set(figureHandle,'PaperPosition',[0 0 figW figH]);
-
 fileout = '.\1'; %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
 mkdir(fileout);
-
 %输出'1.svg'
-
 print(figureHandle,[fileout,'\3.svg'],'-r1200','-dsvg');
-
 %输出'1.jpg';3是图片名
-
 print(figureHandle,[fileout,'\3.jpg'],'-djpeg','-r1200')
 ```
 
@@ -393,43 +380,26 @@ print(figureHandle,[fileout,'\3.jpg'],'-djpeg','-r1200')
 ![输入图片说明](/imgs/2024-05-28/FHhJvO1KYNOSCNqR.svg+xml)
 ```Matlab
 clc;
-
 clear all;
-
 close all;
 
 %% 导入数据
-
 t=linspace(0,40,40);
-
 t1 = cos(t.*pi()/180); %%%cos后的变量
-
 f1=zeros(1,40);
-
 f2=zeros(1,40);
-
 f3=zeros(1,40);
-
 f4=zeros(1,40);
-
 f5=zeros(1,40);
-
 f6=zeros(1,40);
 
 for ii=1:length(t)
-
-f1(ii) = 0.9517-0.936*cos(t(ii).*pi()/180);
-
-f2(ii) = 1.0913-1.084*cos(t(ii).*pi()/180);
-
-f3(ii) = 0.9809-0.9686*cos(t(ii).*pi()/180);
-
-f4(ii) = 0.00668+0.000013*t(ii);
-
-f5(ii) = 0.02832-0.00012*t(ii);
-
-f6(ii) = 0.07041+0.0008*t(ii);
-
+	f1(ii) = 0.9517-0.936*cos(t(ii).*pi()/180);
+	f2(ii) = 1.0913-1.084*cos(t(ii).*pi()/180);
+	f3(ii) = 0.9809-0.9686*cos(t(ii).*pi()/180);
+	f4(ii) = 0.00668+0.000013*t(ii);
+	f5(ii) = 0.02832-0.00012*t(ii);
+	f6(ii) = 0.07041+0.0008*t(ii);
 end
 
 %% 画图
@@ -741,6 +711,6 @@ savefig(figureHandle,[fileout,'\1.fig'])
 ```
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTE2NDYwNTA0MzIsMTQwMzczMTE3LDE2Nz
+eyJoaXN0b3J5IjpbLTE4NDc2MTIwMzIsMTQwMzczMTE3LDE2Nz
 I3MDAwNDNdfQ==
 -->
