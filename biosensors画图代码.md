@@ -483,177 +483,106 @@ load("..\..\..\origin_data\final\40and0\LDOP.mat")
 LDOP_40 = LDOP;
 %10和40的裁剪大小
 rect1 = [1249 1110 1114 927];
-
 %原始20的裁剪地方
-
 rect2 = [1201 1024 1114 927];
-
 % 复原后20的裁剪地方
-
 rect3 = [1274 1024 1114 927];
-
 %% 裁剪
-
 % 全1矩阵计算1-b
-
 ones1 = ones(928,1115);
-
 LDOP_crop_10 = imcrop(LDOP_10,rect1);
-
 LDOP_crop_40 = imcrop(LDOP_40,rect1);
-
 LDOP_crop_20 = imcrop(LDOP_20,rect2);
 
 %% 滤波
-
 % %中值滤波
-
 W = [5,5];
-
 LDOP_crop_10 = medfilt2(LDOP_crop_10, W);
-
 LDOP_crop_40 = medfilt2(LDOP_crop_40, W);
-
 LDOP_crop_20 = medfilt2(LDOP_crop_20, W);
 
 %%
-
 %计算fdh
-
 edges = 0:0.001:1;
-
 [counts5, edges] = histcounts(LDOP_crop_10, edges, 'Normalization', 'probability');
-
 [counts6, edges] = histcounts(LDOP_crop_20, edges, 'Normalization', 'probability');
-
 [counts8, edges] = histcounts(LDOP_crop_40, edges, 'Normalization', 'probability');
 
 %% 画图
-
 thta = 0.001:0.001:1;
-
 % 图片尺寸设置（单位：厘米）
-
 figureUnits = 'centimeters';
-
 figureWidth = 15;
-
 figureHeight = 8;
 
 %窗口设置
-
 figureHandle = figure(1);
-
 set(gcf, Units=figureUnits, Position=[0 0 figureWidth figureHeight]); % 定义一个新的视图
-
 hold on
 
 %需要画的线；'LineWidth'设置线宽,'Color'设置颜色（QQ的截图功能可以当取色器用）;'LineStyle'更改线型
-
 GO(1) = plot(thta,smooth(counts5),'-k','LineWidth',3);hold on; %%%%%%%%%%%%%%%调色
-
 GO(2) = plot(thta,smooth(counts6),'-r','LineWidth',3);hold on;
-
 GO(4) = plot(thta,smooth(counts8),'-.k','LineWidth',3);hold on;
 
 %% 'FontSize'设置所有的字的大小（刻度、坐标轴、图例等）
 
 % 坐标区调整
-
 set(gca, 'Box', 'on', ... % 边框
-
-'XGrid', 'off', 'YGrid', 'off', ... % 垂直网格线
-
-'TickDir', 'out', 'TickLength', [.01 .01], ... % 刻度
-
-'XMinorTick', 'off', 'YMinorTick', 'off', ... % 小刻度
-
-'XColor', [.1 .1 .1], 'YColor', [.1 .1 .1],... % 坐标轴颜色
-
-'Ylim' , [0.000 0.015], ... % 坐标轴范围 %%%%%%%%%%%%%%%%%%%%%%%注意修改
-
-'XTick', 0.1:0.25:0.6,... % 刻度位置、间隔
-
-'Xlim' , [0.1 0.6],... % 坐标轴范围
-
-'Xticklabel',{"0.1","0.35","0.6"},... % X坐标轴刻度标签
-
-'FontSize',15,... % 刻度标签字体和字号
-
-'FontName','Times new roman', ... % 背景颜色
-
-'Color',[1 1 1], ...
-
-'tickdir','in'); % 刻度向内
-
+	'XGrid', 'off', 'YGrid', 'off', ... % 垂直网格线
+	'TickDir', 'out', 'TickLength', [.01 .01], ... % 刻度
+	'XMinorTick', 'off', 'YMinorTick', 'off', ... % 小刻度
+	'XColor', [.1 .1 .1], 'YColor', [.1 .1 .1],... % 坐标轴颜色
+	'Ylim' , [0.000 0.015], ... % 坐标轴范围 %%%%%%%%%%%%%%%%%%%%%%%注意修改
+	'XTick', 0.1:0.25:0.6,... % 刻度位置、间隔
+	'Xlim' , [0.1 0.6],... % 坐标轴范围
+	'Xticklabel',{"0.1","0.35","0.6"},... % X坐标轴刻度标签
+	'FontSize',15,... % 刻度标签字体和字号
+	'FontName','Times new roman', ... % 背景颜色
+	'Color',[1 1 1], ...
+	'tickdir','in'); % 刻度向内
+	
 % 'Yticklabel',{[0:0.0002:0.001]},... % Y坐标轴刻度标签
-
 % 'YTick', 0:0.0002:0.001,... % 刻度位置、间隔
-
 % 'Ylim' , [0 0.001], ... % 坐标轴范围) ...
-
 % set(gca,'FontWeight','bold'); %字体是否加粗
-
 % 'Xticklabel',{'20-10deg','30-10deg','40-10deg'},...% X坐标轴刻度标签
 
 %设置坐标轴名称的字体，可以覆盖上述设置
-
 % xlabel(filename,'fontsize',19);
-
 % ylabel('Obj','fontsize',25);
-
 % Y轴字
-
 % hYLabel = ylabel('ESD');
-
 % set(hYLabel, 'FontName', 'Times new roman')
-
 % set(hYLabel, 'FontSize', 15)
 
 %% legend
-
 hLegend = legend([GO(1),GO(2),GO(4)], ...
-
-'(10, 0)','(20, 20)','(40, 0)',...
-
-'Location', 'northwest'); %%%%%%%%%%%%%%%%%
+	'(10, 0)','(20, 20)','(40, 0)',...
+	'Location', 'northwest'); %%%%%%%%%%%%%%%%%
 
 % 标签及Legend的字体字号
-
 set(hLegend, 'FontName', 'Times new roman')
-
 set(hLegend, 'FontSize', 15)
 
 % 消除边框
-
 set(hLegend,'Box','off')
 
 %% 图片输出
-
 figW = figureWidth;
-
 figH = figureHeight;
-
 set(figureHandle,'PaperUnits',figureUnits);
-
 set(figureHandle,'PaperPosition',[0 0 figW figH]);
-
 fileout = '.\fdhLDOP\'; %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
 mkdir(fileout);
-
 savefig(figureHandle,[fileout,'\1.fig'])
-
 % %输出'1.svg'
-
 % print(figureHandle,[fileout,'\5.svg'],'-r1200','-dsvg');
-
 % %输出'1.jpg';3是图片名
-
 % print(figureHandle,[fileout,'\5.jpg'],'-djpeg','-r1200')
 ```
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbODMzNTExNDc0LDE0MDM3MzExNywxNjcyNz
-AwMDQzXX0=
+eyJoaXN0b3J5IjpbLTEyMDg1MDg0NDAsMTQwMzczMTE3LDE2Nz
+I3MDAwNDNdfQ==
 -->
