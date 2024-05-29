@@ -206,20 +206,24 @@ sd = [1.90716E-05 1.19749E-05 9.59344E-06 1.0365E-05;
 
 %% 画图
 thta = 1:4;
+
 % 图片尺寸设置（单位：厘米）
 figureUnits = 'centimeters';
 figureWidth = 15;
 figureHeight = 5;
+
 %窗口设置
 figureHandle = figure;
 set(gcf, Units=figureUnits, Position=[0 0 figureWidth figureHeight]); % 定义一个新的视图
 hold on
+
 %需要画的线；'LineWidth'设置线宽,'Color'设置颜色（QQ的截图功能可以当取色器用）;'LineStyle'更改线型
 GO(1) = errorbar(thta,Energy_Spectrum_Density_all(1,:),sd(1,:),'LineWidth',2,'Color',[038/255,70/255,83/255]);hold on; %%%%%%%%%%%%%%%调色
 GO(2) = errorbar(thta,Energy_Spectrum_Density_all(2,:),sd(2,:),'LineWidth',2,'Color',[42/255,157/255,142/255]);hold on;
 GO(3) = errorbar(thta,Energy_Spectrum_Density_all(3,:),sd(3,:),'LineWidth',2,'Color',[233/255,196/255,107/255]);hold on;
 GO(4) = errorbar(thta,Energy_Spectrum_Density_all(4,:),sd(4,:),'LineWidth',2,'Color',[243/255,162/255,097/255]);hold on;
 % 误差棒
+
 %% 'FontSize'设置所有的字的大小（刻度、坐标轴、图例等）
 % 坐标区调整
 set(gca, 'Box', 'on', ... % 边框
@@ -238,27 +242,33 @@ set(gca, 'Box', 'on', ... % 边框
 % 'Yticklabel',{[0:0.0002:0.001]},... % Y坐标轴刻度标签
 % 'YTick', 0:0.0002:0.001,... % 刻度位置、间隔
 % 'Ylim' , [0 0.001], ... % 坐标轴范围) ...
+
 % set(gca,'FontWeight','bold'); %字体是否加粗
 % 'Xticklabel',{'20-10deg','30-10deg','40-10deg'},...% X坐标轴刻度标签
+
 %设置坐标轴名称的字体，可以覆盖上述设置
 % xlabel(filename,'fontsize',19);
 % ylabel('Obj','fontsize',25);
+
 hYLabel = ylabel('ESD');
 set(hYLabel, 'FontName', 'Times new roman')
 set(hYLabel, 'FontSize', 12)
 hLegend = legend([GO(1),GO(2),GO(3),GO(4)], ...
 'M12', 'M13', 'M21', 'M31',...
 'Location', 'southwest'); %%%%%%%%%%%%%%%%%
+
 % % Legend位置微调
 % P = hLegend.Position;
 % hLegend.Position = P + [0.015 0.03 0 0]; %调整位置
 % 标签及Legend的字体字号
 set(hLegend, 'FontName', 'Times new roman')
 set(hLegend, 'FontSize', 10)
+
 % 消除边框
 set(hLegend,'Box','off')
 % 设置图标题和轴标签
 % title('ESD with different incdent degrees');
+
 %% 图片输出
 figW = figureWidth;
 figH = figureHeight;
@@ -779,6 +789,6 @@ savefig(figureHandle,[fileout,'\1.fig'])
 ```
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbNDgwODA3NDY0LDE0MDM3MzExNywxNjcyNz
-AwMDQzXX0=
+eyJoaXN0b3J5IjpbLTUzMzYxODQ0OCwxNDAzNzMxMTcsMTY3Mj
+cwMDA0M119
 -->
