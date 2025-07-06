@@ -16,10 +16,13 @@
 ### 4.2 Cross Network
 该交叉网络的核心思想是有效地应用显式特征交叉。交叉网络由交叉层组成，每层有如下公式：
 $$x_{l+1}=x_{0}x_{l}^Tw_{l}+b_{l}+x_{l}$$
+#### 代码实现
+```Python
 
+```
 
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTEwNzU2MTk2MjcsLTEzMTA5MjAwNjUsMz
+eyJoaXN0b3J5IjpbLTE4OTYyODYxNTUsLTEzMTA5MjAwNjUsMz
 kwMTgxNDc4LDI2MjQ5MzU5Myw0NDA5MDU2MTldfQ==
 -->
