@@ -45,12 +45,12 @@ class CrossNet(nn.Module):
         return x_l
 ```
 #### 复杂度分析
-设Lc表示交叉层数，d表示输入维数。则交叉网络中涉及的参数个数为
-$$d×Lc×2$$
+设Lc表示交叉层数，d表示输入维数。则交叉网络中涉及的参数个数为：
+$$d×Lc×2$$交叉网络的时间和空间复杂度与输入维度呈线性关系。因此，与深度网络相比，交叉网络引入的复杂度几乎可以忽略不计，使得深度卷积网络的整体复杂度与传统深度神经网络处于同一水平。这种高效性得益于 x0xT  l 的秩为一的特性，这使我们能够无需计算或存储整个矩阵即可生成所有交叉项。
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTUyOTIyNzc5MSwtOTg0NTA5MjM2LC0xOT
-gwNDcxMzU5LC03OTgzMDY1NjQsLTE4OTYyODYxNTUsLTEzMTA5
-MjAwNjUsMzkwMTgxNDc4LDI2MjQ5MzU5Myw0NDA5MDU2MTldfQ
-==
+eyJoaXN0b3J5IjpbLTE1ODE0MTYzODQsLTk4NDUwOTIzNiwtMT
+k4MDQ3MTM1OSwtNzk4MzA2NTY0LC0xODk2Mjg2MTU1LC0xMzEw
+OTIwMDY1LDM5MDE4MTQ3OCwyNjI0OTM1OTMsNDQwOTA1NjE5XX
+0=
 -->
