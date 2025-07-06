@@ -11,8 +11,8 @@
 * 因子分解机（FMs）
 ## 模型结构与实现代码：
 ![输入图片说明](/imgs/2025-07-06/50vPq9ZicRMCxKcP.png)
-
+### 模型结构与实现代码：
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTEyNDIwMjk0LDI2MjQ5MzU5Myw0NDA5MD
+eyJoaXN0b3J5IjpbMzkwMTgxNDc4LDI2MjQ5MzU5Myw0NDA5MD
 U2MTldfQ==
 -->
