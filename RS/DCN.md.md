@@ -18,11 +18,35 @@
 $$x_{l+1}=x_{0}x_{l}^Tw_{l}+b_{l}+x_{l}$$
 #### 代码实现
 ```Python
-
+class CrossNet(nn.Module):  
+    def __init__(self, in_features, layer_num=2, parameterization='vector', seed=1024, device='cpu'):  
+        super(CrossNet, self).__init__()  
+        self.layer_num = layer_num  
+        self.parameterization = parameterization  
+        self.kernels = nn.Parameter(torch.Tensor(layer_num, in_features, 1))  
+        self.bias = nn.Parameter(torch.Tensor(layer_num, in_features, 1))  
+  
+        for i in range(self.kernels.shape[0]):  
+            nn.init.xavier_normal_(self.kernels[i])  
+        for i in range(self.bias.shape[0]):  
+            nn.init.zeros_(self.bias[i])  
+  
+        self.to(device)  
+  
+    def forward(self, inputs):  
+        x_0 = inputs.unsqueeze(2)  # [B, D, 1]  
+        x_l = x_0  
+        for i in range(self.layer_num):  
+            xl_w = torch.tensordot(x_l, self.kernels[i], dims=[[1], [0]])  # [B, 1, 1]  
+            dot_ = torch.matmul(x_0, xl_w)  
+            x_l = dot_ + self.bias[i] + x_l  
+        x_l = torch.squeeze(x_l, dim=2)  
+        return x_l
 ```
 
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTE4OTYyODYxNTUsLTEzMTA5MjAwNjUsMz
-kwMTgxNDc4LDI2MjQ5MzU5Myw0NDA5MDU2MTldfQ==
+eyJoaXN0b3J5IjpbLTc5ODMwNjU2NCwtMTg5NjI4NjE1NSwtMT
+MxMDkyMDA2NSwzOTAxODE0NzgsMjYyNDkzNTkzLDQ0MDkwNTYx
+OV19
 -->
