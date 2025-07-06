@@ -23,7 +23,7 @@ class CrossNet(nn.Module):
         super(CrossNet, self).__init__()  
         self.layer_num = layer_num  
         self.parameterization = parameterization  
-        self.kernels = nn.Parameter(torch.Tensor(layer_num, in_features, 1))  
+        self.kernels = nn.Parameter(torch.Tensor(layer_num, in_features, 1)) #  
         self.bias = nn.Parameter(torch.Tensor(layer_num, in_features, 1))  
   
         for i in range(self.kernels.shape[0]):  
@@ -46,7 +46,7 @@ class CrossNet(nn.Module):
 
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTc5ODMwNjU2NCwtMTg5NjI4NjE1NSwtMT
-MxMDkyMDA2NSwzOTAxODE0NzgsMjYyNDkzNTkzLDQ0MDkwNTYx
-OV19
+eyJoaXN0b3J5IjpbLTE4NTgyOTAxNzcsLTc5ODMwNjU2NCwtMT
+g5NjI4NjE1NSwtMTMxMDkyMDA2NSwzOTAxODE0NzgsMjYyNDkz
+NTkzLDQ0MDkwNTYxOV19
 -->
