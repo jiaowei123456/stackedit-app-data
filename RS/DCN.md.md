@@ -102,10 +102,12 @@ class DNN(nn.Module):
 $$d × m + m + (m_2 + m) × (L_d − 1).$$第一层参数是d × m + m，后面Ld-1层是(m_2 + m) × (L_d − 1)
 
 ## 5 实验与分析：
-
+-   多项式拟合
+-   FM的泛化
+-   高效映射
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbNjY3NzgyNjk3LDE0NzIzNzA3ODYsLTY2Mz
-Y4MTIxMCwtOTg0NTA5MjM2LC0xOTgwNDcxMzU5LC03OTgzMDY1
-NjQsLTE4OTYyODYxNTUsLTEzMTA5MjAwNjUsMzkwMTgxNDc4LD
-I2MjQ5MzU5Myw0NDA5MDU2MTldfQ==
+eyJoaXN0b3J5IjpbMjc4MDk1MTM5LDY2Nzc4MjY5NywxNDcyMz
+cwNzg2LC02NjM2ODEyMTAsLTk4NDUwOTIzNiwtMTk4MDQ3MTM1
+OSwtNzk4MzA2NTY0LC0xODk2Mjg2MTU1LC0xMzEwOTIwMDY1LD
+M5MDE4MTQ3OCwyNjI0OTM1OTMsNDQwOTA1NjE5XX0=
 -->
