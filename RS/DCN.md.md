@@ -14,10 +14,11 @@
 ### 4.1 Embeddding
 我们考虑具有稀疏和稠密特征的输入数据。稀疏特征通常被编码为one-hot向量，然后进行嵌入编码。稠密特征直接归一化保留。
 ### 4.2 Cross Network
-
+该交叉网络的核心思想是有效地应用显式特征交叉。交叉网络由交叉层组成，每层有如下公式：
+$$\alpha=1$$
 
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTkxMzI2NjY2NywzOTAxODE0NzgsMjYyND
-kzNTkzLDQ0MDkwNTYxOV19
+eyJoaXN0b3J5IjpbLTEzMTA5MjAwNjUsMzkwMTgxNDc4LDI2Mj
+Q5MzU5Myw0NDA5MDU2MTldfQ==
 -->
