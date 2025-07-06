@@ -40,14 +40,14 @@ class CrossNet(nn.Module):
         # 表示在 x_l 的第 1 维度（即 in_features）和 self.kernels[i] 的第 0 维度（即 in_features）之间进行求和运算（类似矩阵乘法中的内积操作）。
             xl_w = torch.tensordot(x_l, self.kernels[i], dims=[[1], [0]])  # [B, 1, 1] 
             dot_ = torch.matmul(x_0, xl_w)   # 进行 矩阵乘法（matmul）运算
-            x_l = dot_ + self.bias[i] + x_l  
+            x_l = dot_ + self.bias[i] + x_l  # 类似残差连接
         x_l = torch.squeeze(x_l, dim=2)  
         return x_l
 ```
 
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTEzMDQ1MzY0MjgsLTE5ODA0NzEzNTksLT
-c5ODMwNjU2NCwtMTg5NjI4NjE1NSwtMTMxMDkyMDA2NSwzOTAx
-ODE0NzgsMjYyNDkzNTkzLDQ0MDkwNTYxOV19
+eyJoaXN0b3J5IjpbLTk4NDUwOTIzNiwtMTk4MDQ3MTM1OSwtNz
+k4MzA2NTY0LC0xODk2Mjg2MTU1LC0xMzEwOTIwMDY1LDM5MDE4
+MTQ3OCwyNjI0OTM1OTMsNDQwOTA1NjE5XX0=
 -->
