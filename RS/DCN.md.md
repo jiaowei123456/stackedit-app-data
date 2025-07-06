@@ -102,11 +102,11 @@ class DNN(nn.Module):
 $$d × m + m + (m_2 + m) × (L_d − 1).$$第一层参数是d × m + m，后面Ld-1层是(m_2 + m) × (L_d − 1)
 
 ## 5 实验与分析：
--   多项式拟合
+-   多项式拟合：我们证明，在只有O(d)个参数的情况下，交叉网络包含了所有出现在同一次多项式中的交叉项，并且每个项的系数彼此不同。
 -   FM的泛化：
 -   高效映射
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTY0MDUxOTk3Myw2Njc3ODI2OTcsMTQ3Mj
+eyJoaXN0b3J5IjpbMTIwNTY1MjI5NCw2Njc3ODI2OTcsMTQ3Mj
 M3MDc4NiwtNjYzNjgxMjEwLC05ODQ1MDkyMzYsLTE5ODA0NzEz
 NTksLTc5ODMwNjU2NCwtMTg5NjI4NjE1NSwtMTMxMDkyMDA2NS
 wzOTAxODE0NzgsMjYyNDkzNTkzLDQ0MDkwNTYxOV19
