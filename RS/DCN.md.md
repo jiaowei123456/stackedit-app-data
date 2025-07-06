@@ -9,6 +9,10 @@
 * 引入了一种新颖的神经网络结构——交叉网络，它能够自动有效地应用特征交叉操作。该交叉网络由**多个层**组成，其中最高程度的相互作用显然由层的深度所决定。每一层都基于**现有的相互作用**生成**更高阶的相互作用**，并**保留前一层的相互作用**。
 ## 相关工作：
 * 因子分解机（FMs）
+## 模型结构与实现代码：
+![输入图片说明](/imgs/2025-07-06/50vPq9ZicRMCxKcP.png)
+
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMjYyNDkzNTkzLDQ0MDkwNTYxOV19
+eyJoaXN0b3J5IjpbLTEyNDIwMjk0LDI2MjQ5MzU5Myw0NDA5MD
+U2MTldfQ==
 -->
