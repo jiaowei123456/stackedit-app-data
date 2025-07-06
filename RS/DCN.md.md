@@ -23,11 +23,11 @@ class CrossNet(nn.Module):
         super(CrossNet, self).__init__()  
         self.layer_num = layer_num  
         self.parameterization = parameterization  
-        self.kernels = nn.Parameter(torch.Tensor(layer_num, in_features, 1)) #  
+        self.kernels = nn.Parameter(torch.Tensor(layer_num, in_features, 1)) #  创建一个可学习的参数张量，形状为 (layer_num, in_features, 1) 
         self.bias = nn.Parameter(torch.Tensor(layer_num, in_features, 1))  
   
         for i in range(self.kernels.shape[0]):  
-            nn.init.xavier_normal_(self.kernels[i])  
+            nn.init.xavier_normal_(self.kernels[i]) # Xavier 初始化（也称为 Glorot 初始化）旨在解决深度神经网络中梯度消失和梯度爆炸的问题。  
         for i in range(self.bias.shape[0]):  
             nn.init.zeros_(self.bias[i])  
   
@@ -46,7 +46,7 @@ class CrossNet(nn.Module):
 
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTE4NTgyOTAxNzcsLTc5ODMwNjU2NCwtMT
+eyJoaXN0b3J5IjpbLTE5ODA0NzEzNTksLTc5ODMwNjU2NCwtMT
 g5NjI4NjE1NSwtMTMxMDkyMDA2NSwzOTAxODE0NzgsMjYyNDkz
 NTkzLDQ0MDkwNTYxOV19
 -->
