@@ -12,9 +12,10 @@
 ## 4 模型结构与实现代码：
 ![输入图片说明](/imgs/2025-07-06/50vPq9ZicRMCxKcP.png)
 ### 4.1 Embeddding
+我们考虑具有稀疏和稠密特征的输入数据。稀疏特征通常被编码为one-hot向量。“(0,1,0)”;然而，对于稠密特征，嵌入 。
 
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTM0ODc2MTg1OSwzOTAxODE0NzgsMjYyND
-kzNTkzLDQ0MDkwNTYxOV19
+eyJoaXN0b3J5IjpbLTExOTE4NzY4MjgsMzkwMTgxNDc4LDI2Mj
+Q5MzU5Myw0NDA5MDU2MTldfQ==
 -->
