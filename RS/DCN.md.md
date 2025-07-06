@@ -98,11 +98,11 @@ class DNN(nn.Module):
         return deep_input
 ```
 #### 复杂度分析
-设Lc表示交叉层数，d表示输入维数。则交叉网络中涉及的参数个数为：
-$$d×Lc×2$$交叉网络的时间和空间复杂度与输入维度呈线性关系。因此，与深度网络相比，交叉网络引入的复杂度几乎可以忽略不计，使得深度卷积网络的整体复杂度与传统深度神经网络处于同一水平。这种高效性得益于 x0xT  l 的秩为一的特性，这使我们能够无需计算或存储整个矩阵即可生成所有交叉项。
+为了简化起见，我们假设所有深层结构的大小都相同。设 Ld 表示深层结构的数量，m 表示每个深层结构的大小。那么，深层网络中的参数数量为
+$$d × m + m + (m_2 + m) × (L_d − 1).$$
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTY2MzY4MTIxMCwtOTg0NTA5MjM2LC0xOT
-gwNDcxMzU5LC03OTgzMDY1NjQsLTE4OTYyODYxNTUsLTEzMTA5
-MjAwNjUsMzkwMTgxNDc4LDI2MjQ5MzU5Myw0NDA5MDU2MTldfQ
-==
+eyJoaXN0b3J5IjpbLTYwNzE5MDM5LC02NjM2ODEyMTAsLTk4ND
+UwOTIzNiwtMTk4MDQ3MTM1OSwtNzk4MzA2NTY0LC0xODk2Mjg2
+MTU1LC0xMzEwOTIwMDY1LDM5MDE4MTQ3OCwyNjI0OTM1OTMsND
+QwOTA1NjE5XX0=
 -->
