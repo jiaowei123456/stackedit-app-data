@@ -44,10 +44,11 @@ class CrossNet(nn.Module):
         x_l = torch.squeeze(x_l, dim=2)  
         return x_l
 ```
-
+复杂性分析。设Lc表示交叉层数，d表示输入维数。则交叉网络中涉及的参数个数为
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTk4NDUwOTIzNiwtMTk4MDQ3MTM1OSwtNz
-k4MzA2NTY0LC0xODk2Mjg2MTU1LC0xMzEwOTIwMDY1LDM5MDE4
-MTQ3OCwyNjI0OTM1OTMsNDQwOTA1NjE5XX0=
+eyJoaXN0b3J5IjpbMTU0MzUwNjIyMywtOTg0NTA5MjM2LC0xOT
+gwNDcxMzU5LC03OTgzMDY1NjQsLTE4OTYyODYxNTUsLTEzMTA5
+MjAwNjUsMzkwMTgxNDc4LDI2MjQ5MzU5Myw0NDA5MDU2MTldfQ
+==
 -->
