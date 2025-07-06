@@ -100,9 +100,12 @@ class DNN(nn.Module):
 #### 复杂度分析
 为了简化起见，我们假设所有深层结构的大小都相同。设 Ld 表示深层结构的数量，m 表示每个深层结构的大小。那么，深层网络中的参数数量为
 $$d × m + m + (m_2 + m) × (L_d − 1).$$第一层参数是d × m + m，后面Ld-1层是(m_2 + m) × (L_d − 1)
+
+## 5 实验与分析：
+
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTQ3MjM3MDc4NiwtNjYzNjgxMjEwLC05OD
-Q1MDkyMzYsLTE5ODA0NzEzNTksLTc5ODMwNjU2NCwtMTg5NjI4
-NjE1NSwtMTMxMDkyMDA2NSwzOTAxODE0NzgsMjYyNDkzNTkzLD
-Q0MDkwNTYxOV19
+eyJoaXN0b3J5IjpbNjY3NzgyNjk3LDE0NzIzNzA3ODYsLTY2Mz
+Y4MTIxMCwtOTg0NTA5MjM2LC0xOTgwNDcxMzU5LC03OTgzMDY1
+NjQsLTE4OTYyODYxNTUsLTEzMTA5MjAwNjUsMzkwMTgxNDc4LD
+I2MjQ5MzU5Myw0NDA5MDU2MTldfQ==
 -->
