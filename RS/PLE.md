@@ -5,6 +5,7 @@
 ## 1 论文解决的问题：
 * 负迁移（negative transfer）：MTL提出来的目的是为了不同任务，尤其是数据量较少的任务可以借助transfer learning（通过共享embedding，当然你也可以不仅共享embedding，再往上共享基层全连接网络等等这些很常见的操作）。但经常事与愿违，当两个任务之间的相关性很弱（比如一个任务是判断一张图片是否是狗，另一个任务是判断是否是飞机）或者非常复杂时，往往发生负迁移，即共享了之后效果反而很差，还不如不共享。
 * 跷跷板现象：还是当两个task之间相关性很弱或者很复杂时，往往出现的现象是：一个task性能的提升是通过损害另一个task的性能做到的。这种现象存在很久，PLE论文里给它起了个非常贴切的名字『跷跷板』。
+* MMOE [13] 通过门控网络根据输入来组合底层专家以处理任务差异，但忽略了专家之间的差异和相互作用，这在我们的工业实践中已被证明会引发跷跷板现象。
 ## 2 论文创新点：
 
 ## 3 相关工作：
@@ -62,6 +63,6 @@ for gate_output in gate_outputs:
 ## 5 实验与分析：
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTkzNDkwMDYxMiwxNzk1NzUwMjMwLDIwOD
-A1NjE2MzRdfQ==
+eyJoaXN0b3J5IjpbNzQzMTQwMTcxLDE3OTU3NTAyMzAsMjA4MD
+U2MTYzNF19
 -->
