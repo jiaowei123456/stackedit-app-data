@@ -25,7 +25,7 @@ if self.use_expert_bias:
         constraint=self.expert_bias_constraint,  
     )
     
-expert_outputs = tf.tensordot(a=inputs, b=self.expert_kernels, axes=1) # 输入的最后一维(batch_size, input_dem)和权重的第一维点积(batch_size, units, num_experts)  
+expert_outputs = tf.tensordot(a=inputs, b=self.expert_kernels, axes=1) # 输入(batch_size, input_dimension)的最后一维和权重(input_dimension,units, num_experts)的第一维点积(batch_size, units, num_experts)  
 # Add the bias term to the expert weights if necessary  
 if self.use_expert_bias:  
     expert_outputs = K.bias_add(x=expert_outputs, bias=self.expert_bias)  
@@ -114,7 +114,7 @@ $$d × m + m + (m_2 + m) × (L_d − 1).$$第一层参数是d × m + m，后面L
 -   FM的泛化：因此，交叉网络将参数共享的概念从单层扩展到了多层以及高阶交叉项。需要注意的是，与高阶 FM 不同，交叉网络中的参数数量仅随输入维度线性增长。
 -   高效映射：每个交叉层以一种有效的方式将x0和xl之间的所有成对相互作用投影回输入维度。
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTUwNzQ3MzkxNSwxMzY4NDY4NDM2LC0zOD
+eyJoaXN0b3J5IjpbMjA5NjE3MDM2OCwxMzY4NDY4NDM2LC0zOD
 A3MDM1NDAsLTEyNTc0MDk0NjgsLTEyMzAxNjUyODQsNzk1NTcy
 NTQsMTIzNzExNzcwLC04NTE5OTk3MTQsLTE3ODM2OTM5MjIsNj
 YxNjc5MjJdfQ==
