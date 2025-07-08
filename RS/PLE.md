@@ -51,7 +51,7 @@ gate_value = self.task_gates[i][j](task_fea[j]).unsqueeze(1) # 每一个任务�
 #### 特殊专家加权输出
 ```Python
 mix_ouput = torch.cat(task_output + share_output,dim=1)   #shared_expert_num个共享专家，specific_expert_num个特殊专家拼接
-task_fea[j] = torch.bmm(gate_value, mix_ouput).squeeze(1) # 加权输出，输出维度为（batch_size, 1, shared_expert_num + specific_expert_num）
+task_fea[j] = torch.bmm(gate_value, mix_ouput).squeeze(1) # 加权输出，输出维度为（batch_size, 1, bottom_mlp_dims[i]）
 ```
 #### 混合专家加权输出（非最后一层）
 ```Python
@@ -68,8 +68,7 @@ task_fea[j] = torch.bmm(gate_value, mix_ouput).squeeze(1) # 加权输出
 ## 5 实验与分析：
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbNjY0MDkzMDI5LDEyMDYyNzY4MDMsLTE1OD
-Y3Nzc1MTEsMTkxODg4OTc4MywyMTMyNDk1OTY3LDYxMzg0MjE5
-MSwtMTc1NDExNjcyMywxNzk1NzUwMjMwLDIwODA1NjE2MzRdfQ
-==
+eyJoaXN0b3J5IjpbNTU3NDk3NDMsMTIwNjI3NjgwMywtMTU4Nj
+c3NzUxMSwxOTE4ODg5NzgzLDIxMzI0OTU5NjcsNjEzODQyMTkx
+LC0xNzU0MTE2NzIzLDE3OTU3NTAyMzAsMjA4MDU2MTYzNF19
 -->
