@@ -53,14 +53,17 @@ gate_value = self.task_gates[i][j](task_fea[j]).unsqueeze(1) # 每一个任务�
 mix_ouput = torch.cat(task_output + share_output,dim=1)   #shared_expert_num个共享专家，specific_expert_num个特殊专家拼接
 task_fea[j] = torch.bmm(gate_value, mix_ouput).squeeze(1) # 加权输出，输出维度为（batch_size, 1, bottom_mlp_dims[i]）
 ```
-#### 混合专家加权输出（非最后一层）
+#### 中间层的混合专家加权输出（非最后一层）
 ```Python
 if i != self.layers_num-1:#最后一层不需要计算share expert 的输出  
     gate_value = self.share_gates[i](task_fea[-1]).unsqueeze(1)  #（batch_size, 1, shared_expert_num + specific_expert_num*task_num）
     mix_ouput = torch.cat(task_output_list + share_output, dim=1)   #（batch_size, shared_expert_num + specific_expert_num*task_num，bottom_mlp_dims[i]）
     task_fea[-1] = torch.bmm(gate_value, mix_ouput).squeeze(1)  #（batch_size,1，bottom_mlp_dims[i]）
 ```
-
+#### 最终每个任务加一个全连接层预测最终输出
+```Python
+results = [torch.sigmoid(self.tower[i](task_fea[i]).squeeze(1)) for i in range(self.task_num)] #使用sigmoidzuo wei ji huo han shu
+```
 ### 4.3 Gate加权输出
 #### 代码实现
 ```Python
@@ -70,8 +73,8 @@ if i != self.layers_num-1:#最后一层不需要计算share expert 的输出
 ## 5 实验与分析：
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbNDYwMzEzMDU2LDE1OTk3NjQ5MjYsMTIwNj
-I3NjgwMywtMTU4Njc3NzUxMSwxOTE4ODg5NzgzLDIxMzI0OTU5
-NjcsNjEzODQyMTkxLC0xNzU0MTE2NzIzLDE3OTU3NTAyMzAsMj
-A4MDU2MTYzNF19
+eyJoaXN0b3J5IjpbMTQ3MDUzNjc3LDQ2MDMxMzA1NiwxNTk5Nz
+Y0OTI2LDEyMDYyNzY4MDMsLTE1ODY3Nzc1MTEsMTkxODg4OTc4
+MywyMTMyNDk1OTY3LDYxMzg0MjE5MSwtMTc1NDExNjcyMywxNz
+k1NzUwMjMwLDIwODA1NjE2MzRdfQ==
 -->
