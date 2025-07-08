@@ -10,8 +10,8 @@
 * PLE 明确地将共享专家和任务特定专家分开，以减轻通用知识和任务特定知识之间有害的参数干扰。
 * PLE 引入了多层专家和门控网络，并应用渐进式分离路由从较低层专家中提取更深层次的知识，并逐步在较高层分离任务特定参数。
 ## 3 相关工作：
-* 直接的多塔线性组合，共享参数，a，f
-* MOE 通过门控网络将专家进行组合；MMOE 针对每个任务使用不同的门控机制；MRAN采用多头自注意力机制来在不同的特征集上学习不同的表示子空间。
+* 直接的多塔线性组合，学习线性组合的权重；融合来自不同任务的表示。a，f
+* MOE 通过门控网络将专家进行组合；MMOE 针对每个任务使用不同的门控机制；MRAN采用多头自注意力机制来在不同的特征集上学习不同的表示子空间。h
 * 
 ![输入图片说明](/imgs/2025-07-08/4sKGptX6jkr7uNdd.png)
 ## 4 模型结构与实现代码：
@@ -67,6 +67,6 @@ for gate_output in gate_outputs:
 ## 5 实验与分析：
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTEwMDM3OTg2MjEsLTE3NTQxMTY3MjMsMT
-c5NTc1MDIzMCwyMDgwNTYxNjM0XX0=
+eyJoaXN0b3J5IjpbNjEzODQyMTkxLC0xNzU0MTE2NzIzLDE3OT
+U3NTAyMzAsMjA4MDU2MTYzNF19
 -->
