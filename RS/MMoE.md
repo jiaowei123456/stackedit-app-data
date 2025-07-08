@@ -13,7 +13,6 @@
 ## 4 模型结构与实现代码：
 ![输入图片说明](/imgs/2025-07-08/2mfzuxK6OdtwCFwc.png)
 ### 4.1 MoE网络
-
 #### 代码实现
 ```Python
 self.expert_kernels = self.add_weight(  
@@ -32,8 +31,6 @@ if self.use_expert_bias:
 expert_outputs = self.expert_activation(expert_outputs)
 ```
 ### 4.2 Gate网络
-该交叉网络的核心思想是有效地应用显式特征交叉。交叉网络由交叉层组成，每层有如下公式：
-$$x_{l+1}=x_{0}x_{l}^Tw_{l}+b_{l}+x_{l}$$
 #### 代码实现
 ```Python
 self.gate_kernels = [self.add_weight(  
@@ -54,8 +51,6 @@ for index, gate_kernel in enumerate(self.gate_kernels):  # 循环num_tasks次
     gate_outputs.append(gate_output) # gate_outputs列表长度为num_tasks，每一元素为（batch_size, num_experts）
 ```
 ### 4.3 Gate加权输出
-该交叉网络的核心思想是有效地应用显式特征交叉。交叉网络由交叉层组成，每层有如下公式：
-$$x_{l+1}=x_{0}x_{l}^Tw_{l}+b_{l}+x_{l}$$
 #### 代码实现
 ```Python
 # f^{k}(x) = sum_{i=1}^{n}(g^{k}(x)_{i} * f_{i}(x))   
@@ -66,13 +61,11 @@ for gate_output in gate_outputs:
 ```
 
 ## 5 实验与分析：
--   多项式拟合：我们证明，在只有O(d)个参数的情况下，交叉网络包含了所有出现在同一次多项式中的交叉项，并且每个项的系数彼此不同。
--   FM的泛化：因此，交叉网络将参数共享的概念从单层扩展到了多层以及高阶交叉项。需要注意的是，与高阶 FM 不同，交叉网络中的参数数量仅随输入维度线性增长。
--   高效映射：每个交叉层以一种有效的方式将x0和xl之间的所有成对相互作用投影回输入维度。
+
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTE0MzE4MDgyMzcsLTExNzE2Mzk3MzAsMT
-AxMDg4OTAyNCwxNzU4Njk1MzY2LDEzNjg0Njg0MzYsLTM4MDcw
-MzU0MCwtMTI1NzQwOTQ2OCwtMTIzMDE2NTI4NCw3OTU1NzI1NC
-wxMjM3MTE3NzAsLTg1MTk5OTcxNCwtMTc4MzY5MzkyMiw2NjE2
-NzkyMl19
+eyJoaXN0b3J5IjpbMTI5OTM1NzEyOSwtMTQzMTgwODIzNywtMT
+E3MTYzOTczMCwxMDEwODg5MDI0LDE3NTg2OTUzNjYsMTM2ODQ2
+ODQzNiwtMzgwNzAzNTQwLC0xMjU3NDA5NDY4LC0xMjMwMTY1Mj
+g0LDc5NTU3MjU0LDEyMzcxMTc3MCwtODUxOTk5NzE0LC0xNzgz
+NjkzOTIyLDY2MTY3OTIyXX0=
 -->
