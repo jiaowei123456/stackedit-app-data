@@ -42,7 +42,7 @@ share_output=[expert(task_fea[-1]).unsqueeze(1) for expert in self.share_experts
 ```
 #### 特殊专家代码实现
 ```Python
-task_output=[expert(task_fea[j]).unsqueeze(1) for expert in self.task_experts[i][j]] # 输入为（batch_size, input_dim），task_experts为layers_num层，每一层有specific_expert_num个全连接层——MultiLayerPerceptron(input_dim, [bottom_mlp_dims[i]], dropout, output_layer=False)，最后输出为（batch_size, 1, bottom_mlp_dims[i]），有specific_expert_num个注：特殊专家网络mlp数量为layers_num*task_num*specific_expert_num，
+task_output=[expert(task_fea[j]).unsqueeze(1) for expert in self.task_experts[i][j]] # 输入为（batch_size, input_dim），task_experts为layers_num层，每一层有specific_expert_num个全连接层——MultiLayerPerceptron(input_dim, [bottom_mlp_dims[i]], dropout, output_layer=False)，最后输出为（batch_size, 1, bottom_mlp_dims[i]），有specific_expert_num个。注：特殊专家网络mlp数量为layers_num*task_num*specific_expert_num
 ```
 #### 特殊专家门控代码实现
 ```Python
@@ -50,7 +50,7 @@ gate_value = self.task_gates[i][j](task_fea[j]).unsqueeze(1) # 每一个任务�
 ```
 #### 特殊专家门控代码实现
 ```Python
-mix_ouput = torch.cat(task_output + share_output,dim=1)   
+mix_ouput = torch.cat(task_output + share_output,dim=1)   #shared_expert_num个共享专家，specific_expert_num个特殊专家拼接
 task_fea[j] = torch.bmm(gate_value, mix_ouput).squeeze(1) # 加权输出
 ```
 ### 4.3 Gate加权输出
@@ -62,7 +62,8 @@ task_fea[j] = torch.bmm(gate_value, mix_ouput).squeeze(1) # 加权输出
 ## 5 实验与分析：
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbNjc4MjMyNzEsMTIwNjI3NjgwMywtMTU4Nj
-c3NzUxMSwxOTE4ODg5NzgzLDIxMzI0OTU5NjcsNjEzODQyMTkx
-LC0xNzU0MTE2NzIzLDE3OTU3NTAyMzAsMjA4MDU2MTYzNF19
+eyJoaXN0b3J5IjpbNDI1MzAwNjcxLDEyMDYyNzY4MDMsLTE1OD
+Y3Nzc1MTEsMTkxODg4OTc4MywyMTMyNDk1OTY3LDYxMzg0MjE5
+MSwtMTc1NDExNjcyMywxNzk1NzUwMjMwLDIwODA1NjE2MzRdfQ
+==
 -->
