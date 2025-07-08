@@ -16,8 +16,7 @@
 ![输入图片说明](/imgs/2025-07-08/4sKGptX6jkr7uNdd.png)
 ## 4 模型结构与实现代码：
 ![输入图片说明](/imgs/2025-07-08/9pixHClT4knQb3RC.png)
-### 4.1 Customized Gate Control
-#### 代码实现
+### 整体代码
 ```Python
 task_fea = [emb for i in range(self.task_num + 1)] # task1 input ,task2 input,..taskn input, share_expert input  
 for i in range(self.layers_num):  
@@ -50,7 +49,7 @@ results = [torch.sigmoid(self.tower[i](task_fea[i]).squeeze(1)) for i in range(s
 ## 5 实验与分析：
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTY1ODA5NzM3MywyMTMyNDk1OTY3LDYxMz
+eyJoaXN0b3J5IjpbLTI3OTcxNjQ0OCwyMTMyNDk1OTY3LDYxMz
 g0MjE5MSwtMTc1NDExNjcyMywxNzk1NzUwMjMwLDIwODA1NjE2
 MzRdfQ==
 -->
