@@ -60,7 +60,7 @@ $$x_{l+1}=x_{0}x_{l}^Tw_{l}+b_{l}+x_{l}$$
 # f^{k}(x) = sum_{i=1}^{n}(g^{k}(x)_{i} * f_{i}(x))   
 for gate_output in gate_outputs:  
     expanded_gate_output = K.expand_dims(gate_output, axis=1)   #（batch_size, 1, num_experts）
-    weighted_expert_output = expert_outputs * K.repeat_elements(expanded_gate_output, self.units, axis=1)  #  (batch_size, units, num_experts)
+    weighted_expert_output = expert_outputs * K.repeat_elements(expanded_gate_output, self.units, axis=1)  #  (batch_size, units, num_experts) * (batch_size, units, num_experts) 
     final_outputs.append(K.sum(weighted_expert_output, axis=2))
 ```
 
@@ -69,7 +69,7 @@ for gate_output in gate_outputs:
 -   FM的泛化：因此，交叉网络将参数共享的概念从单层扩展到了多层以及高阶交叉项。需要注意的是，与高阶 FM 不同，交叉网络中的参数数量仅随输入维度线性增长。
 -   高效映射：每个交叉层以一种有效的方式将x0和xl之间的所有成对相互作用投影回输入维度。
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTM0NTczOTgyNCwxNzU4Njk1MzY2LDEzNj
+eyJoaXN0b3J5IjpbMTAxMDg4OTAyNCwxNzU4Njk1MzY2LDEzNj
 g0Njg0MzYsLTM4MDcwMzU0MCwtMTI1NzQwOTQ2OCwtMTIzMDE2
 NTI4NCw3OTU1NzI1NCwxMjM3MTE3NzAsLTg1MTk5OTcxNCwtMT
 c4MzY5MzkyMiw2NjE2NzkyMl19
