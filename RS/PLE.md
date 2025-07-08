@@ -16,7 +16,7 @@
 ![输入图片说明](/imgs/2025-07-08/4sKGptX6jkr7uNdd.png)
 ## 4 模型结构与实现代码：
 ![输入图片说明](/imgs/2025-07-08/9pixHClT4knQb3RC.png)
-### 4.1 MoE网络
+### 4.1 Customized Gate Control
 #### 代码实现
 ```Python
 
@@ -35,6 +35,6 @@
 ## 5 实验与分析：
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbNDIxNjk0NjQ4LDYxMzg0MjE5MSwtMTc1ND
-ExNjcyMywxNzk1NzUwMjMwLDIwODA1NjE2MzRdfQ==
+eyJoaXN0b3J5IjpbMjEzMjQ5NTk2Nyw2MTM4NDIxOTEsLTE3NT
+QxMTY3MjMsMTc5NTc1MDIzMCwyMDgwNTYxNjM0XX0=
 -->
