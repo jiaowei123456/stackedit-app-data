@@ -14,37 +14,15 @@
 ![输入图片说明](/imgs/2025-07-08/2mfzuxK6OdtwCFwc.png)
 ### 4.1 Embeddding
 我们考虑具有稀疏和稠密特征的输入数据。稀疏特征通常被编码为one-hot向量，然后进行嵌入编码。稠密特征直接归一化保留。
+#### 代码实现
+```Python
+
+```
 ### 4.2 Cross Network
 该交叉网络的核心思想是有效地应用显式特征交叉。交叉网络由交叉层组成，每层有如下公式：
 $$x_{l+1}=x_{0}x_{l}^Tw_{l}+b_{l}+x_{l}$$
-#### 代码实现
-```Python
-class CrossNet(nn.Module):  
-    def __init__(self, in_features, layer_num=2, parameterization='vector', seed=1024, device='cpu'):  
-        super(CrossNet, self).__init__()  
-        self.layer_num = layer_num  
-        self.parameterization = parameterization  
-        self.kernels = nn.Parameter(torch.Tensor(layer_num, in_features, 1)) #  创建一个可学习的参数张量，形状为 (layer_num, in_features, 1) 
-        self.bias = nn.Parameter(torch.Tensor(layer_num, in_features, 1))  
-  
-        for i in range(self.kernels.shape[0]):  
-            nn.init.xavier_normal_(self.kernels[i]) # Xavier 初始化（也称为 Glorot 初始化）旨在解决深度神经网络中梯度消失和梯度爆炸的问题。  
-        for i in range(self.bias.shape[0]):  
-            nn.init.zeros_(self.bias[i])  
-  
-        self.to(device)  
-  
-    def forward(self, inputs):  
-        x_0 = inputs.unsqueeze(2)  # [B, D, 1]  
-        x_l = x_0  
-        for i in range(self.layer_num):  
-        # 表示在 x_l 的第 1 维度（即 in_features）和 self.kernels[i] 的第 0 维度（即 in_features）之间进行求和运算（类似矩阵乘法中的内积操作）。
-            xl_w = torch.tensordot(x_l, self.kernels[i], dims=[[1], [0]])  # [B, 1, 1] 
-            dot_ = torch.matmul(x_0, xl_w)   # 进行 矩阵乘法（matmul）运算
-            x_l = dot_ + self.bias[i] + x_l  # 类似残差连接
-        x_l = torch.squeeze(x_l, dim=2)  
-        return x_l
-```
+
+
 #### 复杂度分析
 设Lc表示交叉层数，d表示输入维数。则交叉网络中涉及的参数个数为：
 $$d×Lc×2$$交叉网络的时间和空间复杂度与输入维度呈线性关系。因此，与深度网络相比，交叉网络引入的复杂度几乎可以忽略不计，使得深度卷积网络的整体复杂度与传统深度神经网络处于同一水平。这种高效性得益于 x0xT  l 的秩为一的特性，这使我们能够无需计算或存储整个矩阵即可生成所有交叉项。
@@ -107,7 +85,7 @@ $$d × m + m + (m_2 + m) × (L_d − 1).$$第一层参数是d × m + m，后面L
 -   FM的泛化：因此，交叉网络将参数共享的概念从单层扩展到了多层以及高阶交叉项。需要注意的是，与高阶 FM 不同，交叉网络中的参数数量仅随输入维度线性增长。
 -   高效映射：每个交叉层以一种有效的方式将x0和xl之间的所有成对相互作用投影回输入维度。
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbNjg0ODY1MSwtMTI1NzQwOTQ2OCwtMTIzMD
-E2NTI4NCw3OTU1NzI1NCwxMjM3MTE3NzAsLTg1MTk5OTcxNCwt
-MTc4MzY5MzkyMiw2NjE2NzkyMl19
+eyJoaXN0b3J5IjpbLTM4MDcwMzU0MCwtMTI1NzQwOTQ2OCwtMT
+IzMDE2NTI4NCw3OTU1NzI1NCwxMjM3MTE3NzAsLTg1MTk5OTcx
+NCwtMTc4MzY5MzkyMiw2NjE2NzkyMl19
 -->
