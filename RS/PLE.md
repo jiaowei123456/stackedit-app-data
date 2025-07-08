@@ -7,11 +7,9 @@
 * 跷跷板现象：还是当两个task之间相关性很弱或者很复杂时，往往出现的现象是：一个task性能的提升是通过损害另一个task的性能做到的。这种现象存在很久，PLE论文里给它起了个非常贴切的名字『跷跷板』。
 
 ## 2 论文创新点：
-* MMoE 明确地对任务关系进行建模，并学习任务特定的功能以利用共享表示。它允许参数自动分配，以捕捉共享的任务信息或任务特定的信息，从而避免了为每个任务添加大量新参数的需求。
-* 我们还发现 MMoE 更易于训练，并在多次运行中收敛到更好的损失值。这与最近的发现有关，即调制和门控机制可以提高训练非凸深度神经网络的可训练性
+
 ## 3 相关工作：
-* Caruana提出的多任务学习网络
-* 
+
 ## 4 模型结构与实现代码：
 ![输入图片说明](/imgs/2025-07-08/2mfzuxK6OdtwCFwc.png)
 ### 4.1 MoE网络
@@ -65,5 +63,5 @@ for gate_output in gate_outputs:
 ## 5 实验与分析：
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTA2NTM1MDQ0MywyMDgwNTYxNjM0XX0=
+eyJoaXN0b3J5IjpbMTc5NTc1MDIzMCwyMDgwNTYxNjM0XX0=
 -->
