@@ -11,7 +11,7 @@
 * Caruana提出的多任务学习网络
 * 
 ## 4 模型结构与实现代码：
-![输入图片说明](/imgs/2025-07-06/50vPq9ZicRMCxKcP.png)
+
 ### 4.1 Embeddding
 我们考虑具有稀疏和稠密特征的输入数据。稀疏特征通常被编码为one-hot向量，然后进行嵌入编码。稠密特征直接归一化保留。
 ### 4.2 Cross Network
@@ -107,7 +107,7 @@ $$d × m + m + (m_2 + m) × (L_d − 1).$$第一层参数是d × m + m，后面L
 -   FM的泛化：因此，交叉网络将参数共享的概念从单层扩展到了多层以及高阶交叉项。需要注意的是，与高阶 FM 不同，交叉网络中的参数数量仅随输入维度线性增长。
 -   高效映射：每个交叉层以一种有效的方式将x0和xl之间的所有成对相互作用投影回输入维度。
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTEyMzAxNjUyODQsNzk1NTcyNTQsMTIzNz
-ExNzcwLC04NTE5OTk3MTQsLTE3ODM2OTM5MjIsNjYxNjc5MjJd
-fQ==
+eyJoaXN0b3J5IjpbLTEyNTc0MDk0NjgsLTEyMzAxNjUyODQsNz
+k1NTcyNTQsMTIzNzExNzcwLC04NTE5OTk3MTQsLTE3ODM2OTM5
+MjIsNjYxNjc5MjJdfQ==
 -->
