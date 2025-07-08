@@ -62,7 +62,7 @@ if i != self.layers_num-1:#最后一层不需要计算share expert 的输出
 ```
 #### 最终每个任务加一个全连接层预测最终输出
 ```Python
-results = [torch.sigmoid(self.tower[i](task_fea[i]).squeeze(1)) for i in range(self.task_num)] #使用sigmoidzuo wei ji huo han shu
+results = [torch.sigmoid(self.tower[i](task_fea[i]).squeeze(1)) for i in range(self.task_num)] #使用sigmoid作为激活函数。输出（batchsize，num_task）
 ```
 ### 4.3 Gate加权输出
 #### 代码实现
@@ -73,8 +73,8 @@ results = [torch.sigmoid(self.tower[i](task_fea[i]).squeeze(1)) for i in range(s
 ## 5 实验与分析：
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTQ3MDUzNjc3LDQ2MDMxMzA1NiwxNTk5Nz
-Y0OTI2LDEyMDYyNzY4MDMsLTE1ODY3Nzc1MTEsMTkxODg4OTc4
-MywyMTMyNDk1OTY3LDYxMzg0MjE5MSwtMTc1NDExNjcyMywxNz
-k1NzUwMjMwLDIwODA1NjE2MzRdfQ==
+eyJoaXN0b3J5IjpbLTk3MzE1MDgyMyw0NjAzMTMwNTYsMTU5OT
+c2NDkyNiwxMjA2Mjc2ODAzLC0xNTg2Nzc3NTExLDE5MTg4ODk3
+ODMsMjEzMjQ5NTk2Nyw2MTM4NDIxOTEsLTE3NTQxMTY3MjMsMT
+c5NTc1MDIzMCwyMDgwNTYxNjM0XX0=
 -->
