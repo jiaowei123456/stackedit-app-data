@@ -10,7 +10,7 @@
 * PLE 明确地将共享专家和任务特定专家分开，以减轻通用知识和任务特定知识之间有害的参数干扰。
 * PLE 引入了多层专家和门控网络，并应用渐进式分离路由从较低层专家中提取更深层次的知识，并逐步在较高层分离任务特定参数。
 ## 3 相关工作：
-
+![输入图片说明](/imgs/2025-07-08/4sKGptX6jkr7uNdd.png)
 ## 4 模型结构与实现代码：
 ![输入图片说明](/imgs/2025-07-08/2mfzuxK6OdtwCFwc.png)
 ### 4.1 MoE网络
@@ -64,6 +64,6 @@ for gate_output in gate_outputs:
 ## 5 实验与分析：
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTE3NTQxMTY3MjMsMTc5NTc1MDIzMCwyMD
-gwNTYxNjM0XX0=
+eyJoaXN0b3J5IjpbODAxNjM0MTc0LC0xNzU0MTE2NzIzLDE3OT
+U3NTAyMzAsMjA4MDU2MTYzNF19
 -->
