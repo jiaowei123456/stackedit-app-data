@@ -57,88 +57,20 @@ for index, gate_kernel in enumerate(self.gate_kernels):  # 循环num_tasks次
 $$x_{l+1}=x_{0}x_{l}^Tw_{l}+b_{l}+x_{l}$$
 #### 代码实现
 ```Python
-self.gate_kernels = [self.add_weight(  
-    name='gate_kernel_task_{}'.format(i),  
-    shape=(input_dimension, self.num_experts),  
-    initializer=self.gate_kernel_initializer,  
-    regularizer=self.gate_kernel_regularizer,  
-    constraint=self.gate_kernel_constraint  
-) for i in range(self.num_tasks)] #产生num_tasks个门控权重，每个权重大小为（input_dimension, self.num_experts）
-
-# g^{k}(x) = activation(W_{gk} * x + b), where activation is softmax according to the paper    
-for index, gate_kernel in enumerate(self.gate_kernels):  # 循环num_tasks次
-    gate_output = K.dot(x=inputs, y=gate_kernel)  # 每个门控网络生成num_experts个注意力。
-    # Add the bias term to the gate weights if necessary  
-    if self.use_gate_bias:  
-        gate_output = K.bias_add(x=gate_output, bias=self.gate_bias[index])  
-    gate_output = self.gate_activation(gate_output)  
-    gate_outputs.append(gate_output) # gate_outputs列表长度为num_tasks，每一元素为（batch_size, num_experts）
+# f^{k}(x) = sum_{i=1}^{n}(g^{k}(x)_{i} * f_{i}(x))   
+for gate_output in gate_outputs:  
+    expanded_gate_output = K.expand_dims(gate_output, axis=1)   #（batch_size, 1, num_experts）
+    weighted_expert_output = expert_outputs * K.repeat_elements(expanded_gate_output, self.units, axis=1)  
+    final_outputs.append(K.sum(weighted_expert_output, axis=2))
 ```
-
-#### 复杂度分析
-设Lc表示交叉层数，d表示输入维数。则交叉网络中涉及的参数个数为：
-$$d×Lc×2$$交叉网络的时间和空间复杂度与输入维度呈线性关系。因此，与深度网络相比，交叉网络引入的复杂度几乎可以忽略不计，使得深度卷积网络的整体复杂度与传统深度神经网络处于同一水平。这种高效性得益于 x0xT  l 的秩为一的特性，这使我们能够无需计算或存储整个矩阵即可生成所有交叉项。
-### 4.3 Deep Network
-线性层+bn层+激活函数+dropout层
-```Python
-class DNN(nn.Module):  
-    def __init__(self, inputs_dim, hidden_units, activation='relu', l2_reg=0, dropout_rate=0, use_bn=False,  
-                 init_std=0.0001, dice_dim=3, seed=1024, device='cpu'):  
-        super(DNN, self).__init__()  
-        self.dropout_rate = dropout_rate  
-        self.dropout = nn.Dropout(dropout_rate)  
-        self.seed = seed  
-        self.l2_reg = l2_reg  
-        self.use_bn = use_bn  
-        if len(hidden_units) == 0:  
-            raise ValueError("hidden_units is empty!!")  
-        if inputs_dim > 0:  
-            hidden_units = [inputs_dim] + list(hidden_units)  
-        else:  
-            hidden_units = list(hidden_units)  
-  
-        self.linears = nn.ModuleList(  
-            [nn.Linear(hidden_units[i], hidden_units[i+1]) for i in range(len(hidden_units) - 1)])  
-  
-        if self.use_bn:  
-            self.bn = nn.ModuleList(  
-                [nn.BatchNorm1d(hidden_units[i+1]) for i in range(len(hidden_units) - 1)])  
-  
-        self.activation_layers = nn.ModuleList(  
-            [activation_layer(activation, hidden_units[i+1], dice_dim) for i in range(len(hidden_units) - 1)])  
-  
-        for name, tensor in self.linears.named_parameters():  
-            if 'weight' in name:  
-                nn.init.normal_(tensor, mean=0, std=init_std)  
-  
-        self.to(device)  
-  
-    def forward(self, inputs):  
-        deep_input = inputs  
-        for i in range(len(self.linears)):  
-            # print(f"i:{i}, deep_input size:{deep_input.size()}")  
-            fc = self.linears[i](deep_input)  
-  
-            if self.use_bn and fc.size()[0] > 1:  
-                fc = self.bn[i](fc)  
-  
-            fc = self.activation_layers[i](fc)  
-  
-            fc = self.dropout(fc)  
-            deep_input = fc  
-        return deep_input
-```
-#### 复杂度分析
-为了简化起见，我们假设所有深层结构的大小都相同。设 Ld 表示深层结构的数量，m 表示每个深层结构的大小。那么，深层网络中的参数数量为
-$$d × m + m + (m_2 + m) × (L_d − 1).$$第一层参数是d × m + m，后面Ld-1层是(m_2 + m) × (L_d − 1)
 
 ## 5 实验与分析：
 -   多项式拟合：我们证明，在只有O(d)个参数的情况下，交叉网络包含了所有出现在同一次多项式中的交叉项，并且每个项的系数彼此不同。
 -   FM的泛化：因此，交叉网络将参数共享的概念从单层扩展到了多层以及高阶交叉项。需要注意的是，与高阶 FM 不同，交叉网络中的参数数量仅随输入维度线性增长。
 -   高效映射：每个交叉层以一种有效的方式将x0和xl之间的所有成对相互作用投影回输入维度。
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTc1ODY5NTM2NiwxMzY4NDY4NDM2LC0zOD
-A3MDM1NDAsLTEyNTc0MDk0NjgsLTEyMzAxNjUyODQsNzk1NTcy
-NTQsMTIzNzExNzcwLC04NTE5OTk3MTQsLTE3ODM2OTM5MjIsNj
-YxNjc5MjJdfQ==
+eyJoaXN0b3J5IjpbMTMxNjQxMzQ5MywxNzU4Njk1MzY2LDEzNj
+g0Njg0MzYsLTM4MDcwMzU0MCwtMTI1NzQwOTQ2OCwtMTIzMDE2
+NTI4NCw3OTU1NzI1NCwxMjM3MTE3NzAsLTg1MTk5OTcxNCwtMT
+c4MzY5MzkyMiw2NjE2NzkyMl19
 -->
