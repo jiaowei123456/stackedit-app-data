@@ -44,7 +44,7 @@ share_output=[expert(task_fea[-1]).unsqueeze(1) for expert in self.share_experts
 ```Python
 task_output=[expert(task_fea[j]).unsqueeze(1) for expert in self.task_experts[i][j]] # 输入为（batch_size, input_dim），task_experts为layers_num层，每一层有specific_expert_num个全连接层——MultiLayerPerceptron(input_dim, [bottom_mlp_dims[i]], dropout, output_layer=False)，最后输出为（batch_size, 1, bottom_mlp_dims[i]）注：特殊专家网络mlp数量为layers_num*task_num*specific_expert_num
 ```
-#### 门控代码实现
+#### 特殊门控代码实现
 ```Python
 gate_value = self.task_gates[i][j](task_fea[j]).unsqueeze(1) # 每一个任务都有一个对应的门控结果，因此门控网络数量为layers_num*task_num
 ```
@@ -57,7 +57,8 @@ gate_value = self.task_gates[i][j](task_fea[j]).unsqueeze(1) # 每一个任务�
 ## 5 实验与分析：
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTIwNjI3NjgwMywtMTU4Njc3NzUxMSwxOT
-E4ODg5NzgzLDIxMzI0OTU5NjcsNjEzODQyMTkxLC0xNzU0MTE2
-NzIzLDE3OTU3NTAyMzAsMjA4MDU2MTYzNF19
+eyJoaXN0b3J5IjpbLTU1NjAzMzYxNCwxMjA2Mjc2ODAzLC0xNT
+g2Nzc3NTExLDE5MTg4ODk3ODMsMjEzMjQ5NTk2Nyw2MTM4NDIx
+OTEsLTE3NTQxMTY3MjMsMTc5NTc1MDIzMCwyMDgwNTYxNjM0XX
+0=
 -->
