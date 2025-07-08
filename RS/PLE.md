@@ -44,6 +44,10 @@ share_output=[expert(task_fea[-1]).unsqueeze(1) for expert in self.share_experts
 ```Python
 task_output=[expert(task_fea[j]).unsqueeze(1) for expert in self.task_experts[i][j]] # 输入为（batch_size, input_dim），task_experts为layers_num层，每一层有specific_expert_num个全连接层——MultiLayerPerceptron(input_dim, [bottom_mlp_dims[i]], dropout, output_layer=False)，最后输出为（batch_size, 1, bottom_mlp_dims[i]）
 ```
+#### 门控代码实现
+```Python
+gate_value = self.task_gates[i][j](task_fea[j]).unsqueeze(1)
+```
 ### 4.3 Gate加权输出
 #### 代码实现
 ```Python
@@ -53,7 +57,7 @@ task_output=[expert(task_fea[j]).unsqueeze(1) for expert in self.task_experts[i]
 ## 5 实验与分析：
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTYyNjkyOTUxMCwtMTU4Njc3NzUxMSwxOT
-E4ODg5NzgzLDIxMzI0OTU5NjcsNjEzODQyMTkxLC0xNzU0MTE2
-NzIzLDE3OTU3NTAyMzAsMjA4MDU2MTYzNF19
+eyJoaXN0b3J5IjpbOTE4Mjg0MzE0LC0xNTg2Nzc3NTExLDE5MT
+g4ODk3ODMsMjEzMjQ5NTk2Nyw2MTM4NDIxOTEsLTE3NTQxMTY3
+MjMsMTc5NTc1MDIzMCwyMDgwNTYxNjM0XX0=
 -->
