@@ -19,7 +19,22 @@
 ### 4.1 Customized Gate Control
 #### 代码实现
 ```Python
-
+task_fea = [emb for i in range(self.task_num + 1)] # task1 input ,task2 input,..taskn input, share_expert input  
+for i in range(self.layers_num):  
+    share_output=[expert(task_fea[-1]).unsqueeze(1) for expert in self.share_experts[i]]  
+    task_output_list=[]  
+    for j in range(self.task_num):  
+        task_output=[expert(task_fea[j]).unsqueeze(1) for expert in self.task_experts[i][j]]  
+        task_output_list.extend(task_output)  
+        mix_ouput=torch.cat(task_output+share_output,dim=1)  
+        gate_value = self.task_gates[i][j](task_fea[j]).unsqueeze(1)  
+        task_fea[j] = torch.bmm(gate_value, mix_ouput).squeeze(1)  
+    if i != self.layers_num-1:#最后一层不需要计算share expert 的输出  
+        gate_value = self.share_gates[i](task_fea[-1]).unsqueeze(1)  
+        mix_ouput = torch.cat(task_output_list + share_output, dim=1)  
+        task_fea[-1] = torch.bmm(gate_value, mix_ouput).squeeze(1)  
+  
+results = [torch.sigmoid(self.tower[i](task_fea[i]).squeeze(1)) for i in range(self.task_num)]
 ```
 ### 4.2 Gate网络
 #### 代码实现
@@ -35,6 +50,7 @@
 ## 5 实验与分析：
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMjEzMjQ5NTk2Nyw2MTM4NDIxOTEsLTE3NT
-QxMTY3MjMsMTc5NTc1MDIzMCwyMDgwNTYxNjM0XX0=
+eyJoaXN0b3J5IjpbLTY1ODA5NzM3MywyMTMyNDk1OTY3LDYxMz
+g0MjE5MSwtMTc1NDExNjcyMywxNzk1NzUwMjMwLDIwODA1NjE2
+MzRdfQ==
 -->
