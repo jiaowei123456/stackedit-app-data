@@ -49,7 +49,7 @@ for index, gate_kernel in enumerate(self.gate_kernels):  # 循环num_tasks次
     # Add the bias term to the gate weights if necessary  
     if self.use_gate_bias:  
         gate_output = K.bias_add(x=gate_output, bias=self.gate_bias[index])  
-    gate_output = self.gate_activation(gate_output)  
+    gate_output = self.gate_activation(gate_output) # 激活函数为softmax 
     gate_outputs.append(gate_output) # gate_outputs列表长度为num_tasks，每一元素为（batch_size, num_experts）
 ```
 ### 4.3 Gate
@@ -69,8 +69,8 @@ for gate_output in gate_outputs:
 -   FM的泛化：因此，交叉网络将参数共享的概念从单层扩展到了多层以及高阶交叉项。需要注意的是，与高阶 FM 不同，交叉网络中的参数数量仅随输入维度线性增长。
 -   高效映射：每个交叉层以一种有效的方式将x0和xl之间的所有成对相互作用投影回输入维度。
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbNTI1MzA5NzIxLDEwMTA4ODkwMjQsMTc1OD
-Y5NTM2NiwxMzY4NDY4NDM2LC0zODA3MDM1NDAsLTEyNTc0MDk0
-NjgsLTEyMzAxNjUyODQsNzk1NTcyNTQsMTIzNzExNzcwLC04NT
-E5OTk3MTQsLTE3ODM2OTM5MjIsNjYxNjc5MjJdfQ==
+eyJoaXN0b3J5IjpbMTg0OTI4ODcwOCwxMDEwODg5MDI0LDE3NT
+g2OTUzNjYsMTM2ODQ2ODQzNiwtMzgwNzAzNTQwLC0xMjU3NDA5
+NDY4LC0xMjMwMTY1Mjg0LDc5NTU3MjU0LDEyMzcxMTc3MCwtOD
+UxOTk5NzE0LC0xNzgzNjkzOTIyLDY2MTY3OTIyXX0=
 -->
