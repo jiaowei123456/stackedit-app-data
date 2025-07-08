@@ -38,11 +38,11 @@ results = [torch.sigmoid(self.tower[i](task_fea[i]).squeeze(1)) for i in range(s
 ### 4.2 专家网络
 #### 共享专家代码实现
 ```Python
-share_output=[expert(task_fea[-1]).unsqueeze(1) for expert in self.share_experts[i]] # 输入为（batch_size, input_dim），share_experts为layers_num层，每一层有shared_expert_num个全连接层——MultiLayerPerceptron(input_dim, [bottom_mlp_dims[i]], dropout, output_layer=False)，最后输出为（batch_size, 1, bottom_mlp_dims[i]）
+share_output=[expert(task_fea[-1]).unsqueeze(1) for expert in self.share_experts[i]] # 输入为（batch_size, input_dim），share_experts为layers_num层，每一层有shared_expert_num个全连接层——MultiLayerPerceptron(input_dim, [bottom_mlp_dims[i]], dropout, output_layer=False)，最后输出为（batch_size, 1, bottom_mlp_dims[i]），有shared_expert_num个
 ```
 #### 特殊专家代码实现
 ```Python
-task_output=[expert(task_fea[j]).unsqueeze(1) for expert in self.task_experts[i][j]] # 输入为（batch_size, input_dim），task_experts为layers_num层，每一层有specific_expert_num个全连接层——MultiLayerPerceptron(input_dim, [bottom_mlp_dims[i]], dropout, output_layer=False)，最后输出为（batch_size, 1, bottom_mlp_dims[i]）注：特殊专家网络mlp数量为layers_num*task_num*specific_expert_num
+task_output=[expert(task_fea[j]).unsqueeze(1) for expert in self.task_experts[i][j]] # 输入为（batch_size, input_dim），task_experts为layers_num层，每一层有specific_expert_num个全连接层——MultiLayerPerceptron(input_dim, [bottom_mlp_dims[i]], dropout, output_layer=False)，最后输出为（batch_size, 1, bottom_mlp_dims[i]），有specific_expert_num个注：特殊专家网络mlp数量为layers_num*task_num*specific_expert_num，
 ```
 #### 特殊专家门控代码实现
 ```Python
@@ -62,8 +62,7 @@ task_fea[j] = torch.bmm(gate_value, mix_ouput).squeeze(1) # 加权输出
 ## 5 实验与分析：
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMjA2NDA2ODI3MiwxMjA2Mjc2ODAzLC0xNT
-g2Nzc3NTExLDE5MTg4ODk3ODMsMjEzMjQ5NTk2Nyw2MTM4NDIx
-OTEsLTE3NTQxMTY3MjMsMTc5NTc1MDIzMCwyMDgwNTYxNjM0XX
-0=
+eyJoaXN0b3J5IjpbNjc4MjMyNzEsMTIwNjI3NjgwMywtMTU4Nj
+c3NzUxMSwxOTE4ODg5NzgzLDIxMzI0OTU5NjcsNjEzODQyMTkx
+LC0xNzU0MTE2NzIzLDE3OTU3NTAyMzAsMjA4MDU2MTYzNF19
 -->
