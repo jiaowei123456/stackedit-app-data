@@ -65,17 +65,13 @@ if i != self.layers_num-1:#最后一层不需要计算share expert 的输出
 ```Python
 results = [torch.sigmoid(self.tower[i](task_fea[i]).squeeze(1)) for i in range(self.task_num)] #使用sigmoid作为激活函数。输出（batchsize，num_task）
 ```
-### 4.3 Gate加权输出
-#### 代码实现
-```Python
-
-```
 
 ## 5 实验与分析：
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTIwMzA1MzU3ODIsLTE1NzY4ODYxNTMsND
-YwMzEzMDU2LDE1OTk3NjQ5MjYsMTIwNjI3NjgwMywtMTU4Njc3
-NzUxMSwxOTE4ODg5NzgzLDIxMzI0OTU5NjcsNjEzODQyMTkxLC
-0xNzU0MTE2NzIzLDE3OTU3NTAyMzAsMjA4MDU2MTYzNF19
+eyJoaXN0b3J5IjpbLTE5MDI1ODUxNzEsLTIwMzA1MzU3ODIsLT
+E1NzY4ODYxNTMsNDYwMzEzMDU2LDE1OTk3NjQ5MjYsMTIwNjI3
+NjgwMywtMTU4Njc3NzUxMSwxOTE4ODg5NzgzLDIxMzI0OTU5Nj
+csNjEzODQyMTkxLC0xNzU0MTE2NzIzLDE3OTU3NTAyMzAsMjA4
+MDU2MTYzNF19
 -->
