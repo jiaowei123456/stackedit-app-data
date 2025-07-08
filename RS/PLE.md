@@ -35,7 +35,7 @@ for i in range(self.layers_num):
   
 results = [torch.sigmoid(self.tower[i](task_fea[i]).squeeze(1)) for i in range(self.task_num)]
 ```
-### 4.2 专家网络
+### 4.1 专家网络
 #### 共享专家代码实现
 ```Python
 share_output=[expert(task_fea[-1]).unsqueeze(1) for expert in self.share_experts[i]] # 输入为（batch_size, input_dim），share_experts为layers_num层，每一层有shared_expert_num个全连接层——MultiLayerPerceptron(input_dim, [bottom_mlp_dims[i]], dropout, output_layer=False)，最后输出为（batch_size, 1, bottom_mlp_dims[i]），有shared_expert_num个
@@ -53,14 +53,14 @@ gate_value = self.task_gates[i][j](task_fea[j]).unsqueeze(1) # 每一个任务�
 mix_ouput = torch.cat(task_output + share_output,dim=1)   #shared_expert_num个共享专家，specific_expert_num个特殊专家拼接
 task_fea[j] = torch.bmm(gate_value, mix_ouput).squeeze(1) # 加权输出，输出维度为（batch_size, 1, bottom_mlp_dims[i]）
 ```
-#### 中间层的混合专家加权输出（非最后一层）
+### 4.2 中间层的混合专家加权输出（非最后一层）
 ```Python
 if i != self.layers_num-1:#最后一层不需要计算share expert 的输出  
     gate_value = self.share_gates[i](task_fea[-1]).unsqueeze(1)  #（batch_size, 1, shared_expert_num + specific_expert_num*task_num）
     mix_ouput = torch.cat(task_output_list + share_output, dim=1)   #（batch_size, shared_expert_num + specific_expert_num*task_num，bottom_mlp_dims[i]）
     task_fea[-1] = torch.bmm(gate_value, mix_ouput).squeeze(1)  #（batch_size,1，bottom_mlp_dims[i]）
 ```
-#### 最终每个任务加一个全连接层预测最终输出
+### 4.3 最终每个任务加一个全连接层预测最终输出
 ```Python
 results = [torch.sigmoid(self.tower[i](task_fea[i]).squeeze(1)) for i in range(self.task_num)] #使用sigmoid作为激活函数。输出（batchsize，num_task）
 ```
@@ -73,8 +73,8 @@ results = [torch.sigmoid(self.tower[i](task_fea[i]).squeeze(1)) for i in range(s
 ## 5 实验与分析：
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTE1NzY4ODYxNTMsNDYwMzEzMDU2LDE1OT
-k3NjQ5MjYsMTIwNjI3NjgwMywtMTU4Njc3NzUxMSwxOTE4ODg5
-NzgzLDIxMzI0OTU5NjcsNjEzODQyMTkxLC0xNzU0MTE2NzIzLD
-E3OTU3NTAyMzAsMjA4MDU2MTYzNF19
+eyJoaXN0b3J5IjpbNzEyMzYxMzk5LC0xNTc2ODg2MTUzLDQ2MD
+MxMzA1NiwxNTk5NzY0OTI2LDEyMDYyNzY4MDMsLTE1ODY3Nzc1
+MTEsMTkxODg4OTc4MywyMTMyNDk1OTY3LDYxMzg0MjE5MSwtMT
+c1NDExNjcyMywxNzk1NzUwMjMwLDIwODA1NjE2MzRdfQ==
 -->
