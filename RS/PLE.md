@@ -36,7 +36,7 @@ for i in range(self.layers_num):
 results = [torch.sigmoid(self.tower[i](task_fea[i]).squeeze(1)) for i in range(self.task_num)]
 ```
 ### 4.1 专家网络
-可以理解为每一层都有很多专家，专家可以分为专用专家(num_task)和通用专家(1)，专家又分
+可以理解为每一层都有很多专家，专家可以分为专用专家(num_task)和通用专家(1)，每一个专家有自己的子全连接-专家个数。
 #### 共享专家代码实现
 ```Python
 share_output=[expert(task_fea[-1]).unsqueeze(1) for expert in self.share_experts[i]] # 输入为（batch_size, input_dim），share_experts为layers_num层，每一层有shared_expert_num个全连接层——MultiLayerPerceptron(input_dim, [bottom_mlp_dims[i]], dropout, output_layer=False)，最后输出为（batch_size, 1, bottom_mlp_dims[i]），有shared_expert_num个
@@ -74,7 +74,7 @@ results = [torch.sigmoid(self.tower[i](task_fea[i]).squeeze(1)) for i in range(s
 ## 5 实验与分析：
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTg3OTg5MTA2OCwtMTU3Njg4NjE1Myw0Nj
+eyJoaXN0b3J5IjpbLTQ0MzU2Njk4NCwtMTU3Njg4NjE1Myw0Nj
 AzMTMwNTYsMTU5OTc2NDkyNiwxMjA2Mjc2ODAzLC0xNTg2Nzc3
 NTExLDE5MTg4ODk3ODMsMjEzMjQ5NTk2Nyw2MTM4NDIxOTEsLT
 E3NTQxMTY3MjMsMTc5NTc1MDIzMCwyMDgwNTYxNjM0XX0=
