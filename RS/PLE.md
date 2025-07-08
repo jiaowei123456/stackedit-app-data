@@ -15,7 +15,7 @@
 * 
 ![输入图片说明](/imgs/2025-07-08/4sKGptX6jkr7uNdd.png)
 ## 4 模型结构与实现代码：
-![输入图片说明](/imgs/2025-07-08/9pixHClT4knQb3RC.png)
+![输入图片说明](/imgs/2025-07-08/gDJqongZ5GfUFQnO.png)
 ### 整体代码
 ```Python
 task_fea = [emb for i in range(self.task_num + 1)] # task1 input ,task2 input,..taskn input, share_expert input  
@@ -73,8 +73,8 @@ results = [torch.sigmoid(self.tower[i](task_fea[i]).squeeze(1)) for i in range(s
 ## 5 实验与分析：
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTk3MzE1MDgyMyw0NjAzMTMwNTYsMTU5OT
-c2NDkyNiwxMjA2Mjc2ODAzLC0xNTg2Nzc3NTExLDE5MTg4ODk3
-ODMsMjEzMjQ5NTk2Nyw2MTM4NDIxOTEsLTE3NTQxMTY3MjMsMT
-c5NTc1MDIzMCwyMDgwNTYxNjM0XX0=
+eyJoaXN0b3J5IjpbLTE1NzY4ODYxNTMsNDYwMzEzMDU2LDE1OT
+k3NjQ5MjYsMTIwNjI3NjgwMywtMTU4Njc3NzUxMSwxOTE4ODg5
+NzgzLDIxMzI0OTU5NjcsNjEzODQyMTkxLC0xNzU0MTE2NzIzLD
+E3OTU3NTAyMzAsMjA4MDU2MTYzNF19
 -->
