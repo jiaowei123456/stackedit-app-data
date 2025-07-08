@@ -16,16 +16,41 @@
 我们考虑具有稀疏和稠密特征的输入数据。稀疏特征通常被编码为one-hot向量，然后进行嵌入编码。稠密特征直接归一化保留。
 #### 代码实现
 ```Python
+if self.use_expert_bias:  
+    self.expert_bias = self.add_weight(  
+        name='expert_bias',  
+        shape=(self.units, self.num_experts),  
+        initializer=self.expert_bias_initializer,  
+        regularizer=self.expert_bias_regularizer,  
+        constraint=self.expert_bias_constraint,  
+    )
+    
+expert_outputs = tf.tensordot(a=inputs, b=self.expert_kernels, axes=1) # 输入的最后一维(batch_size, input_dem)和权重的第一维点积(batch_size, units, num_experts)  
+# Add the bias term to the expert weights if necessary  
+if self.use_expert_bias:  
+    expert_outputs = K.bias_add(x=expert_outputs, bias=self.expert_bias)  
+expert_outputs = self.expert_activation(expert_outputs)
+```
+### 4.2 Gate
+该交叉网络的核心思想是有效地应用显式特征交叉。交叉网络由交叉层组成，每层有如下公式：
+$$x_{l+1}=x_{0}x_{l}^Tw_{l}+b_{l}+x_{l}$$
+#### 代码实现
+```Python
+if self.use_expert_bias:  
+    self.expert_bias = self.add_weight(  
+        name='expert_bias',  
+        shape=(self.units, self.num_experts),  
+        initializer=self.expert_bias_initializer,  
+        regularizer=self.expert_bias_regularizer,  
+        constraint=self.expert_bias_constraint,  
+    )
+    
 expert_outputs = tf.tensordot(a=inputs, b=self.expert_kernels, axes=1) # 输入的最后一维和权重的第一维点积(batch_size, units, num_experts)  
 # Add the bias term to the expert weights if necessary  
 if self.use_expert_bias:  
     expert_outputs = K.bias_add(x=expert_outputs, bias=self.expert_bias)  
 expert_outputs = self.expert_activation(expert_outputs)
 ```
-### 4.2 Cross Network
-该交叉网络的核心思想是有效地应用显式特征交叉。交叉网络由交叉层组成，每层有如下公式：
-$$x_{l+1}=x_{0}x_{l}^Tw_{l}+b_{l}+x_{l}$$
-
 
 #### 复杂度分析
 设Lc表示交叉层数，d表示输入维数。则交叉网络中涉及的参数个数为：
@@ -89,7 +114,8 @@ $$d × m + m + (m_2 + m) × (L_d − 1).$$第一层参数是d × m + m，后面L
 -   FM的泛化：因此，交叉网络将参数共享的概念从单层扩展到了多层以及高阶交叉项。需要注意的是，与高阶 FM 不同，交叉网络中的参数数量仅随输入维度线性增长。
 -   高效映射：每个交叉层以一种有效的方式将x0和xl之间的所有成对相互作用投影回输入维度。
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTM2ODQ2ODQzNiwtMzgwNzAzNTQwLC0xMj
-U3NDA5NDY4LC0xMjMwMTY1Mjg0LDc5NTU3MjU0LDEyMzcxMTc3
-MCwtODUxOTk5NzE0LC0xNzgzNjkzOTIyLDY2MTY3OTIyXX0=
+eyJoaXN0b3J5IjpbMTUwNzQ3MzkxNSwxMzY4NDY4NDM2LC0zOD
+A3MDM1NDAsLTEyNTc0MDk0NjgsLTEyMzAxNjUyODQsNzk1NTcy
+NTQsMTIzNzExNzcwLC04NTE5OTk3MTQsLTE3ODM2OTM5MjIsNj
+YxNjc5MjJdfQ==
 -->
