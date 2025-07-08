@@ -44,13 +44,13 @@ self.gate_kernels = [self.add_weight(
 ) for i in range(self.num_tasks)] #产生num_tasks个门控权重，每个权重大小为（input_dimension, self.num_experts）
 
 # g^{k}(x) = activation(W_{gk} * x + b), where activation is softmax according to the paper    
-for index, gate_kernel in enumerate(self.gate_kernels):  
+for index, gate_kernel in enumerate(self.gate_kernels):  # 循环num_tasks次
     gate_output = K.dot(x=inputs, y=gate_kernel)  # 每个门控网络生成num_experts个注意力。
     # Add the bias term to the gate weights if necessary  
     if self.use_gate_bias:  
         gate_output = K.bias_add(x=gate_output, bias=self.gate_bias[index])  
     gate_output = self.gate_activation(gate_output)  
-    gate_outputs.append(gate_output)
+    gate_outputs.append(gate_output) #
 ```
 
 #### 复杂度分析
@@ -115,8 +115,8 @@ $$d × m + m + (m_2 + m) × (L_d − 1).$$第一层参数是d × m + m，后面L
 -   FM的泛化：因此，交叉网络将参数共享的概念从单层扩展到了多层以及高阶交叉项。需要注意的是，与高阶 FM 不同，交叉网络中的参数数量仅随输入维度线性增长。
 -   高效映射：每个交叉层以一种有效的方式将x0和xl之间的所有成对相互作用投影回输入维度。
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTIwNTcyMDE0ODYsMTM2ODQ2ODQzNiwtMz
-gwNzAzNTQwLC0xMjU3NDA5NDY4LC0xMjMwMTY1Mjg0LDc5NTU3
-MjU0LDEyMzcxMTc3MCwtODUxOTk5NzE0LC0xNzgzNjkzOTIyLD
-Y2MTY3OTIyXX0=
+eyJoaXN0b3J5IjpbMTM0ODA2NzMyOSwxMzY4NDY4NDM2LC0zOD
+A3MDM1NDAsLTEyNTc0MDk0NjgsLTEyMzAxNjUyODQsNzk1NTcy
+NTQsMTIzNzExNzcwLC04NTE5OTk3MTQsLTE3ODM2OTM5MjIsNj
+YxNjc5MjJdfQ==
 -->
