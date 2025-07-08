@@ -38,7 +38,7 @@ results = [torch.sigmoid(self.tower[i](task_fea[i]).squeeze(1)) for i in range(s
 ### 4.2 Gate网络
 #### 代码实现
 ```Python
-share_output=[expert(task_fea[-1]).unsqueeze(1) for expert in self.share_experts[i]] # share_experts为layers_num个m
+share_output=[expert(task_fea[-1]).unsqueeze(1) for expert in self.share_experts[i]] # share_experts为layers_num个
 ```
 ### 4.3 Gate加权输出
 #### 代码实现
@@ -49,7 +49,7 @@ share_output=[expert(task_fea[-1]).unsqueeze(1) for expert in self.share_experts
 ## 5 实验与分析：
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTQwMzY5NDI3OCwxOTE4ODg5NzgzLDIxMz
-I0OTU5NjcsNjEzODQyMTkxLC0xNzU0MTE2NzIzLDE3OTU3NTAy
-MzAsMjA4MDU2MTYzNF19
+eyJoaXN0b3J5IjpbLTE3NjQ3MDYxMDksMTkxODg4OTc4MywyMT
+MyNDk1OTY3LDYxMzg0MjE5MSwtMTc1NDExNjcyMywxNzk1NzUw
+MjMwLDIwODA1NjE2MzRdfQ==
 -->
