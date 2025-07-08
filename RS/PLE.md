@@ -1,5 +1,5 @@
 # Progressive Layered Extraction (PLE): A Novel Multi-Task Learning (MTL) Model for Personalized Recommendations
-[原文链接](https://dl.acm.org/doi/10.1145/3219819.3220007)
+[原文链接](https://doi.org/10.1145/3383313.3412236)
 ## 0 摘要：
 多任务学习（MTL）已成功应用于众多推荐应用中。然而，由于现实世界推荐系统中任务间的复杂且相互竞争的关联性，MTL 模型往往会因**负迁移**而出现性能退化。此外，通过对最先进的 MTL 模型进行广泛的实验，我们观察到了一种有趣的**跷跷板**现象：一个任务的性能往往通过损害其他任务的性能而得到提升。为了解决这些问题，我们提出了一种具有新颖共享结构设计的渐进分层提取（PLE）模型。PLE 明确地将共享组件和任务特定组件分开，并采用渐进式路由机制逐步提取和分离更深层次的语义知识，从而在一般设置中提高联合表示学习的效率以及任务间的信息路由效率。我们将 PLE 应用于复杂相关性和正常相关性任务中，涵盖从两个任务案例到多任务案例等多个方面，所使用的数据集来自腾讯的现实世界视频推荐数据集，包含 10 亿个样本。结果表明，在不同的任务相关性和任务组规模下，PLE 都显著优于最先进的多任务学习模型。此外，在腾讯大规模内容推荐平台上的在线评估显示，与最先进的多任务学习模型相比，PLE 的浏览量提高了 2.23%，观看时间提高了 1.84%，这是一个显著的改进，证明了 PLE 的有效性。最后，在公共基准数据集上的大量离线实验表明，PLE 不仅适用于推荐场景，还可以应用于各种其他场景以消除跷跷板现象。PLE 现已成功部署到腾讯的在线视频推荐系统中。
 ## 1 论文解决的问题：
@@ -74,8 +74,8 @@ results = [torch.sigmoid(self.tower[i](task_fea[i]).squeeze(1)) for i in range(s
 ## 5 实验与分析：
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTQ0MzU2Njk4NCwtMTU3Njg4NjE1Myw0Nj
-AzMTMwNTYsMTU5OTc2NDkyNiwxMjA2Mjc2ODAzLC0xNTg2Nzc3
-NTExLDE5MTg4ODk3ODMsMjEzMjQ5NTk2Nyw2MTM4NDIxOTEsLT
-E3NTQxMTY3MjMsMTc5NTc1MDIzMCwyMDgwNTYxNjM0XX0=
+eyJoaXN0b3J5IjpbLTIwMzA1MzU3ODIsLTE1NzY4ODYxNTMsND
+YwMzEzMDU2LDE1OTk3NjQ5MjYsMTIwNjI3NjgwMywtMTU4Njc3
+NzUxMSwxOTE4ODg5NzgzLDIxMzI0OTU5NjcsNjEzODQyMTkxLC
+0xNzU0MTE2NzIzLDE3OTU3NTAyMzAsMjA4MDU2MTYzNF19
 -->
