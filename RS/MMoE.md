@@ -8,7 +8,8 @@
 * MMoE 明确地对任务关系进行建模，并学习任务特定的功能以利用共享表示。它允许参数自动分配，以捕捉共享的任务信息或任务特定的信息，从而避免了为每个任务添加大量新参数的需求。
 * 我们还发现 MMoE 更易于训练，并在多次运行中收敛到更好的损失值。这与最近的发现有关，即调制和门控机制可以提高训练非凸深度神经网络的可训练性
 ## 3 相关工作：
-* Caruana提出的多任务学习wang
+* Caruana提出的多任务学习网络
+* 
 ## 4 模型结构与实现代码：
 ![输入图片说明](/imgs/2025-07-06/50vPq9ZicRMCxKcP.png)
 ### 4.1 Embeddding
@@ -106,7 +107,7 @@ $$d × m + m + (m_2 + m) × (L_d − 1).$$第一层参数是d × m + m，后面L
 -   FM的泛化：因此，交叉网络将参数共享的概念从单层扩展到了多层以及高阶交叉项。需要注意的是，与高阶 FM 不同，交叉网络中的参数数量仅随输入维度线性增长。
 -   高效映射：每个交叉层以一种有效的方式将x0和xl之间的所有成对相互作用投影回输入维度。
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTExNDY3Mzk5NTYsNzk1NTcyNTQsMTIzNz
+eyJoaXN0b3J5IjpbLTEyMzAxNjUyODQsNzk1NTcyNTQsMTIzNz
 ExNzcwLC04NTE5OTk3MTQsLTE3ODM2OTM5MjIsNjYxNjc5MjJd
 fQ==
 -->
