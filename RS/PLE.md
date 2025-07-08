@@ -35,10 +35,14 @@ for i in range(self.layers_num):
   
 results = [torch.sigmoid(self.tower[i](task_fea[i]).squeeze(1)) for i in range(self.task_num)]
 ```
-### 4.2 Gate网络
-#### 代码实现
+### 4.2 专家网络
+#### 共享专家代码实现
 ```Python
 share_output=[expert(task_fea[-1]).unsqueeze(1) for expert in self.share_experts[i]] # 输入为（batch_size, input_dim），share_experts为layers_num层，每一层有shared_expert_num个全连接层——MultiLayerPerceptron(input_dim, [bottom_mlp_dims[i]], dropout, output_layer=False)，最后输出为（batch_size, 1, bottom_mlp_dims[i]）
+```
+#### 特殊专家代码实现
+```Python
+task_output=[expert(task_fea[j]).unsqueeze(1) for expert in self.task_experts[i][j]] # 输入为（batch_size, input_dim），share_experts为layers_num层，每一层有shared_expert_num个全连接层——MultiLayerPerceptron(input_dim, [bottom_mlp_dims[i]], dropout, output_layer=False)，最后输出为（batch_size, 1, bottom_mlp_dims[i]）
 ```
 ### 4.3 Gate加权输出
 #### 代码实现
@@ -49,7 +53,7 @@ share_output=[expert(task_fea[-1]).unsqueeze(1) for expert in self.share_experts
 ## 5 实验与分析：
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbNzQzNTEzNDQ4LC0xNTg2Nzc3NTExLDE5MT
-g4ODk3ODMsMjEzMjQ5NTk2Nyw2MTM4NDIxOTEsLTE3NTQxMTY3
-MjMsMTc5NTc1MDIzMCwyMDgwNTYxNjM0XX0=
+eyJoaXN0b3J5IjpbLTE4NDcwODU1NTEsLTE1ODY3Nzc1MTEsMT
+kxODg4OTc4MywyMTMyNDk1OTY3LDYxMzg0MjE5MSwtMTc1NDEx
+NjcyMywxNzk1NzUwMjMwLDIwODA1NjE2MzRdfQ==
 -->
