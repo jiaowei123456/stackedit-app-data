@@ -46,7 +46,7 @@ task_output=[expert(task_fea[j]).unsqueeze(1) for expert in self.task_experts[i]
 ```
 #### 门控代码实现
 ```Python
-gate_value = self.task_gates[i][j](task_fea[j]).unsqueeze(1)
+gate_value = self.task_gates[i][j](task_fea[j]).unsqueeze(1) # 每一个任务都有一个对应的门控结果，因此门控网络数量和特殊zhuan jia s
 ```
 ### 4.3 Gate加权输出
 #### 代码实现
@@ -57,7 +57,7 @@ gate_value = self.task_gates[i][j](task_fea[j]).unsqueeze(1)
 ## 5 实验与分析：
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbOTE4Mjg0MzE0LC0xNTg2Nzc3NTExLDE5MT
-g4ODk3ODMsMjEzMjQ5NTk2Nyw2MTM4NDIxOTEsLTE3NTQxMTY3
-MjMsMTc5NTc1MDIzMCwyMDgwNTYxNjM0XX0=
+eyJoaXN0b3J5IjpbLTE3NDYyODY2NiwtMTU4Njc3NzUxMSwxOT
+E4ODg5NzgzLDIxMzI0OTU5NjcsNjEzODQyMTkxLC0xNzU0MTE2
+NzIzLDE3OTU3NTAyMzAsMjA4MDU2MTYzNF19
 -->
