@@ -48,6 +48,11 @@ task_output=[expert(task_fea[j]).unsqueeze(1) for expert in self.task_experts[i]
 ```Python
 gate_value = self.task_gates[i][j](task_fea[j]).unsqueeze(1) # 每一个任务都有一个对应的门控结果，因此门控网络数量为layers_num*task_num，每一个网络为：torch.nn.Sequential(torch.nn.Linear(input_dim, shared_expert_num + specific_expert_num), torch.nn.Softmax(dim=1))，因此输出为（batch_size, 1, shared_expert_num + specific_expert_num）
 ```
+#### 特殊专家门控代码实现
+```Python
+mix_ouput = torch.cat(task_output + share_output,dim=1)   
+task_fea[j] = torch.bmm(gate_value, mix_ouput).squeeze(1) # 加权输出
+```
 ### 4.3 Gate加权输出
 #### 代码实现
 ```Python
@@ -57,8 +62,8 @@ gate_value = self.task_gates[i][j](task_fea[j]).unsqueeze(1) # 每一个任务�
 ## 5 实验与分析：
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMzc0MDAxMjk4LDEyMDYyNzY4MDMsLTE1OD
-Y3Nzc1MTEsMTkxODg4OTc4MywyMTMyNDk1OTY3LDYxMzg0MjE5
-MSwtMTc1NDExNjcyMywxNzk1NzUwMjMwLDIwODA1NjE2MzRdfQ
-==
+eyJoaXN0b3J5IjpbMjA2NDA2ODI3MiwxMjA2Mjc2ODAzLC0xNT
+g2Nzc3NTExLDE5MTg4ODk3ODMsMjEzMjQ5NTk2Nyw2MTM4NDIx
+OTEsLTE3NTQxMTY3MjMsMTc5NTc1MDIzMCwyMDgwNTYxNjM0XX
+0=
 -->
