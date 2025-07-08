@@ -42,7 +42,7 @@ share_output=[expert(task_fea[-1]).unsqueeze(1) for expert in self.share_experts
 ```
 #### 特殊专家代码实现
 ```Python
-task_output=[expert(task_fea[j]).unsqueeze(1) for expert in self.task_experts[i][j]] # 输入为（batch_size, input_dim），share_experts为layers_num层，每一层有shared_expert_num个全连接层——MultiLayerPerceptron(input_dim, [bottom_mlp_dims[i]], dropout, output_layer=False)，最后输出为（batch_size, 1, bottom_mlp_dims[i]）
+task_output=[expert(task_fea[j]).unsqueeze(1) for expert in self.task_experts[i][j]] # 输入为（batch_size, input_dim），task_experts为layers_num层，每一层有specific_expert_num个全连接层——MultiLayerPerceptron(input_dim, [bottom_mlp_dims[i]], dropout, output_layer=False)，最后输出为（batch_size, 1, bottom_mlp_dims[i]）
 ```
 ### 4.3 Gate加权输出
 #### 代码实现
@@ -53,7 +53,7 @@ task_output=[expert(task_fea[j]).unsqueeze(1) for expert in self.task_experts[i]
 ## 5 实验与分析：
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTE4NDcwODU1NTEsLTE1ODY3Nzc1MTEsMT
-kxODg4OTc4MywyMTMyNDk1OTY3LDYxMzg0MjE5MSwtMTc1NDEx
-NjcyMywxNzk1NzUwMjMwLDIwODA1NjE2MzRdfQ==
+eyJoaXN0b3J5IjpbMTYyNjkyOTUxMCwtMTU4Njc3NzUxMSwxOT
+E4ODg5NzgzLDIxMzI0OTU5NjcsNjEzODQyMTkxLC0xNzU0MTE2
+NzIzLDE3OTU3NTAyMzAsMjA4MDU2MTYzNF19
 -->
