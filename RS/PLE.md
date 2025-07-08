@@ -15,58 +15,26 @@
 * 
 ![输入图片说明](/imgs/2025-07-08/4sKGptX6jkr7uNdd.png)
 ## 4 模型结构与实现代码：
-![输入图片说明](/imgs/2025-07-08/2mfzuxK6OdtwCFwc.png)
+![输入图片说明](/imgs/2025-07-08/9pixHClT4knQb3RC.png)
 ### 4.1 MoE网络
 #### 代码实现
 ```Python
-self.expert_kernels = self.add_weight(  
-    name='expert_kernel',  
-    shape=(input_dimension, self.units, self.num_experts),  
-    initializer=self.expert_kernel_initializer,  
-    regularizer=self.expert_kernel_regularizer,  
-    constraint=self.expert_kernel_constraint,  
-)
 
-# f_{i}(x) = activation(W_{i} * x + b), where activation is ReLU according to the paper   
-expert_outputs = tf.tensordot(a=inputs, b=self.expert_kernels, axes=1) # 输入(batch_size, input_dimension)的最后一维和权重(input_dimension,units, num_experts)的第一维点积(batch_size, units, num_experts)  
-# Add the bias term to the expert weights if necessary  
-if self.use_expert_bias:  
-    expert_outputs = K.bias_add(x=expert_outputs, bias=self.expert_bias)  
-expert_outputs = self.expert_activation(expert_outputs)
 ```
 ### 4.2 Gate网络
 #### 代码实现
 ```Python
-self.gate_kernels = [self.add_weight(  
-    name='gate_kernel_task_{}'.format(i),  
-    shape=(input_dimension, self.num_experts),  
-    initializer=self.gate_kernel_initializer,  
-    regularizer=self.gate_kernel_regularizer,  
-    constraint=self.gate_kernel_constraint  
-) for i in range(self.num_tasks)] #产生num_tasks个门控权重，每个权重大小为（input_dimension, self.num_experts）
 
-# g^{k}(x) = activation(W_{gk} * x + b), where activation is softmax according to the paper    
-for index, gate_kernel in enumerate(self.gate_kernels):  # 循环num_tasks次
-    gate_output = K.dot(x=inputs, y=gate_kernel)  # 每个门控网络生成num_experts个注意力。
-    # Add the bias term to the gate weights if necessary  
-    if self.use_gate_bias:  
-        gate_output = K.bias_add(x=gate_output, bias=self.gate_bias[index])  
-    gate_output = self.gate_activation(gate_output) # 激活函数为softmax 
-    gate_outputs.append(gate_output) # gate_outputs列表长度为num_tasks，每一元素为（batch_size, num_experts）
 ```
 ### 4.3 Gate加权输出
 #### 代码实现
 ```Python
-# f^{k}(x) = sum_{i=1}^{n}(g^{k}(x)_{i} * f_{i}(x))   
-for gate_output in gate_outputs:  
-    expanded_gate_output = K.expand_dims(gate_output, axis=1)   #（batch_size, 1, num_experts）
-    weighted_expert_output = expert_outputs * K.repeat_elements(expanded_gate_output, self.units, axis=1)  #  (batch_size, units, num_experts) * (batch_size, units, num_experts) 对应位置元素相乘
-    final_outputs.append(K.sum(weighted_expert_output, axis=2))
+
 ```
 
 ## 5 实验与分析：
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbNjEzODQyMTkxLC0xNzU0MTE2NzIzLDE3OT
-U3NTAyMzAsMjA4MDU2MTYzNF19
+eyJoaXN0b3J5IjpbNDIxNjk0NjQ4LDYxMzg0MjE5MSwtMTc1ND
+ExNjcyMywxNzk1NzUwMjMwLDIwODA1NjE2MzRdfQ==
 -->
