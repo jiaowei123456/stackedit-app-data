@@ -12,10 +12,25 @@
 ![输入图片说明](/imgs/2025-07-09/UtZLPMiTfAmVX2li.png)
 ### 4.1 共享专家代码实现
 ```Python
-task_output=[expert(task_fea[j]).unsqueeze(1) for expert in self.task_experts[i][j]] # 输入为（batch_size, input_dim），task_experts为layers_num层，每一层有specific_expert_num个全连接层——MultiLayerPerceptron(input_dim, [bottom_mlp_dims[i]], dropout, output_layer=False)，最后输出为（batch_size, 1, bottom_mlp_dims[i]），有specific_expert_num个。注：特殊专家网络mlp数量为layers_num*task_num*specific_expert_num
+class GateNU:  
+    def __init__(self,  
+                 hidden_units,  
+                 gamma=2.,  
+                 l2_reg=0.):  
+        assert len(hidden_units) == 2  
+        self.hidden_units = hidden_units  
+        self.gamma = gamma  
+        self.l2_reg = l2_reg  
+  
+    def __call__(self, inputs):  
+        output = tf.layers.dense(inputs, self.hidden_units[0], activation="relu",  
+                                 kernel_regularizer=tf.contrib.layers.l2_regularizer(self.l2_reg))  
+        output = tf.layers.dense(output, self.hidden_units[1], activation="sigmoid",  
+                                 kernel_regularizer=tf.contrib.layers.l2_regularizer(self.l2_reg))  
+        return self.gamma * output
 ```
 ## 5 实验与分析：
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbNTU1Mjg2OTI0LDc3NzgxMjIyM119
+eyJoaXN0b3J5IjpbMzUwNTU3MjUxLDc3NzgxMjIyM119
 -->
