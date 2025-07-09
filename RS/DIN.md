@@ -13,24 +13,56 @@
 ## 4 模型结构与实现代码：
 ![输入图片说明](/imgs/2025-07-09/CG0JH6ExEsL5wPKH.png)
 
-### 整体代码
+### 用户emb权重注意力机制代码
 ```Python
-task_fea = [emb for i in range(self.task_num + 1)] # task1 input ,task2 input,..taskn input, share_expert input  
-for i in range(self.layers_num):  
-    share_output=[expert(task_fea[-1]).unsqueeze(1) for expert in self.share_experts[i]]  
-    task_output_list=[]  
-    for j in range(self.task_num):  
-        task_output=[expert(task_fea[j]).unsqueeze(1) for expert in self.task_experts[i][j]]  
-        task_output_list.extend(task_output)  
-        mix_ouput=torch.cat(task_output+share_output,dim=1)  
-        gate_value = self.task_gates[i][j](task_fea[j]).unsqueeze(1)  
-        task_fea[j] = torch.bmm(gate_value, mix_ouput).squeeze(1)  
-    if i != self.layers_num-1:#最后一层不需要计算share expert 的输出  
-        gate_value = self.share_gates[i](task_fea[-1]).unsqueeze(1)  
-        mix_ouput = torch.cat(task_output_list + share_output, dim=1)  
-        task_fea[-1] = torch.bmm(gate_value, mix_ouput).squeeze(1)  
+def attention(queries, keys, keys_length):  
+    '''  
+        queries:     [B, H]    [batch_size,embedding_size]        keys:        [B, T, H]   [batch_size,T,embedding_size]        keys_length: [B]        [batch_size]        #T为历史行为序列长度  
+    '''  
+    # (?,32)->(None,32)->32  
+    # tile()函数是用来对张量(Tensor)进行扩展的，其特点是对当前张量内的数据进行一定规则的复制。最终的输出张量维度不变  
+    # tf.shape(keys)[1]==T  
+    # 对queries的维度进行reshape  
+    # (?,T,32)这里是为了让queries和keys的维度相同而做的操作  
+    # (?,T,128)把u和v以及u v的element wise差值向量合并起来作为输入，  
+    # 然后喂给全连接层，最后得出两个item embedding，比如u和v的权重，即g(Vi,Va)  
   
-results = [torch.sigmoid(self.tower[i](task_fea[i]).squeeze(1)) for i in range(self.task_num)]
+    queries_hidden_units = queries.get_shape().as_list()[-1]  
+    queries = tf.tile(queries, [1, tf.shape(keys)[1]])  
+    queries = tf.reshape(queries, [-1, tf.shape(keys)[1], queries_hidden_units])  
+    din_all = tf.concat([queries, keys, queries - keys, queries * keys], axis=-1)  # B*T*4H  
+  
+    # 三层全链接(d_layer_3_all为训练出来的atteneion权重）  
+    d_layer_1_all = tf.layers.dense(din_all, 80, activation=tf.nn.sigmoid, name='f1_att')  
+    d_layer_2_all = tf.layers.dense(d_layer_1_all, 40, activation=tf.nn.sigmoid, name='f2_att')  
+    d_layer_3_all = tf.layers.dense(d_layer_2_all, 1, activation=None, name='f3_att')  # B*T*1  
+  
+    # 为了让outputs维度和keys的维度一致  
+    outputs = tf.reshape(d_layer_3_all, [-1, 1, tf.shape(keys)[1]])  # B*1*T  
+  
+    #  bool类型 tf.shape(keys)[1]为历史行为序列的最大长度，keys_length为人为设定的参数，  
+    #  如tf.sequence_mask(5，3)  即为array[True,True,True,False,False]  
+    #  函数的作用是为了后面补齐行为序列，获取等长的行为序列做铺垫  
+    key_masks = tf.sequence_mask(keys_length, tf.shape(keys)[1])  
+  
+    # 在第二维增加一维，也就是由B*T变成B*1*T  
+    key_masks = tf.expand_dims(key_masks, 1)  # B*1*T  
+  
+    # tf.ones_like新建一个与output类型大小一致的tensor，设置填充值为一个很小的值，而不是0,padding的mask后补一个很小的负数，这样softmax之后就会接近0  
+    paddings = tf.ones_like(outputs) * (-2 ** 32 + 1)  
+  
+    # 填充，获取等长的行为序列  
+    # tf.where(condition， x, y),condition是bool型值，True/False，返回值是对应元素，condition中元素为True的元素替换为x中的元素，为False的元素替换为y中对应元素  
+    # 由于是替换，返回值的维度，和condition，x ， y都是相等的。  
+    outputs = tf.where(key_masks, outputs, paddings)  # B * 1 * T  
+  
+    # Scale（缩放）  
+    outputs = outputs / (keys.get_shape().as_list()[-1] ** 0.5)  
+    # Activation  
+    outputs = tf.nn.softmax(outputs)  # B * 1 * T  
+    # Weighted Sum outputs=g(Vi,Va)   keys=Vi    # 这步为公式中的g(Vi*Va)*Vi  
+    outputs = tf.matmul(outputs, keys)  # B * 1 * H 三维矩阵相乘，相乘发生在后两维，即 B * (( 1 * T ) * ( T * H ))  
+    return outputs
 ```
 ### 4.1 专家网络
 可以理解为每一层都有很多专家，专家可以分为专用专家(num_task)和通用专家(1)，每一个专家有自己的子全连接-专家个数。
@@ -66,6 +98,6 @@ results = [torch.sigmoid(self.tower[i](task_fea[i]).squeeze(1)) for i in range(s
 ## 5 实验与分析：
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbNDA1MDE4ODkwLDEzOTcxNzQ2NTEsNDIzNj
-kzNzg3LDU0NTcyODU4MSwxNTQ4NTUzMTE2XX0=
+eyJoaXN0b3J5IjpbMTA2MzU3MDM0OCwxMzk3MTc0NjUxLDQyMz
+Y5Mzc4Nyw1NDU3Mjg1ODEsMTU0ODU1MzExNl19
 -->
