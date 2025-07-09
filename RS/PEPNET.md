@@ -38,12 +38,16 @@ class EPNet:
   
         self.gate_nu = GateNU(hidden_units=hidden_units, l2_reg=l2_reg)  
   
+  
     def __call__(self, domain, emb):  
+        # domain: 当前任务/场景的领域特征（persona），形状为 [B, D]        # emb: 输入嵌入向量，通常是共享特征或上下文特征，形状为 [B, E]        # 使用 tf.stop_gradient 冻结 emb 的梯度，防止 gate 影响其更新  
+        # 输出 gate 权重张量，形状为 [B, E]（和 emb 同维度） 这里形状由hidden_units确定  
+        # 使用 gate 权重对原始嵌入进行 element-wise 相乘  
         return self.gate_nu(tf.concat([domain, tf.stop_gradient(emb)], axis=-1)) * emb
 ```
 ## 5 实验与分析：
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTE5MjMzMTcxOTQsMTMwODQ2MTQ5MywzNT
-A1NTcyNTEsNzc3ODEyMjIzXX0=
+eyJoaXN0b3J5IjpbNjY0ODIyNTI5LDEzMDg0NjE0OTMsMzUwNT
+U3MjUxLDc3NzgxMjIyM119
 -->
