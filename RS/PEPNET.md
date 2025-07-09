@@ -10,9 +10,12 @@
 
 ## 4 模型结构与实现代码：
 ![输入图片说明](/imgs/2025-07-09/UtZLPMiTfAmVX2li.png)
-
+### 4.1 共享专家代码实现
+```Python
+task_output=[expert(task_fea[j]).unsqueeze(1) for expert in self.task_experts[i][j]] # 输入为（batch_size, input_dim），task_experts为layers_num层，每一层有specific_expert_num个全连接层——MultiLayerPerceptron(input_dim, [bottom_mlp_dims[i]], dropout, output_layer=False)，最后输出为（batch_size, 1, bottom_mlp_dims[i]），有specific_expert_num个。注：特殊专家网络mlp数量为layers_num*task_num*specific_expert_num
+```
 ## 5 实验与分析：
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbNzc3ODEyMjIzXX0=
+eyJoaXN0b3J5IjpbNTU1Mjg2OTI0LDc3NzgxMjIyM119
 -->
