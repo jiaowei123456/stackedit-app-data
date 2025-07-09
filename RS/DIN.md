@@ -11,10 +11,7 @@
 * 通过引入局部激活单元，DIN 通过软搜索历史行为的相关部分来关注相关的用户兴趣，并采用加权求和池化来获得与候选广告相关的用户兴趣的表示。与候选广告相关性更高的行为会获得更高的激活权重，并主导用户兴趣的表示。
 * 我们设计了一种数据自适应激活函数，它扩展了常用的 PReLU[12]，通过根据输入的分布自适应地调整修正点，且已被证明有助于训练具有稀疏特征的工业网络。
 ## 3 相关工作：
-* 直接的多塔线性组合，学习线性组合的权重；融合来自不同任务的表示。a，f
-* MOE 通过门控网络将专家进行组合；MMOE 针对每个任务使用不同的门控机制；MRAN采用多头自注意力机制来在不同的特征集上学习不同的表示子空间。h
-* 
-![输入图片说明](/imgs/2025-07-08/4sKGptX6jkr7uNdd.png)
+
 ## 4 模型结构与实现代码：
 ![输入图片说明](/imgs/2025-07-08/gDJqongZ5GfUFQnO.png)
 ### 整体代码
@@ -70,5 +67,6 @@ results = [torch.sigmoid(self.tower[i](task_fea[i]).squeeze(1)) for i in range(s
 ## 5 实验与分析：
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbNTQ1NzI4NTgxLDE1NDg1NTMxMTZdfQ==
+eyJoaXN0b3J5IjpbNDIzNjkzNzg3LDU0NTcyODU4MSwxNTQ4NT
+UzMTE2XX0=
 -->
