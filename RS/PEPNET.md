@@ -10,7 +10,7 @@
 
 ## 4 模型结构与实现代码：
 ![输入图片说明](/imgs/2025-07-09/UtZLPMiTfAmVX2li.png)
-### 4.1 共享专家代码实现
+### 4.1 门控权重生成器实现
 ```Python
 class GateNU:  
     def __init__(self,  
@@ -29,9 +29,21 @@ class GateNU:
                                  kernel_regularizer=tf.contrib.layers.l2_regularizer(self.l2_reg))  
         return self.gamma * output # 放大输出值，增强 gate 的影响力度（类似 attention 中的温度系数）
 ```
+### 4.1 共享专家代码实现
+```Python
+class EPNet:  
+    def __init__(self,  
+                 hidden_units,  
+                 l2_reg=0.):  
+  
+        self.gate_nu = GateNU(hidden_units=hidden_units, l2_reg=l2_reg)  
+  
+    def __call__(self, domain, emb):  
+        return self.gate_nu(tf.concat([domain, tf.stop_gradient(emb)], axis=-1)) * emb
+```
 ## 5 实验与分析：
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTQwNTg4OTcxMywzNTA1NTcyNTEsNzc3OD
+eyJoaXN0b3J5IjpbMTMwODQ2MTQ5MywzNTA1NTcyNTEsNzc3OD
 EyMjIzXX0=
 -->
