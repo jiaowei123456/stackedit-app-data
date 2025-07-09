@@ -29,7 +29,7 @@ class GateNU:
                                  kernel_regularizer=tf.contrib.layers.l2_regularizer(self.l2_reg))  
         return self.gamma * output # 放大输出值，增强 gate 的影响力度（类似 attention 中的温度系数）
 ```
-### 4.1 共享专家代码实现
+### 4.2 共享专家代码实现
 ```Python
 class EPNet:  
     def __init__(self,  
@@ -44,6 +44,6 @@ class EPNet:
 ## 5 实验与分析：
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTMwODQ2MTQ5MywzNTA1NTcyNTEsNzc3OD
-EyMjIzXX0=
+eyJoaXN0b3J5IjpbLTE5MjMzMTcxOTQsMTMwODQ2MTQ5MywzNT
+A1NTcyNTEsNzc3ODEyMjIzXX0=
 -->
