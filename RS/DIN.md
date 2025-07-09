@@ -7,13 +7,12 @@
 * 为了使表示能够充分地表达用户的各种兴趣，固定长度向量的维度需要大幅扩展。不幸的是，这会极大地增加学习参数的规模，并在有限的数据下加剧过拟合的风险。此外，这还会增加计算和存储方面的负担，这对于一个工业化的在线系统来说是难以承受的。
 * 在预测候选广告时，没有必要将某一用户的所有不同兴趣都压缩成同一个向量，因为只有用户的一部分兴趣会影响其行为
 ## 2 论文创新点：
-* 通过考虑给定候选广告的历史行为的相关性，自适应地计算用户兴趣的表示向量。
+* 通过考虑给定候选广告的历史行为的相关性，自适应地计算用户兴趣的表示向量。DIN在生成用户embedding vector的时候加入了一个activation unit层，这一层产生了每个用户行为的权重。
 * 通过引入局部激活单元，DIN 通过软搜索历史行为的相关部分来关注相关的用户兴趣，并采用加权求和池化来获得与候选广告相关的用户兴趣的表示。与候选广告相关性更高的行为会获得更高的激活权重，并主导用户兴趣的表示。
 * 我们设计了一种数据自适应激活函数，它扩展了常用的 PReLU[12]，通过根据输入的分布自适应地调整修正点，且已被证明有助于训练具有稀疏特征的工业网络。
-## 3 相关工作：
-![输入图片说明](/imgs/2025-07-09/CG0JH6ExEsL5wPKH.png)
 ## 4 模型结构与实现代码：
-![输入图片说明](/imgs/2025-07-08/gDJqongZ5GfUFQnO.png)
+![输入图片说明](/imgs/2025-07-09/CG0JH6ExEsL5wPKH.png)
+
 ### 整体代码
 ```Python
 task_fea = [emb for i in range(self.task_num + 1)] # task1 input ,task2 input,..taskn input, share_expert input  
@@ -67,6 +66,6 @@ results = [torch.sigmoid(self.tower[i](task_fea[i]).squeeze(1)) for i in range(s
 ## 5 实验与分析：
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTM5NzE3NDY1MSw0MjM2OTM3ODcsNTQ1Nz
-I4NTgxLDE1NDg1NTMxMTZdfQ==
+eyJoaXN0b3J5IjpbNDA1MDE4ODkwLDEzOTcxNzQ2NTEsNDIzNj
+kzNzg3LDU0NTcyODU4MSwxNTQ4NTUzMTE2XX0=
 -->
