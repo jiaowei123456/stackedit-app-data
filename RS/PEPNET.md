@@ -9,10 +9,10 @@
 ## 3 相关工作：
 
 ## 4 模型结构与实现代码：
-
+![输入图片说明](/imgs/2025-07-09/UtZLPMiTfAmVX2li.png)
 
 ## 5 实验与分析：
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbODI2MDQxMTU5XX0=
+eyJoaXN0b3J5IjpbNzc3ODEyMjIzXX0=
 -->
