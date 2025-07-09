@@ -20,17 +20,18 @@ class GateNU:
         assert len(hidden_units) == 2  
         self.hidden_units = hidden_units  
         self.gamma = gamma  
-        self.l2_reg = l2_reg  
+        self.l2_reg = l2_reg # 防止过拟合，提升泛化能力  
   
     def __call__(self, inputs):  
         output = tf.layers.dense(inputs, self.hidden_units[0], activation="relu",  
+                                 kernel_regularizer=tf.contrib.layers.l2_regularizer(self.l2_reg)) # 引入非线性能力，增强表达力  
+        output = tf.layers.dense(output, self.hidden_units[1], activation="sigmoid", # 输出范围 [0, 1]，可解释为重要性权重或注意力分数  
                                  kernel_regularizer=tf.contrib.layers.l2_regularizer(self.l2_reg))  
-        output = tf.layers.dense(output, self.hidden_units[1], activation="sigmoid",  
-                                 kernel_regularizer=tf.contrib.layers.l2_regularizer(self.l2_reg))  
-        return self.gamma * output
+        return self.gamma * output # 放大输出值，增强 gate 的影响力度（类似 attention 中的温度系数）
 ```
 ## 5 实验与分析：
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMzUwNTU3MjUxLDc3NzgxMjIyM119
+eyJoaXN0b3J5IjpbLTQwNTg4OTcxMywzNTA1NTcyNTEsNzc3OD
+EyMjIzXX0=
 -->
