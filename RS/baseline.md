@@ -2,8 +2,8 @@
 ## 基线网络分析
 ### 1. 输入及参数设置
 ```Python
-class Configure(object):  
-    # todo 20250710 更换new_slot  
+class Configure(object):
+    # todo 20250710 更换new_slot
     # 输入特征 
     USER_DENSE_SLOTS = []  
     ITEM_DENSE_SLOTS += [] 
@@ -37,6 +37,6 @@ C = Configure()
 
 ### 2. 输入及参数设置
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTI4MzQzMTkzNCw0OTc4MTg4MTAsNDQwOT
-A1NjE5XX0=
+eyJoaXN0b3J5IjpbMTQwMjM5OTkzOCwtMjgzNDMxOTM0LDQ5Nz
+gxODgxMCw0NDA5MDU2MTldfQ==
 -->
