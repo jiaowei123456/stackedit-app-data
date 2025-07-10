@@ -5,26 +5,13 @@ class Configure(object):
     # todo 20250710 更换new_slot  
     # scripts generate  
     USER_DENSE_SLOTS = []  
-  
-    # steamer stat 14d (lg)  
     ITEM_DENSE_SLOTS += [] 
-
     DENSE_SLOTS = USER_DENSE_SLOTS + ITEM_DENSE_SLOTS  
-  
-    USER_SPARSE_SLOTS = []  # context feature cross-feature  
-  
-    ITEM_SPARSE_SLOTS = ['3001', '3002'] + ['3502', '3503', '3505', '3506'] + ['3520', '3521', '3522'] # cvr使用，可加特征  
-  
-    ITEM_SPARSE_SLOTS += ['4001', '4021', '4023', '4024', '4052', '4053', '4054', '4055', '4057',  
-                          '4058', '4059', '4060'] # cvr使用  
-    ITEM_SPARSE_SLOTS += ['4401', '4402', '4403'] # cvr使用，可加特征  
-    ITEM_SPARSE_SLOTS += ['2770', '2771', '2772', '2773', '2774', '2777', '2778',  
-                          '2787', '2788', '2789', '2790', '2791']  # weiwei cross-feature cvr使用  
-  
-  
+    USER_SPARSE_SLOTS = []  
+    ITEM_SPARSE_SLOTS = []
     SPARSE_SLOTS = USER_SPARSE_SLOTS + ITEM_SPARSE_SLOTS  
-  
-    SEQ_70_SLOTS = ['2970', '2971', '2972']  
+    # 网络超参数设置
+    SEQ_70_SLOTS = []  
     SEQ_70_LENGTH = 70  
     EMB_DIM = 12  
     DIFF_END_VALUE = 8  
@@ -51,6 +38,6 @@ class Configure(object):
 C = Configure()
 ```
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTc2NzkwMzA3Miw0OTc4MTg4MTAsNDQwOT
+eyJoaXN0b3J5IjpbMjA4NzA3MjA5MCw0OTc4MTg4MTAsNDQwOT
 A1NjE5XX0=
 -->
