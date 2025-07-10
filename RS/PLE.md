@@ -15,63 +15,14 @@
 * 
 ![输入图片说明](/imgs/2025-07-08/4sKGptX6jkr7uNdd.png)
 ## 4 模型结构与实现代码：
-![输入图片说明](/imgs/2025-07-08/gDJqongZ5GfUFQnO.png)
-### 整体代码
-```Python
-task_fea = [emb for i in range(self.task_num + 1)] # task1 input ,task2 input,..taskn input, share_expert input  
-for i in range(self.layers_num):  
-    share_output=[expert(task_fea[-1]).unsqueeze(1) for expert in self.share_experts[i]]  
-    task_output_list=[]  
-    for j in range(self.task_num):  
-        task_output=[expert(task_fea[j]).unsqueeze(1) for expert in self.task_experts[i][j]]  
-        task_output_list.extend(task_output)  
-        mix_ouput=torch.cat(task_output+share_output,dim=1)  
-        gate_value = self.task_gates[i][j](task_fea[j]).unsqueeze(1)  
-        task_fea[j] = torch.bmm(gate_value, mix_ouput).squeeze(1)  
-    if i != self.layers_num-1:#最后一层不需要计算share expert 的输出  
-        gate_value = self.share_gates[i](task_fea[-1]).unsqueeze(1)  
-        mix_ouput = torch.cat(task_output_list + share_output, dim=1)  
-        task_fea[-1] = torch.bmm(gate_value, mix_ouput).squeeze(1)  
-  
-results = [torch.sigmoid(self.tower[i](task_fea[i]).squeeze(1)) for i in range(self.task_num)]
-```
-### 4.1 专家网络
-可以理解为每一层都有很多专家，专家可以分为专用专家(num_task)和通用专家(1)，每一个专家有自己的子全连接-专家个数。
-#### 共享专家代码实现
-```Python
-share_output=[expert(task_fea[-1]).unsqueeze(1) for expert in self.share_experts[i]] # 输入为（batch_size, input_dim），share_experts为layers_num层，每一层有shared_expert_num个全连接层——MultiLayerPerceptron(input_dim, [bottom_mlp_dims[i]], dropout, output_layer=False)，最后输出为（batch_size, 1, bottom_mlp_dims[i]），有shared_expert_num个
-```
-#### 特殊专家代码实现
-```Python
-task_output=[expert(task_fea[j]).unsqueeze(1) for expert in self.task_experts[i][j]] # 输入为（batch_size, input_dim），task_experts为layers_num层，每一层有specific_expert_num个全连接层——MultiLayerPerceptron(input_dim, [bottom_mlp_dims[i]], dropout, output_layer=False)，最后输出为（batch_size, 1, bottom_mlp_dims[i]），有specific_expert_num个。注：特殊专家网络mlp数量为layers_num*task_num*specific_expert_num
-```
-#### 特殊专家门控代码实现
-```Python
-gate_value = self.task_gates[i][j](task_fea[j]).unsqueeze(1) # 每一个任务都有一个对应的门控结果，因此门控网络数量为layers_num*task_num，每一个网络为：torch.nn.Sequential(torch.nn.Linear(input_dim, shared_expert_num + specific_expert_num), torch.nn.Softmax(dim=1))，因此输出为（batch_size, 1, shared_expert_num + specific_expert_num）
-```
-#### 特殊专家加权输出
-```Python
-mix_ouput = torch.cat(task_output + share_output,dim=1)   #shared_expert_num个共享专家，specific_expert_num个特殊专家拼接
-task_fea[j] = torch.bmm(gate_value, mix_ouput).squeeze(1) # 加权输出，输出维度为（batch_size, 1, bottom_mlp_dims[i]）
-```
-### 4.2 中间层的混合专家加权输出（非最后一层）
-```Python
-if i != self.layers_num-1:#最后一层不需要计算share expert 的输出  
-    gate_value = self.share_gates[i](task_fea[-1]).unsqueeze(1)  #（batch_size, 1, shared_expert_num + specific_expert_num*task_num）
-    mix_ouput = torch.cat(task_output_list + share_output, dim=1)   #（batch_size, shared_expert_num + specific_expert_num*task_num，bottom_mlp_dims[i]）
-    task_fea[-1] = torch.bmm(gate_value, mix_ouput).squeeze(1)  #（batch_size,1，bottom_mlp_dims[i]）
-```
-### 4.3 最终每个任务加一个全连接层预测最终输出
-```Python
-results = [torch.sigmoid(self.tower[i](task_fea[i]).squeeze(1)) for i in range(self.task_num)] #使用sigmoid作为激活函数。输出（batchsize，num_task）
-```
+
 
 ## 5 实验与分析：
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTE5MDI1ODUxNzEsLTIwMzA1MzU3ODIsLT
-E1NzY4ODYxNTMsNDYwMzEzMDU2LDE1OTk3NjQ5MjYsMTIwNjI3
-NjgwMywtMTU4Njc3NzUxMSwxOTE4ODg5NzgzLDIxMzI0OTU5Nj
-csNjEzODQyMTkxLC0xNzU0MTE2NzIzLDE3OTU3NTAyMzAsMjA4
-MDU2MTYzNF19
+eyJoaXN0b3J5IjpbMjE1MzY3ODMyLC0xOTAyNTg1MTcxLC0yMD
+MwNTM1NzgyLC0xNTc2ODg2MTUzLDQ2MDMxMzA1NiwxNTk5NzY0
+OTI2LDEyMDYyNzY4MDMsLTE1ODY3Nzc1MTEsMTkxODg4OTc4My
+wyMTMyNDk1OTY3LDYxMzg0MjE5MSwtMTc1NDExNjcyMywxNzk1
+NzUwMjMwLDIwODA1NjE2MzRdfQ==
 -->
