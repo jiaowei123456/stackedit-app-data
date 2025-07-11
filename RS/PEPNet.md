@@ -31,7 +31,7 @@ class GateNU:
         return self.gamma * output # 放大输出值，增强 gate 的影响力度（类似 attention 中的温度系数）
 ```
 ### 4.2 嵌入个性化网络（EPNet）代码实现
-输出GNU加权后的特征，
+输出GNU加权后的特征，全连接层在GNU中，需要注意全连接层的输出维度为人为设置需要与emb的维度x an
 ```Python
 class EPNet:  
     def __init__(self,  
@@ -94,5 +94,6 @@ class PPNet:
 ## 5 实验与分析：
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTYwODcyODQ2MCwtMTIwMzUzMjY0NF19
+eyJoaXN0b3J5IjpbLTExMTExNzE3NjQsLTEyMDM1MzI2NDRdfQ
+==
 -->
