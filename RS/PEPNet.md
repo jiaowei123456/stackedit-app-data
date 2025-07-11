@@ -48,7 +48,7 @@ class EPNet:
         return self.gate_nu(tf.concat([domain, tf.stop_gradient(emb)], axis=-1)) * emb
 ```
 ### 4.3 参数个性化网络（Parameter Personalized Network, PPNet）代码实现
-本质是多个全连接层（hidden_units），每个全连接层（hidden_units[i]）的输出都收到
+本质是多个全连接层（hidden_units），每个全连接层（hidden_units[i]）的输出都收到PPNet的加权
 ```Python
 class PPNet:  
     def __init__(self,  
@@ -95,6 +95,6 @@ class PPNet:
 ## 5 实验与分析：
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbNzMxNDcxMzIyLC0yMDYzNTMzNzUxLC0xMD
+eyJoaXN0b3J5IjpbNzU5MjU5ODc2LC0yMDYzNTMzNzUxLC0xMD
 g4MzQzOTM0LC0xMjAzNTMyNjQ0XX0=
 -->
