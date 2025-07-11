@@ -104,25 +104,6 @@ class PEPNet:
                  attention_activation: Callable = tf.nn.sigmoid,  
                  mode: str = "concat"):  
         self.embedding_table = {}  
-        for field in fields:  
-            self.embedding_table[field.name] = tf.get_variable(f'{field.name}_embedding_table',  
-                                                               shape=[field.vocabulary_size, field.dim],  
-                                                               initializer=tf.truncated_normal_initializer(  
-                                                                   field.init_mean, field.init_std),  
-                                                               regularizer=tf.contrib.layers.l2_regularizer(  
-                                                                   field.l2_reg)  
-                                                               )  
-  
-        mode = mode.lower()  
-        if mode == 'concat':  
-            self.func = partial(tf.concat, axis=-1)  
-        elif mode == 'sum':  
-            self.func = lambda data: sum(data)  
-        elif mode == 'mean':  
-            self.func = lambda data: sum(data) / len(data)  
-        else:  
-            raise NotImplementedError(f"`mode` only supports 'mean' or 'concat' or 'sum', but got '{mode}'")  
-  
         self.num_tasks = num_tasks  
   
         self.epnet = partial(EPNet, l2_reg=dnn_l2_reg)  
@@ -160,20 +141,7 @@ class PEPNet:
         :param other_feature_ids: 其他特征，如用户特征及上下文特征  
         :param domain_ids: 每个场景的所有特征，key为场景名称，value如上user_ids和item_ids等  
         :return: 每个场景的所有task预估列表  
-        """        user_behaviors_embeddings = self.embedding(user_behaviors_ids)  
-        user_embeddings = self.embedding(user_ids)  
-        item_embeddings = self.embedding(item_ids)  
-  
-        domain_embeddings = {}  
-        for domain in domain_ids:  
-            domain_embeddings[domain] = self.embedding(domain_ids[domain])  
-  
-        # 其他特征embedding  
-        other_feature_embeddings = []  
-        for name in other_feature_ids:  
-            other_feature_embeddings.append(tf.nn.embedding_lookup(self.embedding_table[name], other_feature_ids[name]))  
-        other_feature_embeddings = tf.concat(other_feature_embeddings, axis=-1)  
-  
+        """         
         with tf.variable_scope(name_or_scope='attention_layer'): # 如 DIN 中的 attention 结构  
             att_outputs = self.attention_agg(user_behaviors_embeddings, item_embeddings, sequence_length) # [B, T, H]，[B, H]，[B]  
             if isinstance(att_outputs, (list, tuple)):  
@@ -202,7 +170,7 @@ class PEPNet:
 ## 5 实验与分析：
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTg4MTk5NTAwNSw2MjA2NDQ1MzksNjIwNj
-Q0NTM5LC0yMDYzNTMzNzUxLC0xMDg4MzQzOTM0LC0xMjAzNTMy
-NjQ0XX0=
+eyJoaXN0b3J5IjpbLTE5MTIxNzQwNTYsNjIwNjQ0NTM5LDYyMD
+Y0NDUzOSwtMjA2MzUzMzc1MSwtMTA4ODM0MzkzNCwtMTIwMzUz
+MjY0NF19
 -->
