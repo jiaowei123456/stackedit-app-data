@@ -48,7 +48,7 @@ class EPNet:
         return self.gate_nu(tf.concat([domain, tf.stop_gradient(emb)], axis=-1)) * emb
 ```
 ### 4.3 参数个性化网络（Parameter Personalized Network, PPNet）代码实现
-本质是多个场景都有多个全连接层（hidden_units），每个全连接层（hidden_units[i]）的输出都受到GNU的加权，每一场景的输出都加入outputs。其中GNU的输入为input拼接persona参数（每一场景的输入都想同，由反向传播进行区分优化）。
+本质是多个场景都有多个全连接层（hidden_units），每个全连接层（hidden_units[i]）的输出都受到GNU的加权，每一场景的输出都加入outputs。其中GNU的输入为input拼接persona参数（每一场景的输入都xi，由反向传播进行区分优化）。
 ```Python
 class PPNet:  
     def __init__(self,  
@@ -89,13 +89,120 @@ class PPNet:
         return output_list
 ```
 ### 4.4 参数化与嵌入个性化网络（PEPNet）代码实现
-```Python
 
+```Python
+class PEPNet:  
+    def __init__(self,  
+                 fields: List[Field],  
+                 num_tasks: int,  
+                 dnn_hidden_units: List[int] = [100, 64],  
+                 dnn_activation: Union[str, Callable] = "relu",  
+                 dnn_l2_reg: float = 0.,  
+                 attention_agg: Type[AttentionBase] = Attention,  
+                 gru_hidden_size: int = 1,  
+                 attention_hidden_units: List[int] = [80, 40],  
+                 attention_activation: Callable = tf.nn.sigmoid,  
+                 mode: str = "concat"):  
+        self.embedding_table = {}  
+        for field in fields:  
+            self.embedding_table[field.name] = tf.get_variable(f'{field.name}_embedding_table',  
+                                                               shape=[field.vocabulary_size, field.dim],  
+                                                               initializer=tf.truncated_normal_initializer(  
+                                                                   field.init_mean, field.init_std),  
+                                                               regularizer=tf.contrib.layers.l2_regularizer(  
+                                                                   field.l2_reg)  
+                                                               )  
+  
+        mode = mode.lower()  
+        if mode == 'concat':  
+            self.func = partial(tf.concat, axis=-1)  
+        elif mode == 'sum':  
+            self.func = lambda data: sum(data)  
+        elif mode == 'mean':  
+            self.func = lambda data: sum(data) / len(data)  
+        else:  
+            raise NotImplementedError(f"`mode` only supports 'mean' or 'concat' or 'sum', but got '{mode}'")  
+  
+        self.num_tasks = num_tasks  
+  
+        self.epnet = partial(EPNet, l2_reg=dnn_l2_reg)  
+        self.ppnet = PPNet(num_tasks, dnn_hidden_units, dnn_activation, dnn_l2_reg)  
+  
+        with tf.variable_scope(name_or_scope='attention_layer'):  
+            self.attention_agg = attention_agg(gru_hidden_size, attention_hidden_units, attention_activation)  
+  
+    def embedding(self, inputs_dict):  
+        result = []  
+        for name in inputs_dict:  
+            result.append(  
+                tf.nn.embedding_lookup(self.embedding_table[name], inputs_dict[name])  
+            )  
+        return self.func(result)  
+  
+    def predict_layer(self, inputs):  
+        output = tf.layers.dense(inputs, 1, activation=tf.nn.sigmoid,  
+                                 kernel_initializer=tf.glorot_normal_initializer())  
+        return tf.reshape(output, [-1])  
+  
+    def __call__(self,  
+                 user_behaviors_ids: Dict[str, tf.Tensor],  
+                 sequence_length: tf.Tensor,  
+                 user_ids: Dict[str, tf.Tensor],  
+                 item_ids: Dict[str, tf.Tensor],  
+                 other_feature_ids: Dict[str, tf.Tensor],  
+                 domain_ids: Dict[str, Dict[str, tf.Tensor]],  
+                 ) -> Dict[str, List[tf.Tensor]]:  
+        """  
+  
+        :param user_behaviors_ids: 用户行为序列ID [B, N], 支持多种属性组合，如goods_id+shop_id+cate_id  
+        :param sequence_length: 用户行为序列长度 [B]        :param user_ids: 用户个性化特征  
+        :param item_ids: 候选items个性化特征  
+        :param other_feature_ids: 其他特征，如用户特征及上下文特征  
+        :param domain_ids: 每个场景的所有特征，key为场景名称，value如上user_ids和item_ids等  
+        :return: 每个场景的所有task预估列表  
+        """        user_behaviors_embeddings = self.embedding(user_behaviors_ids)  
+        user_embeddings = self.embedding(user_ids)  
+        item_embeddings = self.embedding(item_ids)  
+  
+        domain_embeddings = {}  
+        for domain in domain_ids:  
+            domain_embeddings[domain] = self.embedding(domain_ids[domain])  
+  
+        # 其他特征embedding  
+        other_feature_embeddings = []  
+        for name in other_feature_ids:  
+            other_feature_embeddings.append(tf.nn.embedding_lookup(self.embedding_table[name], other_feature_ids[name]))  
+        other_feature_embeddings = tf.concat(other_feature_embeddings, axis=-1)  
+  
+        with tf.variable_scope(name_or_scope='attention_layer'): # 如 DIN 中的 attention 结构  
+            att_outputs = self.attention_agg(user_behaviors_embeddings, item_embeddings, sequence_length) # [B, T, H]，[B, H]，[B]  
+            if isinstance(att_outputs, (list, tuple)):  
+                att_outputs = att_outputs[-1]   # [B, H]  
+  
+        inputs = tf.concat([att_outputs, other_feature_embeddings], axis=-1)    # 拼接其他特征[B, H + D]  
+        inputs_dim = inputs.shape.as_list()[-1]  
+        epnet = self.epnet(hidden_units=[inputs_dim, inputs_dim])  
+  
+        output_dict = {}  
+        # compute each domain's prediction  
+        for domain in domain_embeddings:  
+            ep_emb = epnet(domain_embeddings[domain], inputs) # 获取领域感知加权后的emb [B, H + D]  
+  
+            pp_outputs = self.ppnet(ep_emb, tf.concat([user_embeddings, item_embeddings], axis=-1)) # PPNet：多路径个性化建模 output_list 是一个长度为 num_task 的列表，每个元素是一个 [B, hidden_units[-1]] 的张量  
+  
+            # compute each task's prediction in special domain  
+            task_outputs = []  
+            for i in range(self.num_tasks):  
+                task_outputs.append(self.predict_layer(pp_outputs[i]))  
+  
+            output_dict[domain] = task_outputs  
+  
+        return output_dict # [B, num_domain, num_task]
 ```
 ## 5 实验与分析：
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTM1MjkyNzY3MCw2MjA2NDQ1MzksNjIwNj
+eyJoaXN0b3J5IjpbMTg4ODI1OTYxNiw2MjA2NDQ1MzksNjIwNj
 Q0NTM5LC0yMDYzNTMzNzUxLC0xMDg4MzQzOTM0LC0xMjAzNTMy
 NjQ0XX0=
 -->
