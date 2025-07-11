@@ -47,7 +47,7 @@ class EPNet:
         # 使用 gate 权重对原始嵌入进行 element-wise 相乘  
         return self.gate_nu(tf.concat([domain, tf.stop_gradient(emb)], axis=-1)) * emb
 ```
-### 4.3 （PPNet）代码实现
+### 4.3 参数个性化网络（Parameter Personalized Network, PPNet）代码实现
 ```Python
 class PPNet:  
     def __init__(self,  
@@ -87,13 +87,13 @@ class PPNet:
   
         return output_list
 ```
-### 4.4 嵌入个性化网络（PEPNet）代码实现
+### 4.4 参数化与嵌入个性化网络（PEPNet）代码实现
 ```Python
 
 ```
 ## 5 实验与分析：
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTEwODgzNDM5MzQsLTEyMDM1MzI2NDRdfQ
-==
+eyJoaXN0b3J5IjpbLTIwNjM1MzM3NTEsLTEwODgzNDM5MzQsLT
+EyMDM1MzI2NDRdfQ==
 -->
