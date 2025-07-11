@@ -16,7 +16,7 @@
 ### 用户emb权重注意力机制代码
 传统的Attention机制中，给定两个item embedding，比如u和v，通常是直接做点积uv或者uWv，其中W是一个|u|x|v|的权重矩阵，但这篇paper中阿里显然做了更进一步的改进，着重看上图右上角的activation unit，**首先是把u和v以及u v的element wise差值向量合并起来作为输入，然后喂给全连接层，最后得出权重**，这样的方法显然损失的信息更少。
 
-代码输入queries, keys, keys_length，获得queries堆
+代码输入queries, keys, keys_length，获得由queries加权后的keys
 ```Python
 def attention(queries, keys, keys_length,  
               ffn_hidden_units=[80, 40], ffn_activation=dice,  
@@ -39,7 +39,7 @@ def attention(queries, keys, keys_length,
     din_all = tf.concat([queries, keys, queries - keys, queries * keys], axis=-1)  
     hidden_layer = dnn_layer(din_all, ffn_hidden_units, ffn_activation, use_bn=False, scope='attention')  
     outputs = tf.layers.dense(hidden_layer, 1, activation=None)  
-    outputs = tf.reshape(outputs, [-1, 1, tf.shape(keys)[1]])  
+    outputs = tf.reshape(outputs, [-1, 1, tf.shape(keys)[1]])  # [B, 1, T] 
     # Mask  
     key_masks = tf.sequence_mask(keys_length, tf.shape(keys)[1])  # [B, T]  
     key_masks = tf.expand_dims(key_masks, 1)  # [B, 1, T]  
@@ -66,7 +66,7 @@ def attention(queries, keys, keys_length,
 ## 5 实验与分析：
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTE4NzYxNDc4NjIsLTc4OTA2NDk3NSwtMT
+eyJoaXN0b3J5IjpbLTEwOTYwNzAyODYsLTc4OTA2NDk3NSwtMT
 Q5MTk4NTYxMiwtMTM1NTQ4NTA2OSwxMzk3MTc0NjUxLDQyMzY5
 Mzc4Nyw1NDU3Mjg1ODEsMTU0ODU1MzExNl19
 -->
