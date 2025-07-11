@@ -113,7 +113,7 @@ def get_long_seq_inputs(slots, seq_max_len, dim):
   
     return seq_inputs_dict, seq_len_dict
 ```
-### 3. 长序列输入设置
+### 3. sparse输入设置
 ```Python
 # 函数 get_sparse_inputs() 的作用是从配置中提取用户和物品的稀疏特征（sparse features），并通过 embedding 层转换为稠密向量，最终返回一个字典，其中键是槽位（slot）编号，值是对应的稠密特征向量。  
 def get_sparse_inputs():  
@@ -146,8 +146,35 @@ def get_sparse_inputs():
     item_sparse_inputs_dict = {slot: input for slot, input in  
                                zip(item_sparse_slots, list(tf.split(item_sparse_inputs, item_slot_dim, axis=1)))}  
     return dict(user_sparse_inputs_dict, **item_sparse_inputs_dict)
+```
+### 4. dense特征输入设置
+```Python
+def get_dense_inputs():  
+    dense_inputs = []  
+    wide_slots = ['1001', '1002', '1003', '2400']  
+    wide_dense_inputs = []  
+    log_dense_slots = ['2400', '2407', '2408', '2409', '2410', '2411']  
+    log_dense_slots += ['2412', '2413', '2414', '2415', '2416', '2417', '2418']  
+# 函数 get_dense_inputs() 的作用是获取并处理用户和物品的稠密特征（dense features），并对某些特定槽位的特征进行对数变换和宽特征提取。  
+    for slot in C.USER_DENSE_SLOTS:  
+        dense_input = ego.get_dense_feature(name=slot, dim=1, feature_type=ego.FeatureType.COMMON)  
+        if slot in log_dense_slots:  
+            dense_input = tf.math.log1p(dense_input)  
+        dense_inputs.append(dense_input)  
+        if slot in wide_slots:  
+            wide_dense_inputs.append(dense_input)  
+  
+    for slot in C.ITEM_DENSE_SLOTS:  
+        dense_input = ego.get_dense_feature(name=slot, dim=1, feature_type=ego.FeatureType.UNDEFINED)  
+        if slot in log_dense_slots:  
+            dense_input = tf.math.log1p(dense_input)  
+        dense_inputs.append(dense_input)  
+        if slot in wide_slots:  
+            wide_dense_inputs.append(dense_input)  
+    return dense_inputs, wide_dense_inputs
+```
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTE4NjU4MzU1MjksLTEzMTYzOTY4MDAsMz
-QwNjQ3NzYyLC0yODM0MzE5MzQsNDk3ODE4ODEwLDQ0MDkwNTYx
-OV19
+eyJoaXN0b3J5IjpbNzAxMjU0NzksLTEzMTYzOTY4MDAsMzQwNj
+Q3NzYyLC0yODM0MzE5MzQsNDk3ODE4ODEwLDQ0MDkwNTYxOV19
+
 -->
