@@ -92,7 +92,8 @@ class MyAttentionV3(tf.keras.layers.Layer):
         final = self.fc_merge_heads(values)  
         return tf.reduce_sum(final, axis=1)
 ```
+
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMzQwNjQ3NzYyLC0yODM0MzE5MzQsNDk3OD
-E4ODEwLDQ0MDkwNTYxOV19
+eyJoaXN0b3J5IjpbLTEzMTYzOTY4MDAsMzQwNjQ3NzYyLC0yOD
+M0MzE5MzQsNDk3ODE4ODEwLDQ0MDkwNTYxOV19
 -->
