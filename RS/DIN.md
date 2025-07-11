@@ -18,7 +18,7 @@
 
 代码输入queries, keys, keys_length，获得由queries加权后的keys。
 特点：1、用于注意力计算的值不仅仅是queries, keys，还包括queries - keys, queries * keys。
-2、keys_length映射了keys维度[B, T, X]中的T维度的有效位数，用于掩码，qu diao
+2、keys_length映射了keys维度[B, T, X]中的T维度的有效位数，用于掩码，去掉冗余信息
 ```Python
 def attention(queries, keys, keys_length,  
               ffn_hidden_units=[80, 40], ffn_activation=dice,  
@@ -65,7 +65,7 @@ def attention(queries, keys, keys_length,
 ## 5 实验与分析：
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTE5Nzk1MTIwNzksLTk2NDc5Nzc5OCwtNz
+eyJoaXN0b3J5IjpbLTE2OTE0OTQ3NDQsLTk2NDc5Nzc5OCwtNz
 g5MDY0OTc1LC0xNDkxOTg1NjEyLC0xMzU1NDg1MDY5LDEzOTcx
 NzQ2NTEsNDIzNjkzNzg3LDU0NTcyODU4MSwxNTQ4NTUzMTE2XX
 0=
