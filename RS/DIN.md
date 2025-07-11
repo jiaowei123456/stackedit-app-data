@@ -59,14 +59,11 @@ def attention(queries, keys, keys_length,
   
     return tf.squeeze(attention_outputs)
 ```
-### 4.1 专家网络
-可以理解为每一层都有很多专家，专家可以分为专用专家(num_task)和通用专家(1)，每一个专家有自己的子全连接-专家个数。
-#### 共享专家代码实现
 
 ## 5 实验与分析：
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTEwOTYwNzAyODYsLTc4OTA2NDk3NSwtMT
-Q5MTk4NTYxMiwtMTM1NTQ4NTA2OSwxMzk3MTc0NjUxLDQyMzY5
-Mzc4Nyw1NDU3Mjg1ODEsMTU0ODU1MzExNl19
+eyJoaXN0b3J5IjpbLTk2NDc5Nzc5OCwtNzg5MDY0OTc1LC0xND
+kxOTg1NjEyLC0xMzU1NDg1MDY5LDEzOTcxNzQ2NTEsNDIzNjkz
+Nzg3LDU0NTcyODU4MSwxNTQ4NTUzMTE2XX0=
 -->
