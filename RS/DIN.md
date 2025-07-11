@@ -15,6 +15,8 @@
 
 ### 用户emb权重注意力机制代码
 传统的Attention机制中，给定两个item embedding，比如u和v，通常是直接做点积uv或者uWv，其中W是一个|u|x|v|的权重矩阵，但这篇paper中阿里显然做了更进一步的改进，着重看上图右上角的activation unit，**首先是把u和v以及u v的element wise差值向量合并起来作为输入，然后喂给全连接层，最后得出权重**，这样的方法显然损失的信息更少。
+
+代码输入queries, keys, keys_length，获得queries堆
 ```Python
 def attention(queries, keys, keys_length,  
               ffn_hidden_units=[80, 40], ffn_activation=dice,  
@@ -64,7 +66,7 @@ def attention(queries, keys, keys_length,
 ## 5 实验与分析：
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTc4OTA2NDk3NSwtMTQ5MTk4NTYxMiwtMT
-M1NTQ4NTA2OSwxMzk3MTc0NjUxLDQyMzY5Mzc4Nyw1NDU3Mjg1
-ODEsMTU0ODU1MzExNl19
+eyJoaXN0b3J5IjpbLTE4NzYxNDc4NjIsLTc4OTA2NDk3NSwtMT
+Q5MTk4NTYxMiwtMTM1NTQ4NTA2OSwxMzk3MTc0NjUxLDQyMzY5
+Mzc4Nyw1NDU3Mjg1ODEsMTU0ODU1MzExNl19
 -->
