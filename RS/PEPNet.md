@@ -11,7 +11,7 @@
 ## 4 模型结构与实现代码：
 ![输入图片说明](/imgs/2025-07-09/UtZLPMiTfAmVX2li.png)
 ### 4.1 门控权重生成器（GNU）实现
-通过两个全连接层（relu+sigmoid）
+通过两个全连接层（relu+sigmoid），包含正则化、chao，防止过拟合，输出特征权重，类似于senet。
 ```Python
 class GateNU:  
     def __init__(self,  
@@ -93,6 +93,5 @@ class PPNet:
 ## 5 实验与分析：
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTE5ODI0NDM2MTYsLTEyMDM1MzI2NDRdfQ
-==
+eyJoaXN0b3J5IjpbMjU0MTIzMzYzLC0xMjAzNTMyNjQ0XX0=
 -->
