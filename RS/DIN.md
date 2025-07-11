@@ -16,54 +16,46 @@
 ### 用户emb权重注意力机制代码
 传统的Attention机制中，给定两个item embedding，比如u和v，通常是直接做点积uv或者uWv，其中W是一个|u|x|v|的权重矩阵，但这篇paper中阿里显然做了更进一步的改进，着重看上图右上角的activation unit，**首先是把u和v以及u v的element wise差值向量合并起来作为输入，然后喂给全连接层，最后得出权重**，这样的方法显然损失的信息更少。
 ```Python
-def attention(queries, keys, keys_length):  
-    '''  
-        queries:     [B, H]    [batch_size,embedding_size]        keys:        [B, T, H]   [batch_size,T,embedding_size]        keys_length: [B]        [batch_size]        #T为历史行为序列长度  
-    '''  
-    # (?,32)->(None,32)->32  
-    # tile()函数是用来对张量(Tensor)进行扩展的，其特点是对当前张量内的数据进行一定规则的复制。最终的输出张量维度不变  
-    # tf.shape(keys)[1]==T  
-    # 对queries的维度进行reshape  
-    # (?,T,32)这里是为了让queries和keys的维度相同而做的操作  
-    # (?,T,128)把u和v以及u v的element wise差值向量合并起来作为输入，  
-    # 然后喂给全连接层，最后得出两个item embedding，比如u和v的权重，即g(Vi,Va)  
+def attention(queries, keys, keys_length,  
+              ffn_hidden_units=[80, 40], ffn_activation=dice,  
+              queries_ffn=False, queries_activation=prelu,  
+              return_attention_score=False):  
+    """  
   
+    :param queries: [B, H]    :param keys: [B, T, X]    :param keys_length: [B]    :param queries_ffn: 是否对queries进行一次ffn  
+    :param queries_activation: queries ffn的激活函数  
+    :param ffn_hidden_units: 隐藏层的维度大小  
+    :param ffn_activation: 隐藏层的激活函数  
+    :param return_attention_score: 是否返回注意力得分  
+    :return: attention_score=[B, 1, T] or attention_outputs=[B, H]  
+    """    if queries_ffn:  
+        queries = tf.layers.dense(queries, keys.get_shape().as_list()[-1], name='queries_ffn')  
+        queries = queries_activation(queries)  
     queries_hidden_units = queries.get_shape().as_list()[-1]  
     queries = tf.tile(queries, [1, tf.shape(keys)[1]])  
     queries = tf.reshape(queries, [-1, tf.shape(keys)[1], queries_hidden_units])  
-    din_all = tf.concat([queries, keys, queries - keys, queries * keys], axis=-1)  # B*T*4H  
-  
-    # 三层全链接(d_layer_3_all为训练出来的atteneion权重）  
-    d_layer_1_all = tf.layers.dense(din_all, 80, activation=tf.nn.sigmoid, name='f1_att')  
-    d_layer_2_all = tf.layers.dense(d_layer_1_all, 40, activation=tf.nn.sigmoid, name='f2_att')  
-    d_layer_3_all = tf.layers.dense(d_layer_2_all, 1, activation=None, name='f3_att')  # B*T*1  
-  
-    # 为了让outputs维度和keys的维度一致  
-    outputs = tf.reshape(d_layer_3_all, [-1, 1, tf.shape(keys)[1]])  # B*1*T  
-  
-    #  bool类型 tf.shape(keys)[1]为历史行为序列的最大长度，keys_length为人为设定的参数，  
-    #  如tf.sequence_mask(5，3)  即为array[True,True,True,False,False]  
-    #  函数的作用是为了后面补齐行为序列，获取等长的行为序列做铺垫  
-    key_masks = tf.sequence_mask(keys_length, tf.shape(keys)[1])  
-  
-    # 在第二维增加一维，也就是由B*T变成B*1*T  
-    key_masks = tf.expand_dims(key_masks, 1)  # B*1*T  
-  
-    # tf.ones_like新建一个与output类型大小一致的tensor，设置填充值为一个很小的值，而不是0,padding的mask后补一个很小的负数，这样softmax之后就会接近0  
+    din_all = tf.concat([queries, keys, queries - keys, queries * keys], axis=-1)  
+    hidden_layer = dnn_layer(din_all, ffn_hidden_units, ffn_activation, use_bn=False, scope='attention')  
+    outputs = tf.layers.dense(hidden_layer, 1, activation=None)  
+    outputs = tf.reshape(outputs, [-1, 1, tf.shape(keys)[1]])  
+    # Mask  
+    key_masks = tf.sequence_mask(keys_length, tf.shape(keys)[1])  # [B, T]  
+    key_masks = tf.expand_dims(key_masks, 1)  # [B, 1, T]  
     paddings = tf.ones_like(outputs) * (-2 ** 32 + 1)  
+    outputs = tf.where(key_masks, outputs, paddings)  # [B, 1, T]  
   
-    # 填充，获取等长的行为序列  
-    # tf.where(condition， x, y),condition是bool型值，True/False，返回值是对应元素，condition中元素为True的元素替换为x中的元素，为False的元素替换为y中对应元素  
-    # 由于是替换，返回值的维度，和condition，x ， y都是相等的。  
-    outputs = tf.where(key_masks, outputs, paddings)  # B * 1 * T  
+    # Scale    outputs = outputs / (keys.get_shape().as_list()[-1] ** 0.5)  
   
-    # Scale（缩放）  
-    outputs = outputs / (keys.get_shape().as_list()[-1] ** 0.5)  
     # Activation  
-    outputs = tf.nn.softmax(outputs)  # B * 1 * T  
-    # Weighted Sum outputs=g(Vi,Va)   keys=Vi    # 这步为公式中的g(Vi*Va)*Vi  
-    outputs = tf.matmul(outputs, keys)  # B * 1 * H 三维矩阵相乘，相乘发生在后两维，即 B * (( 1 * T ) * ( T * H ))  
-    return outputs
+    attention_score = tf.nn.softmax(outputs)  # [B, 1, T]  
+  
+    if return_attention_score:  
+        return attention_score  
+  
+    # Weighted sum  
+    attention_outputs = tf.matmul(attention_score, keys)  # [B, 1, H]  
+  
+    return tf.squeeze(attention_outputs)
 ```
 ### 4.1 专家网络
 可以理解为每一层都有很多专家，专家可以分为专用专家(num_task)和通用专家(1)，每一个专家有自己的子全连接-专家个数。
@@ -72,7 +64,7 @@ def attention(queries, keys, keys_length):
 ## 5 实验与分析：
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTE0OTE5ODU2MTIsLTEzNTU0ODUwNjksMT
-M5NzE3NDY1MSw0MjM2OTM3ODcsNTQ1NzI4NTgxLDE1NDg1NTMx
-MTZdfQ==
+eyJoaXN0b3J5IjpbLTc4OTA2NDk3NSwtMTQ5MTk4NTYxMiwtMT
+M1NTQ4NTA2OSwxMzk3MTc0NjUxLDQyMzY5Mzc4Nyw1NDU3Mjg1
+ODEsMTU0ODU1MzExNl19
 -->
