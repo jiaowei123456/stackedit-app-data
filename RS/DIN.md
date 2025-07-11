@@ -41,7 +41,7 @@ def attention(queries, keys, keys_length,
     outputs = tf.layers.dense(hidden_layer, 1, activation=None)  
     outputs = tf.reshape(outputs, [-1, 1, tf.shape(keys)[1]])  # [B, 1, T] 
     # Mask  
-    key_masks = tf.sequence_mask(keys_length, tf.shape(keys)[1])  # [B, T]  
+    key_masks = tf.sequence_mask(keys_length, tf.shape(keys)[1])  # [B, T]  # 根据 keys_length（每个样本的有效时间步数）创建一个布尔掩码张量。
     key_masks = tf.expand_dims(key_masks, 1)  # [B, 1, T]  
     paddings = tf.ones_like(outputs) * (-2 ** 32 + 1)  
     outputs = tf.where(key_masks, outputs, paddings)  # [B, 1, T]  
@@ -63,7 +63,8 @@ def attention(queries, keys, keys_length,
 ## 5 实验与分析：
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTk2NDc5Nzc5OCwtNzg5MDY0OTc1LC0xND
-kxOTg1NjEyLC0xMzU1NDg1MDY5LDEzOTcxNzQ2NTEsNDIzNjkz
-Nzg3LDU0NTcyODU4MSwxNTQ4NTUzMTE2XX0=
+eyJoaXN0b3J5IjpbLTEyMzM0Mjk4NDcsLTk2NDc5Nzc5OCwtNz
+g5MDY0OTc1LC0xNDkxOTg1NjEyLC0xMzU1NDg1MDY5LDEzOTcx
+NzQ2NTEsNDIzNjkzNzg3LDU0NTcyODU4MSwxNTQ4NTUzMTE2XX
+0=
 -->
