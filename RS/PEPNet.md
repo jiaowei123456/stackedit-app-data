@@ -48,7 +48,7 @@ class EPNet:
         return self.gate_nu(tf.concat([domain, tf.stop_gradient(emb)], axis=-1)) * emb
 ```
 ### 4.3 参数个性化网络（Parameter Personalized Network, PPNet）代码实现
-本质是多个全连接层（hidden_units），每个全连接层（hidden_units[i]）的输出都受到GNU的加权，每一场景的输出都加入outputs
+本质是多个场景都有多个全连接层（hidden_units），每个全连接层（hidden_units[i]）的输出都受到GNU的加权，每一场景的输出都加入outputs。
 ```Python
 class PPNet:  
     def __init__(self,  
@@ -95,6 +95,7 @@ class PPNet:
 ## 5 实验与分析：
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbNjIwNjQ0NTM5LDYyMDY0NDUzOSwtMjA2Mz
-UzMzc1MSwtMTA4ODM0MzkzNCwtMTIwMzUzMjY0NF19
+eyJoaXN0b3J5IjpbLTEyOTkzMzMwODgsNjIwNjQ0NTM5LDYyMD
+Y0NDUzOSwtMjA2MzUzMzc1MSwtMTA4ODM0MzkzNCwtMTIwMzUz
+MjY0NF19
 -->
