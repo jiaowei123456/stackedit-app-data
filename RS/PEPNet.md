@@ -11,6 +11,7 @@
 ## 4 模型结构与实现代码：
 ![输入图片说明](/imgs/2025-07-09/UtZLPMiTfAmVX2li.png)
 ### 4.1 门控权重生成器（GNU）实现
+通过全连接层
 ```Python
 class GateNU:  
     def __init__(self,  
@@ -47,39 +48,50 @@ class EPNet:
 ```
 ### 4.3 嵌入个性化网络（PPNet）代码实现
 ```Python
-class EPNet:  
+class PPNet:  
     def __init__(self,  
+                 multiples,  
                  hidden_units,  
-                 l2_reg=0.):  
+                 activation,  
+                 l2_reg=0.,  
+                 **kwargs):  
+        self.hidden_units = hidden_units  
+        self.l2_reg = l2_reg  
+        self.activation = activation  
   
-        self.gate_nu = GateNU(hidden_units=hidden_units, l2_reg=l2_reg)  
+        self.multiples = multiples  
+        # 创建多个 GateNU 门控网络，每个门控对应一层 MLP 层。  
+        # 每个门控输出维度为 i * multiples，然后会被拆分为 multiples 份，供不同路径使用。  
+        self.gate_nu = [GateNU([i*self.multiples, i*self.multiples], l2_reg=self.l2_reg) for i in self.hidden_units]  
   
+    def __call__(self, inputs, persona):  
+        gate_list = [] # 构建 Gate 权重列表，列表数量为 使用 tf.split(..., self.multiples) 将 gate 权重拆分成多个分支  
+        for i in range(len(self.hidden_units)):  
+            gate = self.gate_nu[i](tf.concat([persona, tf.stop_gradient(inputs)], axis=-1))    # persona是个人特征  
+            gate = tf.split(gate, self.multiples, axis=1)  
+            gate_list.append(gate)  
   
-    def __call__(self, domain, emb):  
-        # domain: 当前任务/场景的领域特征（persona），形状为 [B, D]        # emb: 输入嵌入向量，通常是共享特征或上下文特征，形状为 [B, E]        # 使用 tf.stop_gradient 冻结 emb 的梯度，防止 gate 影响其更新  
-        # 输出 gate 权重张量，形状为 [B, E]（和 emb 同维度） 这里形状由hidden_units确定  
-        # 使用 gate 权重对原始嵌入进行 element-wise 相乘  
-        return self.gate_nu(tf.concat([domain, tf.stop_gradient(emb)], axis=-1)) * emb
+        output_list = []  
+  
+        for n in range(self.multiples):  
+            output = inputs  
+  
+            for i in range(len(self.hidden_units)):  
+                fc = tf.layers.dense(output, self.hidden_units[i], activation=self.activation,  
+                                     kernel_regularizer=tf.contrib.layers.l2_regularizer(self.l2_reg))  
+  
+                output = gate_list[i][n] * fc  
+  
+            output_list.append(output)  
+  
+        return output_list
 ```
-### 4.3 嵌入个性化网络（EPNet）代码实现
+### 4.4 嵌入个性化网络（PEPNet）代码实现
 ```Python
-class EPNet:  
-    def __init__(self,  
-                 hidden_units,  
-                 l2_reg=0.):  
-  
-        self.gate_nu = GateNU(hidden_units=hidden_units, l2_reg=l2_reg)  
-  
-  
-    def __call__(self, domain, emb):  
-        # domain: 当前任务/场景的领域特征（persona），形状为 [B, D]        # emb: 输入嵌入向量，通常是共享特征或上下文特征，形状为 [B, E]        # 使用 tf.stop_gradient 冻结 emb 的梯度，防止 gate 影响其更新  
-        # 输出 gate 权重张量，形状为 [B, E]（和 emb 同维度） 这里形状由hidden_units确定  
-        # 使用 gate 权重对原始嵌入进行 element-wise 相乘  
-        return self.gate_nu(tf.concat([domain, tf.stop_gradient(emb)], axis=-1)) * emb
+
 ```
-### 4.3 嵌入个性化网络（EPNet）代码实现
 ## 5 实验与分析：
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTEyMDM1MzI2NDRdfQ==
+eyJoaXN0b3J5IjpbMjY0OTE0OTM2LC0xMjAzNTMyNjQ0XX0=
 -->
