@@ -21,13 +21,15 @@
 
 对于每一对语义相似的样本，我们将当前批次中的所有其他样本视为潜在的不相似样本，这可以通过将当前批次中的样本用作负样本来实现。为了进一步提高模型的性能，我们旨在增加训练期间可用的负样本数量。具体而言，我们从 MoCo [12] 中获得灵感，并采用了使用动量更新模型的技术，从而能够从更大的记忆库中更有效地抽取更多负样本。关于构建负样本对的更复杂策略，例如识别困难负样本 [23]，将在第 6.1.2 节中详细阐述。
 
+
+
 ## 4 模型结构与实现代码：
 
 
 ## 5 实验与分析：
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTQ4ODEyNzQ3NSwyMDAzNDE1Mjg1LC01Nz
-Q5ODY0OTYsMTEwNzY5NzYwNCw4OTY3OTk3ODQsLTg2OTQ2NTE5
-NF19
+eyJoaXN0b3J5IjpbLTIxMjU1NTAyMzEsLTQ4ODEyNzQ3NSwyMD
+AzNDE1Mjg1LC01NzQ5ODY0OTYsMTEwNzY5NzYwNCw4OTY3OTk3
+ODQsLTg2OTQ2NTE5NF19
 -->
