@@ -27,13 +27,12 @@
 
 ## 4 模型结构与实现代码：
 ### 4.1 SimTier：
-观察 1 呼吁简化多模态表示的使用方式。为此，我们提出了一种简单但有效的方法——SimTier。如图 2（a）所示，SimTier 从计算目标候选项的多模态表示（记为 vc）与其它元素之间的点积相似度开始。
-
+观察 1 呼吁简化多模态表示的使用方式。为此，我们提出了一种简单但有效的方法——SimTier。如图 2（a）所示，SimTier 从计算目标候选项的多模态表示（记为 vc）与其它元素之间的点积相似度开始。在计算出相似度分数后，我们将分数范围[-1.0, 1.0]划分为 N 个预定义的层级。在每个层级内，我们统计落入该对应范围内的相似度分数的数量。因此，我们得到一个 N 维向量，每个维度代表对应层级中的相似度分数的数量。这样，SimTier 就有效地将一组高维多模态表示转换为一个 N 维向量，该向量封装了目标项与用户历史交互之间的相似度程度。然后，将获得的 N 维向量与其他嵌入向量连接起来，并输入到后续的多层感知机（MLP）中。我们在算法 1 中提供了 SimTier 的伪代码。
 
 ## 5 实验与分析：
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTExMDM1MjE2NjgsLTQ4ODEyNzQ3NSwyMD
-AzNDE1Mjg1LC01NzQ5ODY0OTYsMTEwNzY5NzYwNCw4OTY3OTk3
-ODQsLTg2OTQ2NTE5NF19
+eyJoaXN0b3J5IjpbLTU3MTg4MTcwLC0xMTAzNTIxNjY4LC00OD
+gxMjc0NzUsMjAwMzQxNTI4NSwtNTc0OTg2NDk2LDExMDc2OTc2
+MDQsODk2Nzk5Nzg0LC04Njk0NjUxOTRdfQ==
 -->
