@@ -9,10 +9,44 @@
 ## 3 相关工作：
 
 ## 4 模型结构与实现代码：
-
-
+```Python
+tpm_cls_list = [outputs['tpm_{}'.format(i)][0] for i in range(C.LEAF_NUMS-1)]  
+tpm_cls_preds = tf.keras.layers.Concatenate(name="concat_tmp_node_cls", axis=1)(tpm_cls_list) # [None, LEAF_NUMS - 1]  
+print(tpm_cls_preds)  
+  
+def tpm_core2(leaf_nums, cls_preds):  
+    depth = int(math.log2(leaf_nums))  
+    path_preds = [1]  
+    begin_index = 0  
+    for d in range(depth):  
+        level_nums = int(math.pow(2, d))  
+        temp = []  
+        for level_i in range(int(level_nums)):  
+            temp.append(path_preds[level_i] * (1-cls_preds[:, begin_index + level_i]))  
+            temp.append(path_preds[level_i] * cls_preds[:, begin_index + level_i])  
+        begin_index += level_nums  
+        path_preds = temp  
+    return path_preds  
+  
+path_preds = tpm_core2(C.LEAF_NUMS, tpm_cls_preds)  
+path_preds = [tf.reshape(item, shape=[-1, 1]) for item in path_preds]  
+print(len(path_preds), path_preds)  
+pred_tensor = tf.keras.layers.Concatenate(name="concat_tpm_path", axis=1)(path_preds)  
+print("pred_tensor:", pred_tensor)  
+mean_bucket = [(C.BEGIN_buckets[i] + C.END_buckets[i]) / 2 for i in range(C.LEAF_NUMS)]  
+print("BEGIN_bucket:", C.BEGIN_buckets)  
+print("END_buckets:", C.END_buckets)  
+print("MEAN_buckets:", mean_bucket)  
+  
+bucket_val_tensor = tf.constant(mean_bucket, dtype=tf.float32)  
+print("bucket_val_tensor:", bucket_val_tensor)  
+pred_reg = tf.reduce_sum(pred_tensor * bucket_val_tensor, axis=-1, keepdims=True)  
+print("pred_reg:", pred_reg)  
+outputs['tpm_reg'] = [pred_reg, pred_reg]  
+return outputs
+```
 ## 5 实验与分析：
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbNjYxNTYyMTddfQ==
+eyJoaXN0b3J5IjpbMjU4MDgwNTk2XX0=
 -->
