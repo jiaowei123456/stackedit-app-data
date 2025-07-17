@@ -16,7 +16,7 @@
 ### 用户emb权重注意力机制代码
 传统的Attention机制中，给定两个item embedding，比如u和v，通常是直接做点积uv或者uWv，其中W是一个|u|x|v|的权重矩阵，但这篇paper中阿里显然做了更进一步的改进，着重看上图右上角的activation unit，**首先是把u和v以及u v的element wise差值向量合并起来作为输入，然后喂给全连接层，最后得出权重**，这样的方法显然损失的信息更少。
 
-代码输入queries, keys, keys_length，将q，k经过拼接之后直接输入DNN输出维度w获得由queries加权后的keys，或者权重系数（经过softmax）
+代码输入queries, keys, keys_length，将q，k经过拼接之后直接输入DNN输出维度与key的seq长度相同，获得由queries加权后的keys，或者权重系数（经过softmax），然后输出加权后的key
 特点：1、用于注意力计算的值不仅仅是queries, keys，还包括queries - keys, queries * keys。
 2、keys_length映射了keys维度[B, T, X]中的T维度的有效位数，用于掩码，去掉冗余信息
 ```Python
@@ -65,7 +65,7 @@ def attention(queries, keys, keys_length,
 ## 5 实验与分析：
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbNDkxNTE3MDUwLC0xNjE0NjY2ODY1LC0xNj
+eyJoaXN0b3J5IjpbNjk0OTYzNzc5LC0xNjE0NjY2ODY1LC0xNj
 kxNDk0NzQ0LC05NjQ3OTc3OTgsLTc4OTA2NDk3NSwtMTQ5MTk4
 NTYxMiwtMTM1NTQ4NTA2OSwxMzk3MTc0NjUxLDQyMzY5Mzc4Ny
 w1NDU3Mjg1ODEsMTU0ODU1MzExNl19
