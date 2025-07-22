@@ -12,8 +12,9 @@
 所提出的模型在多个基准数据集上的表现明显优于目前最先进的基于 MC/CNN/RNN 的序列推荐方法。特别是，我们研究了模型性能随数据集稀疏程度的变化情况，结果表明模型性能与上述描述的模式高度一致。由于采用了自注意力机制，SASRec 在密集数据集中倾向于考虑长距离依赖关系，而在稀疏数据集中则更侧重于近期活动。这对于灵活处理不同密度的数据集至关重要。
 SASRec 的“块”结构适用于并行加速，从而使得该模型的速度比基于 CNN/RNN 的替代方案快一个数量级。此外，我们分析了 SASRec 的复杂性和可扩展性，进行了全面的消融研究以展示关键组件的影响，并通过可视化注意力权重来定量地揭示模型的行为。
 
-### 2.1 预训练数据集的构建：
-
+### 2.1 模型细节：
+模型和transformer没啥区别，细节参考如下：
+https://blog.csdn.net/CRW__DREAM/article/details/124115007
 
 ### 2.1 技巧：
 
@@ -24,6 +25,6 @@ SASRec 的“块”结构适用于并行加速，从而使得该模型的速度�
 ## 5 实验与分析：
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTU0MDExOTk0NSwxMTMxODI5NTA4LDIzMz
-k5ODc5NywtMTE0ODg4NTM2N119
+eyJoaXN0b3J5IjpbOTkzMzEwMzQ3LC01NDAxMTk5NDUsMTEzMT
+gyOTUwOCwyMzM5OTg3OTcsLTExNDg4ODUzNjddfQ==
 -->
