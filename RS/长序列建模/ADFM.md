@@ -1,10 +1,10 @@
-# 
+# Adversarial Filtering Modeling on Long-term User Behavior Sequences for Click-Through Rate Prediction
 [原文链接]()
 ## 0 摘要：
-
+最近的研究者提出了几种方法来处理短期-长期行为序列和建模用户兴趣。这些方法没有很好的处理在长期用户行为中的噪声信息，而这可能会明显影响到点击率预测的性能。故而这篇论文提出了一个新奇的对抗过滤模型（`ADFM`），在该模型中使用一个对抗的过滤机制，可以移除无用的行为信息。
 
 ## 背景
-
+-   重复的行为和无用的行为；比如：重复的行为可以是用户访问多次的商品、商标等，这些重复的数据没有带来新的信息。无用的数据，比如用户意外的点击或者“长尾项”数据。
 
 ## 1 论文解决的问题：
 
@@ -24,5 +24,5 @@
 ## 5 实验与分析：
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTExNDg4ODUzNjddfQ==
+eyJoaXN0b3J5IjpbMTk0OTE2Njc4OF19
 -->
