@@ -1,5 +1,6 @@
-# 
-[原文链接]()
+# OneRec Technical Report
+[原文链接](https://arxiv.org/pdf/2506.13695)
+[参考讲解链接1](https://zhuanlan.zhihu.com/p/1918792219990689391)
 ## 0 摘要：
 
 
@@ -24,5 +25,5 @@
 ## 5 实验与分析：
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTExNDg4ODUzNjddfQ==
+eyJoaXN0b3J5IjpbLTkxOTA5NTE0N119
 -->
