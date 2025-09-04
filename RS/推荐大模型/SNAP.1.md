@@ -11,7 +11,7 @@
  3. 这里是列表文本
 
 两个Item在SID上的重叠部分原则上反映了它们的语义相似性，而后续Item有监督的使GR模型能够学习跨越SID的协同信号。
-经典论文：Onerec、Text2Tracks、
+经典论文：Onerec、Text2Tracks、LIGER等
 
 ## 1 论文解决的问题：
 
@@ -31,5 +31,5 @@
 ## 5 实验与分析：
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMjA3MDU3NTcwNCwtNjc4MzE2ODY2XX0=
+eyJoaXN0b3J5IjpbLTE5MzY0Njk5OCwtNjc4MzE2ODY2XX0=
 -->
