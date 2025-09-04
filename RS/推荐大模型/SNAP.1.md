@@ -5,6 +5,7 @@
 
 ## 背景
 在生成推荐系统（GR）中，有一种流行的范式是利用语义ID（SIDs）[7, 44, 61] 来弥合预训练基础模型与推荐系统的差距。如图 1 所示，该范式首先利用一种模态编码器和一种量化分词器（例如 RQ-VAE [31]、VQ-VAE [10] 或残差 K 均值 [7]）将模态特征（例如图像或文本）转换为 SIDs。然后，一个序列推荐器被训练来根据用户过去所选择的 SIDs 自回归地预测用户未来将交互的项目的 SIDs。
+* 带有sid的GR提供了一种有效的方法来利用预先训练的基础模型中编码的语义知识
 
 ## 1 论文解决的问题：
 
@@ -24,5 +25,5 @@
 ## 5 实验与分析：
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTgxMDI0MzUxOCwtNjc4MzE2ODY2XX0=
+eyJoaXN0b3J5IjpbNDk2Njg1NzMwLC02NzgzMTY4NjZdfQ==
 -->
