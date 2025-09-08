@@ -5,6 +5,7 @@
 
 ## 背景
 
+![输入图片说明](/imgs/2025-09-08/3rSuZYswSklIvveE.png)
 
 ## 1 论文解决的问题：
 
@@ -24,5 +25,5 @@
 ## 5 实验与分析：
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMzA4MDQxMDA0XX0=
+eyJoaXN0b3J5IjpbLTk5MDQwNzMxNCwzMDgwNDEwMDRdfQ==
 -->
