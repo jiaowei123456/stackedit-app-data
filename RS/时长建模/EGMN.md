@@ -21,7 +21,7 @@
 
 
 ## 2 论文创新点：
-
+为了估算 EGM 分布的参数，我们利用神经网络架构提出了相应的指数-高斯混合网络（EGMN）模型。首先，我们生成一个在整个分布组件之间共享的隐藏表示。随后，根据隐藏表示估计每个分布组件的参数，并应用门控网络对多个分布进行加权混合。**使用多种损失函数对我们的模型进行优化，每个损失函数针对预测任务的不同方面进行处理**。最终，EGMN 以端到端的方式生成 EGM 分布的参数化实例，并使用其期望值作为最终预测结果。
 
 ### 2.1 预训练数据集的构建：
 
@@ -35,5 +35,6 @@
 ## 5 实验与分析：
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTMzNTA4MDgxMSwzMDgwNDEwMDRdfQ==
+eyJoaXN0b3J5IjpbLTE2NDMyMzc0NTksMTMzNTA4MDgxMSwzMD
+gwNDEwMDRdfQ==
 -->
