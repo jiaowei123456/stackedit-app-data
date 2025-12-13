@@ -41,8 +41,9 @@ Tokenization：为了实现高效的并行计算，不同维度的embedding必�
 $x_i = \mathrm{Proj}\left(e_{\mathrm{input}}\left[d \cdot (i - 1) : d \cdot i\right]\right), \quad i = 1, \ldots, T,$
 输出为 $x_i ∈ R^{T×D}$ ，T个token，每个token D维。
 
-### 3.3 RankMixer Block：
-### 3.3.1 Multi-head Token Mixing.
+### 3.3 RankMixer Block
+#### 3.3.1 Multi-head Token Mixing
+先把每个token分成H个头
 
 
 
@@ -51,7 +52,7 @@ $x_i = \mathrm{Proj}\left(e_{\mathrm{input}}\left[d \cdot (i - 1) : d \cdot i\ri
 ## 5 实验与分析：
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTI3NjYyNjIzNSwtODQ5NTI2MTgyLC00MT
-Q1NTU1MiwtODA5NjM5MzUsLTc2MTkxMzk4OSw2NDI1NTg3Mjks
-MTg2NjAwNjgxNSwyMDQ5MTM4NzA1LC04NjUxOTMzNTNdfQ==
+eyJoaXN0b3J5IjpbMzM1MDI4MzQwLC04NDk1MjYxODIsLTQxND
+U1NTUyLC04MDk2MzkzNSwtNzYxOTEzOTg5LDY0MjU1ODcyOSwx
+ODY2MDA2ODE1LDIwNDkxMzg3MDUsLTg2NTE5MzM1M119
 -->
