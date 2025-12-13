@@ -20,7 +20,7 @@
 3. Sparse Mixture-of-Experts (MoE)：通过针对不同的数据动态激活每个标记的特定子集专家，我们能够以最小的计算成本显著提高模型的容量。
 
 
-## 3 模型结构与实现代码：
+## 3 模型结构：
 ### 3.1 整体框架：
 ![输入图片说明](/imgs/2025-12-13/iXt3rIjZqdbgMP4S.png)
 
@@ -87,16 +87,16 @@ $\mathcal{L} = \mathcal{L}_{\mathrm{task}} + \lambda \, \mathcal{L}_{\mathrm{reg
 
 Dense-training / Sparse-inference (DTSI-MoE)：采用了$h_{train}$和$h_{infer}$两个路由器，$L_{reg}$仅用于$h_{infer}$。$h_{train}$和$h_{infer}$都在训练过程中更新，而在推理过程中只使用$h_{infer}$。事实证明，DS-MoE在降低推理成本的同时，使专家不会受到训练不足的困扰。
 
-### 3.4 Sparse MoE in RankMixer
+### 3.5 Scaling Up Directions
 RankMixer 本质上是一种高度并行且可扩展的架构。其参数数量和计算成本可以通过四个相互垂直的维度进行扩展：令牌数量 T、模型宽度 D、层数 L 和专家数量 E。对于全密集激活版本，一个样本的参数数量和前向计算浮点运算次数可以计算为：
 $\#\mathrm{Param} \approx 2kLT D^2, \quad \mathrm{FLOPs} \approx 4kLT D^2$
 
 ## 5 实验与分析：
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTE0NjEwMzI2NzUsLTMzNTM5MDMzOSwtNz
-c3NTk0NTgzLC0xMDIyNjkyMzU2LC05NTczMjA3NjksLTg0OTUy
-NjE4MiwtNDE0NTU1NTIsLTgwOTYzOTM1LC03NjE5MTM5ODksNj
-QyNTU4NzI5LDE4NjYwMDY4MTUsMjA0OTEzODcwNSwtODY1MTkz
-MzUzXX0=
+eyJoaXN0b3J5IjpbMTQyNDMzNTQ2MSwtMTQ2MTAzMjY3NSwtMz
+M1MzkwMzM5LC03Nzc1OTQ1ODMsLTEwMjI2OTIzNTYsLTk1NzMy
+MDc2OSwtODQ5NTI2MTgyLC00MTQ1NTU1MiwtODA5NjM5MzUsLT
+c2MTkxMzk4OSw2NDI1NTg3MjksMTg2NjAwNjgxNSwyMDQ5MTM4
+NzA1LC04NjUxOTMzNTNdfQ==
 -->
