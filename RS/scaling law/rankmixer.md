@@ -35,19 +35,23 @@ $X_n = \mathrm{LN} \left( \mathrm{PFFN} \left( S_{n-1} \right) + S_{n-1} \right)
 
 Tokenization：为了实现高效的并行计算，不同维度的embedding必须转换为维度对齐的向量，这些向量被称为特征Token，这个过程称为Tokenization。
 
-最简单的策略是为每个特征分配一个embbeding，当特征为几百个时，每个token所分配的参数和计算量会衰减到很少，从而导致对重要特征的建模不足以及GPU核心的不充分利用。相反，token数量过少（例如仅一个token）会使模型结构退化为简单的深度神经网络（DNN），无法清晰地表示不同的特征空间，这可能会导致主导特征掩盖其他特征。
+**最简单的策略是为每个特征分配一个embbeding，当特征为几百个时，每个token所分配的参数和计算量会衰减到很少，从而导致对重要特征的建模不足以及GPU核心的不充分利用。相反，token数量过少（例如仅一个token）会使模型结构退化为简单的深度神经网络（DNN），无法清晰地表示不同的特征空间，这可能会导致主导特征掩盖其他特征。**
 
 为了解决这些问题，本文提出了一种基于语义的分词方法，结合领域知识将特征分组为几个语义连贯的簇。这些分组的特征依次连接成一个嵌入向量 $e_{\mathrm{input}} = \left[ e_1; e_2; \ldots; e_N \right]$，随后将其划分为具有固定维度大小的适当数量的标记。每个特征标记 $x_i ∈ R^D$ 捕获一组表示相似语义方面的特征嵌入。
-$x_i = \mathrm{Proj}\left(e_{\mathrm{input}}\left[d \cdot (i - 1) : d \cdot i\right]\right), \quad i = 1, \ldots, T,$
+$x_i = \mathrm{Proj}\left(e_{\mathrm{input}}\left[d \cdot (i - 1) : d \cdot i\right]\right), \quad i = 1, \ldots, T$
+
 输出为 $x_i ∈ R^{T×D}$ ，T个token，每个token D维。
 
 ### 3.3 RankMixer Block
 #### 3.3.1 Multi-head Token Mixing
 先把每个token分成H个头：
 $\left[ \mathbf{x}_t^{(1)} \parallel \mathbf{x}_t^{(2)} \parallel \cdots \parallel \mathbf{x}_t^{(H)} \right] = \mathrm{SplitHead}(\mathbf{x}_t)$
-然后把T个token的每个h位置的头拼接起来（所有的多头操作都号称为了从不同视角解决任务，有没有文章能证明一下，多头是不是能起到multi-perspective的效果？）：
+
+然后把T个token的每个h位置的头拼接起来（所有的多头操作都号称为了从不同视角解决任务，有没有文章能证明过多头真的能起到multi-perspective的效果？）：
 $\mathbf{s}^h = \left[ \mathbf{x}_1^h; \mathbf{x}_2^h; \ldots; \mathbf{x}_T^h \right]$
-然后把拼接之后的H个$s^h$堆叠在一起，输出为$\mathbf{S} \in \mathbb{R}^{H \times \frac{TD}{H}}$。
+
+最后把拼接之后的H个$s^h$堆叠在一起，输出为$\mathbf{S} \in \mathbb{R}^{H \times \frac{TD}{H}}$。
+
 原文中设置H=T，加上残差连接和归一化层后为：
 $s_1, s_2, \ldots, s_T = \mathrm{LN}\!\left( \mathrm{TokenMixing}(x_1, x_2, \ldots, x_T) + (x_1, x_2, \ldots, x_T) \right)$
 
@@ -79,9 +83,9 @@ $\#\mathrm{Param} \approx 2kLT D^2, \quad \mathrm{FLOPs} \approx 4kLT D^2$
 ## 5 实验与分析：
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTEwNTAyODcyMTksLTMzNTM5MDMzOSwtNz
-c3NTk0NTgzLC0xMDIyNjkyMzU2LC05NTczMjA3NjksLTg0OTUy
-NjE4MiwtNDE0NTU1NTIsLTgwOTYzOTM1LC03NjE5MTM5ODksNj
-QyNTU4NzI5LDE4NjYwMDY4MTUsMjA0OTEzODcwNSwtODY1MTkz
-MzUzXX0=
+eyJoaXN0b3J5IjpbMTYwODgzNzA0NSwtMzM1MzkwMzM5LC03Nz
+c1OTQ1ODMsLTEwMjI2OTIzNTYsLTk1NzMyMDc2OSwtODQ5NTI2
+MTgyLC00MTQ1NTU1MiwtODA5NjM5MzUsLTc2MTkxMzk4OSw2ND
+I1NTg3MjksMTg2NjAwNjgxNSwyMDQ5MTM4NzA1LC04NjUxOTMz
+NTNdfQ==
 -->
