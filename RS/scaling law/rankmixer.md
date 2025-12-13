@@ -62,14 +62,15 @@ $f_{\mathrm{pffn}}^{t,i}(x) = x \mathbf{W}_{\mathrm{pffn}}^{t,i} + \mathbf{b}_{\
 $\mathbf{v}_1, \mathbf{v}_2, \ldots, \mathbf{v}_T = \mathrm{PFFN}(\mathbf{s}_1, \mathbf{s}_2, \ldots, \mathbf{s}_T)$
 与参数全共享FFN相比，per-token FFN在保持计算复杂度不变的情况下，通过引入更多的参数来增强建模能力。（为什么，$\mathbf{W}_{\mathrm{pffn}}$如果是全参数共享的FFN参数应该是$T×D*T×kD$，per-token FFN参数应该是$D*kD*T$，感觉参数量变少了，有没有大佬帮忙推导一下？）
 
-#### 3.4 Per-token FFN
+### 3.4 Sparse MoE in RankMixer
+
 
 
 
 ## 5 实验与分析：
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTY4Njg4Nzc5OSwtNzc3NTk0NTgzLC0xMD
+eyJoaXN0b3J5IjpbLTg0MDk0NDIyNiwtNzc3NTk0NTgzLC0xMD
 IyNjkyMzU2LC05NTczMjA3NjksLTg0OTUyNjE4MiwtNDE0NTU1
 NTIsLTgwOTYzOTM1LC03NjE5MTM5ODksNjQyNTU4NzI5LDE4Nj
 YwMDY4MTUsMjA0OTEzODcwNSwtODY1MTkzMzUzXX0=
