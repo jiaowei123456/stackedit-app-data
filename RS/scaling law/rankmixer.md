@@ -16,6 +16,7 @@
 ## 2 论文创新点：
 1. Multi-head token mixing ：只通过无参数操作符获得跨token特征交互。该策略在性能和计算效率方面优于自注意机制。
 2. Per-token feed-forward networks (FFNs)：通过为不同的特征子空间建模分配独立的参数，极大地扩展了模型容量，解决了特征空间间的控制问题。
+3. Sparse Mixture-of-Experts (MoE)：通过针对不同的数据动态激活每个标记的特定子集专家，我们能够以最小的计算成本显著提高模型的容量。
 
 
 
@@ -31,6 +32,6 @@
 ## 5 实验与分析：
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTg2NjAwNjgxNSwyMDQ5MTM4NzA1LC04Nj
-UxOTMzNTNdfQ==
+eyJoaXN0b3J5IjpbMTc4Mzg5ODU0MSwxODY2MDA2ODE1LDIwND
+kxMzg3MDUsLTg2NTE5MzM1M119
 -->
