@@ -47,7 +47,8 @@ $x_i = \mathrm{Proj}\left(e_{\mathrm{input}}\left[d \cdot (i - 1) : d \cdot i\ri
 $\left[ \mathbf{x}_t^{(1)} \parallel \mathbf{x}_t^{(2)} \parallel \cdots \parallel \mathbf{x}_t^{(H)} \right] = \mathrm{SplitHead}(\mathbf{x}_t)$
 然后把T个token的每个h位置的头拼接起来（所有的多头操作都号称为了从不同视角解决任务，有没有文章能证明一下，多头是不是能起到multi-perspective的效果？）：
 $\mathbf{s}^h = \left[ \mathbf{x}_1^h; \mathbf{x}_2^h; \ldots; \mathbf{x}_T^h \right]$
-然后把拼接之后的H个$s^h$堆叠在一起，输出为，原文中设置H=T
+然后把拼接之后的H个$s^h$堆叠在一起，输出为$\mathbf{S} \in \mathbb{R}^{H \times \frac{TD}{H}}$，原文中设置H=T。
+
 
 
 
@@ -57,7 +58,7 @@ $\mathbf{s}^h = \left[ \mathbf{x}_1^h; \mathbf{x}_2^h; \ldots; \mathbf{x}_T^h \r
 ## 5 实验与分析：
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbNzM3NTM2MzE0LC04NDk1MjYxODIsLTQxND
-U1NTUyLC04MDk2MzkzNSwtNzYxOTEzOTg5LDY0MjU1ODcyOSwx
-ODY2MDA2ODE1LDIwNDkxMzg3MDUsLTg2NTE5MzM1M119
+eyJoaXN0b3J5IjpbLTU1NjEwMDQwNiwtODQ5NTI2MTgyLC00MT
+Q1NTU1MiwtODA5NjM5MzUsLTc2MTkxMzk4OSw2NDI1NTg3Mjks
+MTg2NjAwNjgxNSwyMDQ5MTM4NzA1LC04NjUxOTMzNTNdfQ==
 -->
