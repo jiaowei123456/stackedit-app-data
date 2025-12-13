@@ -24,12 +24,12 @@
 ![输入图片说明](/imgs/2025-12-13/iXt3rIjZqdbgMP4S.png)
 
 输入为T个token，经过连续L个Rankmixer以及平均池化后输出，每个 RankMixer 块有两个主要组成部分：（1）多头token mixing，以及（2）每个token的per-token FFN（PFFN）层，如图 1 所示。
-$S_(n−1 = LN (TokenMixing (X_(n−1)) + X_(n−1))$
+$S_n−1 = LN (TokenMixing (X_n−1) + X_n−1)$
 
 ## 5 实验与分析：
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTUzMjE2NDUwLC03NjE5MTM5ODksNjQyNT
+eyJoaXN0b3J5IjpbODMyNDM3MDY0LC03NjE5MTM5ODksNjQyNT
 U4NzI5LDE4NjYwMDY4MTUsMjA0OTEzODcwNSwtODY1MTkzMzUz
 XX0=
 -->
