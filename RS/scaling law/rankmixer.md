@@ -47,7 +47,7 @@ $x_i = \mathrm{Proj}\left(e_{\mathrm{input}}\left[d \cdot (i - 1) : d \cdot i\ri
 先把每个token分成H个头：
 $\left[ \mathbf{x}_t^{(1)} \parallel \mathbf{x}_t^{(2)} \parallel \cdots \parallel \mathbf{x}_t^{(H)} \right] = \mathrm{SplitHead}(\mathbf{x}_t)$
 
-然后把T个token的每个h位置的头拼接起来（所有的多头操作都号称为了从不同视角解决任务，有没有文章能证明过多头真的能起到multi-perspective的效果？）：
+然后把T个token的每个h位置的头拼接起来（所有的多头操作都号称为了从multi-perspective解决任务，有没有文章能证明？）：
 $\mathbf{s}^h = \left[ \mathbf{x}_1^h; \mathbf{x}_2^h; \ldots; \mathbf{x}_T^h \right]$
 
 最后把拼接之后的H个$s^h$堆叠在一起，输出为$\mathbf{S} \in \mathbb{R}^{H \times \frac{TD}{H}}$。
@@ -55,7 +55,7 @@ $\mathbf{s}^h = \left[ \mathbf{x}_1^h; \mathbf{x}_2^h; \ldots; \mathbf{x}_T^h \r
 原文中设置H=T，加上残差连接和归一化层后为：
 $s_1, s_2, \ldots, s_T = \mathrm{LN}\!\left( \mathrm{TokenMixing}(x_1, x_2, \ldots, x_T) + (x_1, x_2, \ldots, x_T) \right)$
 
-尽管自注意力机制在大型语言模型中表现出了极高的有效性，但我们发现它对于推荐系统而言效果并不理想。在自注意力机制中，注意力权重是通过token的内积来计算的。这种方法在自然语言处理中效果良好，因为所有的token共享一个统一的embbeding空间。然而，在推荐任务中，特征空间本质上是异构的。在两个异构的语义空间之间计算内积相似度是极其困难的——特别是在推荐系统中，用户和项目侧特征的 ID 空间可能包含数亿个元素。（逻辑是对的，所以行为序列建模一直用的是同语义空间的内积建模）（不过这个TokenMixing怎么这么像切牌啊，把token来回切）
+尽管自注意力机制在大型语言模型中表现出了极高的有效性，但我们发现它对于推荐系统而言效果并不理想。**在自注意力机制中，注意力权重是通过token的内积来计算的。这种方法在自然语言处理中效果良好，因为所有的token共享一个统一的embbeding空间。然而，在推荐任务中，特征空间本质上是异构的。在两个异构的语义空间之间计算内积相似度是极其困难的**——特别是在推荐系统中，用户和项目侧特征的 ID 空间可能包含数亿个元素。（逻辑是对的，所以行为序列建模一直用的是同语义空间的内积建模）（不过这个TokenMixing怎么这么像切牌啊，把token来回切）
 #### 3.3.2 Per-token FFN
 之前的 DLRM 和 DHEN 模型往往会在一个单一的交互模块中将来自多个不同语义空间的特征混合在一起，这可能会导致高频字段占据主导地位，从而掩盖低频或长尾信号，最终损害整体推荐质量。我们引入了一种参数独立的前馈网络架构，称为每个token的 FFN。在传统的设计中，FFN 的参数在所有token中是共享的，但我们的方法对每个token都进行专门的变换，从而为每个token有自己的FFN。对于第 t 个令牌 $s_t$ ，每个令牌的 FFN 可以表示为
 $\mathbf{v}_t = f_{\mathrm{pffn}}^{t,2} \left( \mathrm{Gelu} \left( f_{\mathrm{pffn}}^{t,1} (s_t) \right) \right)$
@@ -83,7 +83,7 @@ $\#\mathrm{Param} \approx 2kLT D^2, \quad \mathrm{FLOPs} \approx 4kLT D^2$
 ## 5 实验与分析：
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTYwODgzNzA0NSwtMzM1MzkwMzM5LC03Nz
+eyJoaXN0b3J5IjpbLTc4MTEzMjU1NCwtMzM1MzkwMzM5LC03Nz
 c1OTQ1ODMsLTEwMjI2OTIzNTYsLTk1NzMyMDc2OSwtODQ5NTI2
 MTgyLC00MTQ1NTU1MiwtODA5NjM5MzUsLTc2MTkxMzk4OSw2ND
 I1NTg3MjksMTg2NjAwNjgxNSwyMDQ5MTM4NzA1LC04NjUxOTMz
