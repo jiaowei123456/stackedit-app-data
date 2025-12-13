@@ -57,7 +57,7 @@ $s_1, s_2, \ldots, s_T = \mathrm{LN}\!\left( \mathrm{TokenMixing}(x_1, x_2, \ldo
 $\mathbf{v}_t = f_{\mathrm{pffn}}^{t,2} \left( \mathrm{Gelu} \left( f_{\mathrm{pffn}}^{t,1} (s_t) \right) \right)$
 其中：
 $f_{\mathrm{pffn}}^{t,i}(x) = x \mathbf{W}_{\mathrm{pffn}}^{t,i} + \mathbf{b}_{\mathrm{pffn}}^{t,i}$
-输入为$\mathbf{s_t} \in \mathbb{R}^{\frac{TD}{H}}$，网络结构和传统的FFN网络差不多，先t升维$f_{\mathrm{pffn}}^{t,1}$
+输入为$\mathbf{s_t} \in \mathbb{R}^{\frac{TD}{H}}$，网络结构和传统的FFN网络差不多，先通过$f_{\mathrm{pffn}}^{t,1}$升维，然后通过$f_{\mathrm{pffn}}^{t,2}$降维，$Gelu(·)$是激活函数
 
 
 
@@ -66,7 +66,7 @@ $f_{\mathrm{pffn}}^{t,i}(x) = x \mathbf{W}_{\mathrm{pffn}}^{t,i} + \mathbf{b}_{\
 ## 5 实验与分析：
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTEyOTIyMjkxNTksLTEwMjI2OTIzNTYsLT
+eyJoaXN0b3J5IjpbLTE0MDczMjc2ODYsLTEwMjI2OTIzNTYsLT
 k1NzMyMDc2OSwtODQ5NTI2MTgyLC00MTQ1NTU1MiwtODA5NjM5
 MzUsLTc2MTkxMzk4OSw2NDI1NTg3MjksMTg2NjAwNjgxNSwyMD
 Q5MTM4NzA1LC04NjUxOTMzNTNdfQ==
