@@ -34,13 +34,14 @@ $X_n = \mathrm{LN} \left( \mathrm{PFFN} \left( S_{n-1} \right) + S_{n-1} \right)
 4. 交叉特征：得到嵌入向量和交叉特征
 
 Tokenization：为了实现高效的并行计算，不同维度的embedding必须转换为维度对齐的向量，这些向量被称为特征Token，这个过程称为Tokenization。
-常用的方法可能会导致一些问题：
+原论文这一段话感觉比较有意思
+最简单的策略是为每个特征分配一个embbeding，当特征较多时，几百个时，每个标记所分配的参数和计算量减到很少，从而导致对重要特征的建模不足以及GPU核心的不充分利用。相反，标记数量过少（例如仅一个标记）会使模型结构退化为简单的深度神经网络（DNN），无法清晰地表示不同的特征空间，这可能会导致主导特征掩盖其他特征。
 
 
 ## 5 实验与分析：
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTgwOTYzOTM1LC03NjE5MTM5ODksNjQyNT
-U4NzI5LDE4NjYwMDY4MTUsMjA0OTEzODcwNSwtODY1MTkzMzUz
-XX0=
+eyJoaXN0b3J5IjpbLTExMDI4OTQ0NzQsLTgwOTYzOTM1LC03Nj
+E5MTM5ODksNjQyNTU4NzI5LDE4NjYwMDY4MTUsMjA0OTEzODcw
+NSwtODY1MTkzMzUzXX0=
 -->
