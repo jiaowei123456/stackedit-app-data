@@ -60,7 +60,7 @@ $f_{\mathrm{pffn}}^{t,i}(x) = x \mathbf{W}_{\mathrm{pffn}}^{t,i} + \mathbf{b}_{\
 输入为$\mathbf{s_t} \in \mathbb{R}^{\frac{TD}{H}}$，网络结构和传统的FFN网络差不多，先通过$f_{\mathrm{pffn}}^{t,1}$升维，然后通过$f_{\mathrm{pffn}}^{t,2}$降维，$Gelu(·)$是激活函数。
 将per-token FFN模块总结为
 $\mathbf{v}_1, \mathbf{v}_2, \ldots, \mathbf{v}_T = \mathrm{PFFN}(\mathbf{s}_1, \mathbf{s}_2, \ldots, \mathbf{s}_T)$
-与参数全共享FFN相比，per-token FFN在保持计算复杂度不变的情况下，通过引入更多的参数来增强建模能力。
+与参数全共享FFN相比，per-token FFN在保持计算复杂度不变的情况下，通过引入更多的参数来增强建模能力。（为什么，有没有大佬推导一下？）
 
 
 
@@ -69,8 +69,8 @@ $\mathbf{v}_1, \mathbf{v}_2, \ldots, \mathbf{v}_T = \mathrm{PFFN}(\mathbf{s}_1, 
 ## 5 实验与分析：
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbNTgxNDA2MjM2LC0xMDIyNjkyMzU2LC05NT
-czMjA3NjksLTg0OTUyNjE4MiwtNDE0NTU1NTIsLTgwOTYzOTM1
-LC03NjE5MTM5ODksNjQyNTU4NzI5LDE4NjYwMDY4MTUsMjA0OT
-EzODcwNSwtODY1MTkzMzUzXX0=
+eyJoaXN0b3J5IjpbLTc3NzU5NDU4MywtMTAyMjY5MjM1NiwtOT
+U3MzIwNzY5LC04NDk1MjYxODIsLTQxNDU1NTUyLC04MDk2Mzkz
+NSwtNzYxOTEzOTg5LDY0MjU1ODcyOSwxODY2MDA2ODE1LDIwND
+kxMzg3MDUsLTg2NTE5MzM1M119
 -->
