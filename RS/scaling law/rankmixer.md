@@ -45,6 +45,8 @@ $x_i = \mathrm{Proj}\left(e_{\mathrm{input}}\left[d \cdot (i - 1) : d \cdot i\ri
 #### 3.3.1 Multi-head Token Mixing
 先把每个token分成H个头：
 $\left[ \mathbf{x}_t^{(1)} \parallel \mathbf{x}_t^{(2)} \parallel \cdots \parallel \mathbf{x}_t^{(H)} \right] = \mathrm{SplitHead}(\mathbf{x}_t)$
+然后把T个token的每个h位置的头拼接起来（吐槽：所有的多头操作都是希望能从不同视角获得）：
+
 
 
 
@@ -53,7 +55,7 @@ $\left[ \mathbf{x}_t^{(1)} \parallel \mathbf{x}_t^{(2)} \parallel \cdots \parall
 ## 5 实验与分析：
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTE4OTE5MDAwMzgsLTg0OTUyNjE4MiwtND
+eyJoaXN0b3J5IjpbLTE1NDIyMTcxNDksLTg0OTUyNjE4MiwtND
 E0NTU1NTIsLTgwOTYzOTM1LC03NjE5MTM5ODksNjQyNTU4NzI5
 LDE4NjYwMDY4MTUsMjA0OTEzODcwNSwtODY1MTkzMzUzXX0=
 -->
