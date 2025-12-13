@@ -5,12 +5,12 @@
 
 ## 背景
 1、简单的堆叠特征交互层，结构未修改，效果微弱甚至为负面。
-2、DHEN和Wukong设计创新的深度神经网络结构以提高扩展性能
+2、DHEN和Wukong设计创新的深度神经网络结构以提高扩展性能。
 
 ## 1 论文解决的问题：
 1、必须严格遵守严格的延迟限制，并支持极高的每秒查询数（QPS）。
-2、原始rank模型的注意力机制主要在CPU计算阶段提出，核心操作大多受内存限制而非计算限制，在现代 GPU 上，这导致了较差的 GPU 并行性以及极低的 MFU（模型运算次数利用率），
-3、架构应与硬件相匹配，以在现代 GPU 上实现最大化的多功能单元（MFU）和计算吞吐量。
+2、原始rank模型的注意力机制主要在CPU计算时期提出，核心操作大多受内存限制而非计算限制，在现代 GPU 上，这导致了较差的 GPU 并行性以及极低的 MFU（模型运算次数利用率）。
+3、架构应与硬件相匹配，以在现代 GPU 上实现最大化的MFU和计算吞吐量。
 4、模型设计必须利用推荐数据的特性，例如异构特征空间以及数百个字段之间的个性化跨特征交互。
 
 ## 2 论文创新点：
@@ -23,7 +23,7 @@
 ### 3.1 整体框架：
 ![输入图片说明](/imgs/2025-12-13/iXt3rIjZqdbgMP4S.png)
 
-输入为T个token，经过连续L个Rankmixer以及平均池化后输出，每个 RankMixer 块有两个主要组成部分：（1）多头token mixing，以及（2）每个token的per-token FFN（PFFN）层，如图 1 所示。
+输入为T个token，经过连续L个Rankmixer以及平均池化后输出，每个 RankMixer 块有两个主要组成部分：（1）多头token mixing；（2）每个token的per-token FFN（PFFN）层，如图 1 所示。
 
 $S_{n-1} = \operatorname{LN}\!\left( \operatorname{TokenMixing}(X_{n-1}) + X_{n-1} \right)$
 $X_n = \mathrm{LN} \left( \mathrm{PFFN} \left( S_{n-1} \right) + S_{n-1} \right)$
@@ -79,9 +79,9 @@ $\#\mathrm{Param} \approx 2kLT D^2, \quad \mathrm{FLOPs} \approx 4kLT D^2$
 ## 5 实验与分析：
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTIwNzkzMzk2OTEsLTMzNTM5MDMzOSwtNz
-c3NTk0NTgzLC0xMDIyNjkyMzU2LC05NTczMjA3NjksLTg0OTUy
-NjE4MiwtNDE0NTU1NTIsLTgwOTYzOTM1LC03NjE5MTM5ODksNj
-QyNTU4NzI5LDE4NjYwMDY4MTUsMjA0OTEzODcwNSwtODY1MTkz
-MzUzXX0=
+eyJoaXN0b3J5IjpbLTI3NzMzNjUxOCwtMzM1MzkwMzM5LC03Nz
+c1OTQ1ODMsLTEwMjI2OTIzNTYsLTk1NzMyMDc2OSwtODQ5NTI2
+MTgyLC00MTQ1NTU1MiwtODA5NjM5MzUsLTc2MTkxMzk4OSw2ND
+I1NTg3MjksMTg2NjAwNjgxNSwyMDQ5MTM4NzA1LC04NjUxOTMz
+NTNdfQ==
 -->
