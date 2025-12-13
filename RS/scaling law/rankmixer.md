@@ -45,7 +45,7 @@ $x_i = \mathrm{Proj}\left(e_{\mathrm{input}}\left[d \cdot (i - 1) : d \cdot i\ri
 #### 3.3.1 Multi-head Token Mixing
 先把每个token分成H个头：
 $\left[ \mathbf{x}_t^{(1)} \parallel \mathbf{x}_t^{(2)} \parallel \cdots \parallel \mathbf{x}_t^{(H)} \right] = \mathrm{SplitHead}(\mathbf{x}_t)$
-然后把T个token的每个h位置的头拼接起来（吐槽：所有的多头操作都是希望能从不同视角获得）：
+然后把T个token的每个h位置的头拼接起来（吐槽：所有的多头操作都是希望能从不同视角解决任务，有没有文章能证明一下，多头是不是能起到multi-perspective的效果？）：
 
 
 
@@ -55,7 +55,7 @@ $\left[ \mathbf{x}_t^{(1)} \parallel \mathbf{x}_t^{(2)} \parallel \cdots \parall
 ## 5 实验与分析：
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTE1NDIyMTcxNDksLTg0OTUyNjE4MiwtND
-E0NTU1NTIsLTgwOTYzOTM1LC03NjE5MTM5ODksNjQyNTU4NzI5
-LDE4NjYwMDY4MTUsMjA0OTEzODcwNSwtODY1MTkzMzUzXX0=
+eyJoaXN0b3J5IjpbMTk0NzU5MjQxMCwtODQ5NTI2MTgyLC00MT
+Q1NTU1MiwtODA5NjM5MzUsLTc2MTkxMzk4OSw2NDI1NTg3Mjks
+MTg2NjAwNjgxNSwyMDQ5MTM4NzA1LC04NjUxOTMzNTNdfQ==
 -->
