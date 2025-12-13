@@ -51,7 +51,7 @@ $\mathbf{s}^h = \left[ \mathbf{x}_1^h; \mathbf{x}_2^h; \ldots; \mathbf{x}_T^h \r
 原文中设置H=T，加上残差连接和归一化层后为：
 $s_1, s_2, \ldots, s_T = \mathrm{LN}\!\left( \mathrm{TokenMixing}(x_1, x_2, \ldots, x_T) + (x_1, x_2, \ldots, x_T) \right)$
 
-尽管自注意力机制在大型语言模型中表现出了极高的有效性，但我们发现它对于推荐系统而言效果并不理想。在自注意力机制中，注意力权重是通过词元的内积来计算的。这种方法在自然语言处理中效果良好，因为所有的词元共享一个统一的嵌入空间。然而，在推荐任务中，特征空间本质上是异构的。在两个异构的语义空间之间计算内积相似度是极其困难的——特别是在推荐系统中，用户和项目侧特征的 ID 空间可能包含数亿个元素。
+尽管自注意力机制在大型语言模型中表现出了极高的有效性，但我们发现它对于推荐系统而言效果并不理想。在自注意力机制中，注意力权重是通过token的内积来计算的。这种方法在自然语言处理中效果良好，因为所有的token共享一个统一的embbeding空间。然而，在推荐任务中，特征空间本质上是异构的。在两个异构的语义空间之间计算内积相似度是极其困难的——特别是在推荐系统中，用户和项目侧特征的 ID 空间可能包含数亿个元素。（逻辑是对的，所以序列建模一直用的是同语义空间的相似度建模）
 
 
 
@@ -61,7 +61,7 @@ $s_1, s_2, \ldots, s_T = \mathrm{LN}\!\left( \mathrm{TokenMixing}(x_1, x_2, \ldo
 ## 5 实验与分析：
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTA0ODAxMTU0NiwtOTU3MzIwNzY5LC04ND
+eyJoaXN0b3J5IjpbLTg4NzQyNjkwMSwtOTU3MzIwNzY5LC04ND
 k1MjYxODIsLTQxNDU1NTUyLC04MDk2MzkzNSwtNzYxOTEzOTg5
 LDY0MjU1ODcyOSwxODY2MDA2ODE1LDIwNDkxMzg3MDUsLTg2NT
 E5MzM1M119
