@@ -37,11 +37,14 @@ Tokenization：为了实现高效的并行计算，不同维度的embedding必�
 
 最简单的策略是为每个特征分配一个embbeding，当特征为几百个时，每个token所分配的参数和计算量减到很少，从而导致对重要特征的建模不足以及GPU核心的不充分利用。相反，token数量过少（例如仅一个token）会使模型结构退化为简单的深度神经网络（DNN），无法清晰地表示不同的特征空间，这可能会导致主导特征掩盖其他特征。
 
+$x_i = \mathrm{Proj}\left(e_{\mathrm{input}}\left[d \cdot (i - 1) : d \cdot i\right]\right), \quad i = 1, \ldots, T,$
+
+
 
 ## 5 实验与分析：
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTQxNDU1NTUyLC04MDk2MzkzNSwtNzYxOT
-EzOTg5LDY0MjU1ODcyOSwxODY2MDA2ODE1LDIwNDkxMzg3MDUs
-LTg2NTE5MzM1M119
+eyJoaXN0b3J5IjpbLTg0OTUyNjE4MiwtNDE0NTU1NTIsLTgwOT
+YzOTM1LC03NjE5MTM5ODksNjQyNTU4NzI5LDE4NjYwMDY4MTUs
+MjA0OTEzODcwNSwtODY1MTkzMzUzXX0=
 -->
