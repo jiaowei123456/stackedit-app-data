@@ -33,13 +33,14 @@ $X_n = \mathrm{LN} \left( \mathrm{PFFN} \left( S_{n-1} \right) + S_{n-1} \right)
 3. 序列特征：通过序列模块处理后的序列特征用于捕捉时间相关性
 4. 交叉特征：得到嵌入向量和交叉特征
 
-Tokenization：为了实现高效的并行计算，不同维度的embedding必须转换为维度对齐的向量，这些向量被称为特征Tokenization。
+Tokenization：为了实现高效的并行计算，不同维度的embedding必须转换为维度对齐的向量，这些向量被称为特征Token，这个过程称为Tokenization。
+常用的方法可能会导致一些问题：
 
 
 ## 5 实验与分析：
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTE0MDYwMDgwNiwtNzYxOTEzOTg5LDY0Mj
-U1ODcyOSwxODY2MDA2ODE1LDIwNDkxMzg3MDUsLTg2NTE5MzM1
-M119
+eyJoaXN0b3J5IjpbLTgwOTYzOTM1LC03NjE5MTM5ODksNjQyNT
+U4NzI5LDE4NjYwMDY4MTUsMjA0OTEzODcwNSwtODY1MTkzMzUz
+XX0=
 -->
