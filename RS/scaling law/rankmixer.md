@@ -63,14 +63,14 @@ $\mathbf{v}_1, \mathbf{v}_2, \ldots, \mathbf{v}_T = \mathrm{PFFN}(\mathbf{s}_1, 
 与参数全共享FFN相比，per-token FFN在保持计算复杂度不变的情况下，通过引入更多的参数来增强建模能力。（为什么，$\mathbf{W}_{\mathrm{pffn}}$如果是全参数共享的FFN参数应该是$T×D*T×kD$，per-token FFN参数应该是$D*kD*T$，感觉参数量变少了，有没有大佬帮忙推导一下？）
 
 ### 3.4 Sparse MoE in RankMixer
-
+为了进一步提高ROI，我们可以将每个token的FFN替换为Sparse Mixture-of-Experts (MoE)，这样模型的容量就能增加，而计算成本则大致保持不变。然而，普通的稀疏专家混合模型（Sparse-MoE）在 RankMixer 中会表现不佳，原因在于：（i）均匀的 k 专家路由。对前 k 个特征词的处理方式是同等对待所有特征词，这会浪费低信息特征词的资源并剥夺高信息特征词的资源，从而阻碍模型捕捉词之间的差异。（ii）专家训练不足。每个词的 FFN 已经将参数乘以词的数量；再加上非共享专家会进一步增加专家的数量，导致路由高度不均衡且专家训练效果不佳； 我们结合了两种互补的训练策略来解决上述问题。
 
 
 
 ## 5 实验与分析：
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTg0MDk0NDIyNiwtNzc3NTk0NTgzLC0xMD
+eyJoaXN0b3J5IjpbLTU4Mzg0MDk4MiwtNzc3NTk0NTgzLC0xMD
 IyNjkyMzU2LC05NTczMjA3NjksLTg0OTUyNjE4MiwtNDE0NTU1
 NTIsLTgwOTYzOTM1LC03NjE5MTM5ODksNjQyNTU4NzI5LDE4Nj
 YwMDY4MTUsMjA0OTEzODcwNSwtODY1MTkzMzUzXX0=
