@@ -40,7 +40,7 @@ Tokenization：为了实现高效的并行计算，不同维度的embedding必�
 为了解决这些问题，本文提出了一种基于语义的分词方法，结合领域知识将特征分组为几个语义连贯的簇。这些分组的特征依次连接成一个嵌入向量 $e_{\mathrm{input}} = \left[ e_1; e_2; \ldots; e_N \right]$，随后将其划分为具有固定维度大小的适当数量的标记。每个特征标记 $x_i ∈ R^D$ 捕获一组表示相似语义方面的特征嵌入。(没看懂)
 $x_i = \mathrm{Proj}\left(e_{\mathrm{input}}\left[d \cdot (i - 1) : d \cdot i\right]\right), \quad i = 1, \ldots, T,$
 
-### 3.3 输入层和特征token化（没看懂）：
+### 3.3 RankMixer Block：
 
 
 
@@ -49,7 +49,7 @@ $x_i = \mathrm{Proj}\left(e_{\mathrm{input}}\left[d \cdot (i - 1) : d \cdot i\ri
 ## 5 实验与分析：
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTkwMjkwMjEyOCwtODQ5NTI2MTgyLC00MT
-Q1NTU1MiwtODA5NjM5MzUsLTc2MTkxMzk4OSw2NDI1NTg3Mjks
-MTg2NjAwNjgxNSwyMDQ5MTM4NzA1LC04NjUxOTMzNTNdfQ==
+eyJoaXN0b3J5IjpbLTEyNDA1MTg4MTgsLTg0OTUyNjE4MiwtND
+E0NTU1NTIsLTgwOTYzOTM1LC03NjE5MTM5ODksNjQyNTU4NzI5
+LDE4NjYwMDY4MTUsMjA0OTEzODcwNSwtODY1MTkzMzUzXX0=
 -->
