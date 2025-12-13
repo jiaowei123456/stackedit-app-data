@@ -27,7 +27,7 @@
 
 $S_{n-1} = \operatorname{LN}\!\left( \operatorname{TokenMixing}(X_{n-1}) + X_{n-1} \right)$
 $X_n = \mathrm{LN} \left( \mathrm{PFFN} \left( S_{n-1} \right) + S_{n-1} \right)$
-### 3.2 输入层和特征token化：
+### 3.2 输入层和特征token化（没看懂）：
 1. 用户特征：包括用户 ID 及其他用户信息等
 2. 物品特征：视频 ID、作者 ID 等
 3. 序列特征：通过序列模块处理后的序列特征用于捕捉时间相关性
@@ -37,14 +37,17 @@ Tokenization：为了实现高效的并行计算，不同维度的embedding必�
 
 最简单的策略是为每个特征分配一个embbeding，当特征为几百个时，每个token所分配的参数和计算量减到很少，从而导致对重要特征的建模不足以及GPU核心的不充分利用。相反，token数量过少（例如仅一个token）会使模型结构退化为简单的深度神经网络（DNN），无法清晰地表示不同的特征空间，这可能会导致主导特征掩盖其他特征。
 
+为了解决这些问题，本文提出了一种基于语义的分词方法，结合领域知识将特征分组为几个语义连贯的簇。这些分组的特征依次连接成一个嵌入向量 einput = [ e1; e2; . . . ; eN ]，随后将其划分为具有固定维度大小的适当数量的标记。每个特征标记 xi ∈ RD 捕获一组表示相似语义方面的特征嵌入。
 $x_i = \mathrm{Proj}\left(e_{\mathrm{input}}\left[d \cdot (i - 1) : d \cdot i\right]\right), \quad i = 1, \ldots, T,$
+
+
 
 
 
 ## 5 实验与分析：
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTg0OTUyNjE4MiwtNDE0NTU1NTIsLTgwOT
-YzOTM1LC03NjE5MTM5ODksNjQyNTU4NzI5LDE4NjYwMDY4MTUs
-MjA0OTEzODcwNSwtODY1MTkzMzUzXX0=
+eyJoaXN0b3J5IjpbNjI4MjA3NjUzLC04NDk1MjYxODIsLTQxND
+U1NTUyLC04MDk2MzkzNSwtNzYxOTEzOTg5LDY0MjU1ODcyOSwx
+ODY2MDA2ODE1LDIwNDkxMzg3MDUsLTg2NTE5MzM1M119
 -->
