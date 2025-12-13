@@ -55,6 +55,8 @@ $s_1, s_2, \ldots, s_T = \mathrm{LN}\!\left( \mathrm{TokenMixing}(x_1, x_2, \ldo
 #### 3.3.2 Per-token FFN
 之前的 DLRM 和 DHEN 模型往往会在一个单一的交互模块中将来自多个不同语义空间的特征混合在一起，这可能会导致高频字段占据主导地位，从而掩盖低频或长尾信号，最终损害整体推荐质量。我们引入了一种参数独立的前馈网络架构，称为每个token的 FFN。在传统的设计中，FFN 的参数在所有token中是共享的，但我们的方法对每个token都进行专门的变换，从而为每个token有自己的FFN。对于第 t 个令牌 $s_t$ ，每个令牌的 FFN 可以表示为
 $\mathbf{v}_t = f_{\mathrm{pffn}}^{t,2} \left( \mathrm{Gelu} \left( f_{\mathrm{pffn}}^{t,1} (s_t) \right) \right)$
+其中：
+$f_{\mathrm{pffn}}^{t,i}(x) = x \mathbf{W}_{\mathrm{pffn}}^{t,i} + \mathbf{b}_{\mathrm{pffn}}^{t,i}$
 
 
 
@@ -63,8 +65,8 @@ $\mathbf{v}_t = f_{\mathrm{pffn}}^{t,2} \left( \mathrm{Gelu} \left( f_{\mathrm{p
 ## 5 实验与分析：
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbNDMwNjgyMTc1LC05NTczMjA3NjksLTg0OT
-UyNjE4MiwtNDE0NTU1NTIsLTgwOTYzOTM1LC03NjE5MTM5ODks
-NjQyNTU4NzI5LDE4NjYwMDY4MTUsMjA0OTEzODcwNSwtODY1MT
-kzMzUzXX0=
+eyJoaXN0b3J5IjpbLTMxODUxNTYyOSwtOTU3MzIwNzY5LC04ND
+k1MjYxODIsLTQxNDU1NTUyLC04MDk2MzkzNSwtNzYxOTEzOTg5
+LDY0MjU1ODcyOSwxODY2MDA2ODE1LDIwNDkxMzg3MDUsLTg2NT
+E5MzM1M119
 -->
