@@ -19,13 +19,15 @@
 3. Sparse Mixture-of-Experts (MoE)：通过针对不同的数据动态激活每个标记的特定子集专家，我们能够以最小的计算成本显著提高模型的容量。
 
 
-## 4 模型结构与实现代码：
-### 2.1 预训练数据集的构建：
+## 3 模型结构与实现代码：
+### 3.1 整体框架：
+![输入图片说明](/imgs/2025-12-13/iXt3rIjZqdbgMP4S.png)
+
 
 
 ## 5 实验与分析：
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTIzNDAyNjk4MCw2NDI1NTg3MjksMTg2Nj
+eyJoaXN0b3J5IjpbLTc2MTkxMzk4OSw2NDI1NTg3MjksMTg2Nj
 AwNjgxNSwyMDQ5MTM4NzA1LC04NjUxOTMzNTNdfQ==
 -->
