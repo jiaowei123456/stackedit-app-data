@@ -73,13 +73,13 @@ $\mathcal{L} = \mathcal{L}_{\mathrm{task}} + \lambda \, \mathcal{L}_{\mathrm{reg
 Dense-training / Sparse-inference (DTSI-MoE)：采用了htrain和hinfer两个路由器，Lreg仅用于hinfer。htrain和hinfer都在训练过程中更新，而在推理过程中只使用hinfer。事实证明，DS-MoE在降低推理成本的同时，使专家不会受到训练不足的困扰。
 
 ### 3.4 Sparse MoE in RankMixer
-RankMixer 本质上是一种高度并行且可扩展的架构。其参数数量和计算成本可以通过四个相互垂直的维度进行扩展：令牌数量 T、模型宽度 D、层数 L 和专家数量 E。对于全密集激活版本，一个样本的参数数量和前向计算浮点运算次数（FLOPs）可以计算为
+RankMixer 本质上是一种高度并行且可扩展的架构。其参数数量和计算成本可以通过四个相互垂直的维度进行扩展：令牌数量 T、模型宽度 D、层数 L 和专家数量 E。对于全密集激活版本，一个样本的参数数量和前向计算浮点运算次数可以计算为：
 $\#\mathrm{Param} \approx 2kLT D^2, \quad \mathrm{FLOPs} \approx 4kLT D^2$
 
 ## 5 实验与分析：
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTEzOTg1MjI0NzgsLTMzNTM5MDMzOSwtNz
+eyJoaXN0b3J5IjpbLTIwNzkzMzk2OTEsLTMzNTM5MDMzOSwtNz
 c3NTk0NTgzLC0xMDIyNjkyMzU2LC05NTczMjA3NjksLTg0OTUy
 NjE4MiwtNDE0NTU1NTIsLTgwOTYzOTM1LC03NjE5MTM5ODksNj
 QyNTU4NzI5LDE4NjYwMDY4MTUsMjA0OTEzODcwNSwtODY1MTkz
