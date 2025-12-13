@@ -57,7 +57,7 @@ $s_1, s_2, \ldots, s_T = \mathrm{LN}\!\left( \mathrm{TokenMixing}(x_1, x_2, \ldo
 $\mathbf{v}_t = f_{\mathrm{pffn}}^{t,2} \left( \mathrm{Gelu} \left( f_{\mathrm{pffn}}^{t,1} (s_t) \right) \right)$
 其中：
 $f_{\mathrm{pffn}}^{t,i}(x) = x \mathbf{W}_{\mathrm{pffn}}^{t,i} + \mathbf{b}_{\mathrm{pffn}}^{t,i}$
-和传统的FFN网络差不多，先
+输入st和传统的FFN网络差不多，
 
 
 
@@ -66,8 +66,8 @@ $f_{\mathrm{pffn}}^{t,i}(x) = x \mathbf{W}_{\mathrm{pffn}}^{t,i} + \mathbf{b}_{\
 ## 5 实验与分析：
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTEwMjI2OTIzNTYsLTk1NzMyMDc2OSwtOD
-Q5NTI2MTgyLC00MTQ1NTU1MiwtODA5NjM5MzUsLTc2MTkxMzk4
-OSw2NDI1NTg3MjksMTg2NjAwNjgxNSwyMDQ5MTM4NzA1LC04Nj
-UxOTMzNTNdfQ==
+eyJoaXN0b3J5IjpbLTEyNzcxOTQxMywtMTAyMjY5MjM1NiwtOT
+U3MzIwNzY5LC04NDk1MjYxODIsLTQxNDU1NTUyLC04MDk2Mzkz
+NSwtNzYxOTEzOTg5LDY0MjU1ODcyOSwxODY2MDA2ODE1LDIwND
+kxMzg3MDUsLTg2NTE5MzM1M119
 -->
