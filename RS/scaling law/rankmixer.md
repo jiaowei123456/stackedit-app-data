@@ -68,14 +68,15 @@ $\mathbf{v}_1, \mathbf{v}_2, \ldots, \mathbf{v}_T = \mathrm{PFFN}(\mathbf{s}_1, 
 文中提出两个解决方案：
 ReLU 路由。为了使令牌拥有灵活的专家数量并保持可微性，我们用一个 ReLU 门控机制加上自适应 L1 惩罚来取代常见的 Topk + 指数化操作。
 $G_{i,j} = \mathrm{ReLU}(h(s_i)), \quad \mathbf{v}_i = \sum_{j=1}^{N_e} G_{i,j} \, e_{i,j}(s_i)$
-
+其中Ne是每个令牌的专家数量，Nt是令牌的数量。ReLU路由将激活更多的高信息令牌专家，提高参数效率。稀疏性由Lreg控制，其系数λ使平均活跃专家比率接近目标：
 
 
 ## 5 实验与分析：
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTMzNTM5MDMzOSwtNzc3NTk0NTgzLC0xMD
-IyNjkyMzU2LC05NTczMjA3NjksLTg0OTUyNjE4MiwtNDE0NTU1
-NTIsLTgwOTYzOTM1LC03NjE5MTM5ODksNjQyNTU4NzI5LDE4Nj
-YwMDY4MTUsMjA0OTEzODcwNSwtODY1MTkzMzUzXX0=
+eyJoaXN0b3J5IjpbLTg2OTc2NDEwMCwtMzM1MzkwMzM5LC03Nz
+c1OTQ1ODMsLTEwMjI2OTIzNTYsLTk1NzMyMDc2OSwtODQ5NTI2
+MTgyLC00MTQ1NTU1MiwtODA5NjM5MzUsLTc2MTkxMzk4OSw2ND
+I1NTg3MjksMTg2NjAwNjgxNSwyMDQ5MTM4NzA1LC04NjUxOTMz
+NTNdfQ==
 -->
