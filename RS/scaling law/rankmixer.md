@@ -5,6 +5,10 @@
 
 ## 背景
 
+1、简单的堆叠特征交互层，结构未修改，效果微弱甚至为负面。
+2、DHEN和Wukong设计创新的深度神经网络结构以提高扩展性能
+3、
+
 
 ## 1 论文解决的问题：
 
@@ -24,5 +28,6 @@
 ## 5 实验与分析：
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMjA0OTEzODcwNSwtODY1MTkzMzUzXX0=
+eyJoaXN0b3J5IjpbLTE4ODI2NDk0MTUsMjA0OTEzODcwNSwtOD
+Y1MTkzMzUzXX0=
 -->
