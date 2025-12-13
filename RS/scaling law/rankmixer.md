@@ -57,13 +57,18 @@ $s_1, s_2, \ldots, s_T = \mathrm{LN}\!\left( \mathrm{TokenMixing}(x_1, x_2, \ldo
 
 尽管自注意力机制在大型语言模型中表现出了极高的有效性，但我们发现它对于推荐系统而言效果并不理想。**在自注意力机制中，注意力权重是通过token的内积来计算的。这种方法在自然语言处理中效果良好，因为所有的token共享一个统一的embbeding空间。然而，在推荐任务中，特征空间本质上是异构的。在两个异构的语义空间之间计算内积相似度是极其困难的**——特别是在推荐系统中，用户和项目侧特征的 ID 空间可能包含数亿个元素。（逻辑是对的，所以行为序列建模一直用的是同语义空间的内积建模）（不过这个TokenMixing怎么这么像切牌啊，把token来回切）
 #### 3.3.2 Per-token FFN
-之前的 DLRM 和 DHEN 模型往往会在一个单一的交互模块中将来自多个不同语义空间的特征混合在一起，这可能会导致高频字段占据主导地位，从而掩盖低频或长尾信号，最终损害整体推荐质量。我们引入了一种参数独立的前馈网络架构，称为每个token的 FFN。在传统的设计中，FFN 的参数在所有token中是共享的，但我们的方法对每个token都进行专门的变换，从而为每个token有自己的FFN。对于第 t 个令牌 $s_t$ ，每个令牌的 FFN 可以表示为
+之前的 DLRM 和 DHEN 模型往往会在一个单一的交互模块中将来自多个不同语义空间的特征混合在一起，这可能会导致高频字段占据主导地位，从而掩盖低频或长尾信号，最终损害整体推荐质量。我们引入了一种参数独立的前馈网络架构，称为Per-token FFN。在传统的设计中，FFN 的参数在所有token中是共享的，但我们的方法对每个token都进行专门的变换，从而使得每个token有自己的FFN。
+
+对于第 t 个令牌 $s_t$ ，每个令牌的 FFN 可以表示为
 $\mathbf{v}_t = f_{\mathrm{pffn}}^{t,2} \left( \mathrm{Gelu} \left( f_{\mathrm{pffn}}^{t,1} (s_t) \right) \right)$
 其中：
 $f_{\mathrm{pffn}}^{t,i}(x) = x \mathbf{W}_{\mathrm{pffn}}^{t,i} + \mathbf{b}_{\mathrm{pffn}}^{t,i}$
+
 输入为$\mathbf{s_t} \in \mathbb{R}^{\frac{TD}{H}}$，网络结构和传统的FFN网络差不多，先通过$f_{\mathrm{pffn}}^{t,1}$升维，然后通过$f_{\mathrm{pffn}}^{t,2}$降维，$Gelu(·)$是激活函数。
+
 将per-token FFN模块总结为
 $\mathbf{v}_1, \mathbf{v}_2, \ldots, \mathbf{v}_T = \mathrm{PFFN}(\mathbf{s}_1, \mathbf{s}_2, \ldots, \mathbf{s}_T)$
+
 与参数全共享FFN相比，per-token FFN在保持计算复杂度不变的情况下，通过引入更多的参数来增强建模能力。（为什么，$\mathbf{W}_{\mathrm{pffn}}$如果是全参数共享的FFN参数应该是$T×D*T×kD$，per-token FFN参数应该是$D*kD*T$，感觉参数量变少了，有没有大佬帮忙推导一下？）
 
 ### 3.4 Sparse MoE in RankMixer
@@ -83,9 +88,9 @@ $\#\mathrm{Param} \approx 2kLT D^2, \quad \mathrm{FLOPs} \approx 4kLT D^2$
 ## 5 实验与分析：
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTc4MTEzMjU1NCwtMzM1MzkwMzM5LC03Nz
-c1OTQ1ODMsLTEwMjI2OTIzNTYsLTk1NzMyMDc2OSwtODQ5NTI2
-MTgyLC00MTQ1NTU1MiwtODA5NjM5MzUsLTc2MTkxMzk4OSw2ND
-I1NTg3MjksMTg2NjAwNjgxNSwyMDQ5MTM4NzA1LC04NjUxOTMz
-NTNdfQ==
+eyJoaXN0b3J5IjpbLTE1MDQ3MzQ0NzMsLTMzNTM5MDMzOSwtNz
+c3NTk0NTgzLC0xMDIyNjkyMzU2LC05NTczMjA3NjksLTg0OTUy
+NjE4MiwtNDE0NTU1NTIsLTgwOTYzOTM1LC03NjE5MTM5ODksNj
+QyNTU4NzI5LDE4NjYwMDY4MTUsMjA0OTEzODcwNSwtODY1MTkz
+MzUzXX0=
 -->
