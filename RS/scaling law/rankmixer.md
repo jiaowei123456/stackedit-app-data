@@ -23,11 +23,12 @@
 ### 3.1 整体框架：
 ![输入图片说明](/imgs/2025-12-13/iXt3rIjZqdbgMP4S.png)
 
-
+输入为T个token，jing
 
 ## 5 实验与分析：
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTc2MTkxMzk4OSw2NDI1NTg3MjksMTg2Nj
-AwNjgxNSwyMDQ5MTM4NzA1LC04NjUxOTMzNTNdfQ==
+eyJoaXN0b3J5IjpbMzE0NzEyODQ4LC03NjE5MTM5ODksNjQyNT
+U4NzI5LDE4NjYwMDY4MTUsMjA0OTEzODcwNSwtODY1MTkzMzUz
+XX0=
 -->
