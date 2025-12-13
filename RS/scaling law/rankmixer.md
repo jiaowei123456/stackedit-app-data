@@ -37,10 +37,12 @@ Tokenization：为了实现高效的并行计算，不同维度的embedding必�
 
 最简单的策略是为每个特征分配一个embbeding，当特征为几百个时，每个token所分配的参数和计算量减到很少，从而导致对重要特征的建模不足以及GPU核心的不充分利用。相反，token数量过少（例如仅一个token）会使模型结构退化为简单的深度神经网络（DNN），无法清晰地表示不同的特征空间，这可能会导致主导特征掩盖其他特征。
 
-为了解决这些问题，本文提出了一种基于语义的分词方法，结合领域知识将特征分组为几个语义连贯的簇。这些分组的特征依次连接成一个嵌入向量 $e_{\mathrm{input}} = \left[ e_1; e_2; \ldots; e_N \right]$，随后将其划分为具有固定维度大小的适当数量的标记。每个特征标记 $x_i ∈ R^D$ 捕获一组表示相似语义方面的特征嵌入。(没看懂)
+为了解决这些问题，本文提出了一种基于语义的分词方法，结合领域知识将特征分组为几个语义连贯的簇。这些分组的特征依次连接成一个嵌入向量 $e_{\mathrm{input}} = \left[ e_1; e_2; \ldots; e_N \right]$，随后将其划分为具有固定维度大小的适当数量的标记。每个特征标记 $x_i ∈ R^D$ 捕获一组表示相似语义方面的特征嵌入。
 $x_i = \mathrm{Proj}\left(e_{\mathrm{input}}\left[d \cdot (i - 1) : d \cdot i\right]\right), \quad i = 1, \ldots, T,$
+输出为 $x_i ∈ R^{T×D}$ ，T个token，每个token D维。
 
 ### 3.3 RankMixer Block：
+### 3.3.1 Multi-head Token Mixing.
 
 
 
@@ -49,7 +51,7 @@ $x_i = \mathrm{Proj}\left(e_{\mathrm{input}}\left[d \cdot (i - 1) : d \cdot i\ri
 ## 5 实验与分析：
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTEyNDA1MTg4MTgsLTg0OTUyNjE4MiwtND
-E0NTU1NTIsLTgwOTYzOTM1LC03NjE5MTM5ODksNjQyNTU4NzI5
-LDE4NjYwMDY4MTUsMjA0OTEzODcwNSwtODY1MTkzMzUzXX0=
+eyJoaXN0b3J5IjpbLTI3NjYyNjIzNSwtODQ5NTI2MTgyLC00MT
+Q1NTU1MiwtODA5NjM5MzUsLTc2MTkxMzk4OSw2NDI1NTg3Mjks
+MTg2NjAwNjgxNSwyMDQ5MTM4NzA1LC04NjUxOTMzNTNdfQ==
 -->
