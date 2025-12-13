@@ -47,8 +47,11 @@ $x_i = \mathrm{Proj}\left(e_{\mathrm{input}}\left[d \cdot (i - 1) : d \cdot i\ri
 $\left[ \mathbf{x}_t^{(1)} \parallel \mathbf{x}_t^{(2)} \parallel \cdots \parallel \mathbf{x}_t^{(H)} \right] = \mathrm{SplitHead}(\mathbf{x}_t)$
 然后把T个token的每个h位置的头拼接起来（所有的多头操作都号称为了从不同视角解决任务，有没有文章能证明一下，多头是不是能起到multi-perspective的效果？）：
 $\mathbf{s}^h = \left[ \mathbf{x}_1^h; \mathbf{x}_2^h; \ldots; \mathbf{x}_T^h \right]$
-然后把拼接之后的H个$s^h$堆叠在一起，输出为$\mathbf{S} \in \mathbb{R}^{H \times \frac{TD}{H}}$，原文中设置H=T。
+然后把拼接之后的H个$s^h$堆叠在一起，输出为$\mathbf{S} \in \mathbb{R}^{H \times \frac{TD}{H}}$。
+原文中设置H=T，加上残差连接和归一化层后为：
 $s_1, s_2, \ldots, s_T = \mathrm{LN}\!\left( \mathrm{TokenMixing}(x_1, x_2, \ldots, x_T) + (x_1, x_2, \ldots, x_T) \right)$
+
+尽管自注意力机制在大型语言模型中表现出了极高的有效性，但我们发现它对于推荐系统而言效果并不理想。在自注意力机制中，注意力权重是通过词元的内积来计算的。这种方法在自然语言处理中效果良好，因为所有的词元共享一个统一的嵌入空间。然而，在推荐任务中，特征空间本质上是异构的。在两个异构的语义空间之间计算内积相似度是极其困难的——特别是在推荐系统中，用户和项目侧特征的 ID 空间可能包含数亿个元素。
 
 
 
@@ -58,7 +61,8 @@ $s_1, s_2, \ldots, s_T = \mathrm{LN}\!\left( \mathrm{TokenMixing}(x_1, x_2, \ldo
 ## 5 实验与分析：
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTk1NzMyMDc2OSwtODQ5NTI2MTgyLC00MT
-Q1NTU1MiwtODA5NjM5MzUsLTc2MTkxMzk4OSw2NDI1NTg3Mjks
-MTg2NjAwNjgxNSwyMDQ5MTM4NzA1LC04NjUxOTMzNTNdfQ==
+eyJoaXN0b3J5IjpbMTA0ODAxMTU0NiwtOTU3MzIwNzY5LC04ND
+k1MjYxODIsLTQxNDU1NTUyLC04MDk2MzkzNSwtNzYxOTEzOTg5
+LDY0MjU1ODcyOSwxODY2MDA2ODE1LDIwNDkxMzg3MDUsLTg2NT
+E5MzM1M119
 -->
