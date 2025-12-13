@@ -72,13 +72,18 @@ $\mathbf{v}_1, \mathbf{v}_2, \ldots, \mathbf{v}_T = \mathrm{PFFN}(\mathbf{s}_1, 
 与参数全共享FFN相比，per-token FFN在保持计算复杂度不变的情况下，通过引入更多的参数来增强建模能力。（为什么，$\mathbf{W}_{\mathrm{pffn}}$如果是全参数共享的FFN参数应该是$T×D*T×kD$，per-token FFN参数应该是$D*kD*T$，感觉参数量变少了，有没有大佬帮忙推导一下？）
 
 ### 3.4 Sparse MoE in RankMixer
-为了进一步提高ROI，我们可以将每个token的FFN替换为Sparse Mixture-of-Experts (MoE)，这样模型的容量就能增加，而计算成本则大致保持不变。然而，普通的稀疏专家混合模型（Sparse-MoE）在 RankMixer 中会表现不佳，原因在于：（i）uniform k-expert routing：对前 k 个特征词的处理方式是同等对待所有特征token，这会浪费低信息特征token的资源并剥夺高信息特征token的资源，从而阻碍模型捕捉token之间的差异。（ii）expert under-training：Per-token FFNs已经将参数乘以token的数量；再加上非共享专家会进一步增加专家的数量，导致路由高度不均衡且专家训练效果不佳； 我们结合了两种互补的训练策略来解决上述问题。
+为了进一步提高ROI，我们可以将每个token的FFN替换为Sparse Mixture-of-Experts (MoE)，这样模型的容量就能增加，而计算成本则大致保持不变。然而，普通的稀疏专家混合模型（Sparse-MoE）在 RankMixer 中会表现不佳，原因在于：
+（i）uniform k-expert routing：对前 k 个特征词的处理方式是同等对待所有特征token，这会浪费低信息特征token的资源并剥夺高信息特征token的资源，从而阻碍模型捕捉token之间的差异。
+（ii）expert under-training：Per-token FFNs已经将参数乘以token的数量；再加上非共享专家会进一步增加专家的数量，导致路由高度不均衡且专家训练效果不佳。
 
 文中提出两个解决方案：
+
 ReLU Routing：为了使令牌拥有灵活的专家数量并保持可微性，我们用一个 ReLU 门控机制加上自适应 L1 惩罚来取代常见的 Topk + 指数化操作。
+
 $G_{i,j} = \mathrm{ReLU}(h(s_i)), \quad \mathbf{v}_i = \sum_{j=1}^{N_e} G_{i,j} \, e_{i,j}(s_i)$
-其中Ne是每个令牌的专家数量，Nt是令牌的数量。ReLU路由将激活更多的高信息令牌专家，提高参数效率。稀疏性由Lreg控制，其系数λ使平均活跃专家比率接近预算：
+其中$N_e$是每个令牌的专家数量，$N_t$是令牌的数量。ReLU路由将激活更多的高信息令牌专家，提高参数效率。稀疏性由$Lreg控制，其系数λ使平均活跃专家比率接近预算：
 $\mathcal{L} = \mathcal{L}_{\mathrm{task}} + \lambda \, \mathcal{L}_{\mathrm{reg}}, \quad \mathcal{L}_{\mathrm{reg}} = \sum_{i=1}^{N_t} \sum_{j=1}^{N_e} G_{i,j}$
+
 Dense-training / Sparse-inference (DTSI-MoE)：采用了htrain和hinfer两个路由器，Lreg仅用于hinfer。htrain和hinfer都在训练过程中更新，而在推理过程中只使用hinfer。事实证明，DS-MoE在降低推理成本的同时，使专家不会受到训练不足的困扰。
 
 ### 3.4 Sparse MoE in RankMixer
@@ -88,7 +93,7 @@ $\#\mathrm{Param} \approx 2kLT D^2, \quad \mathrm{FLOPs} \approx 4kLT D^2$
 ## 5 实验与分析：
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTE1MDQ3MzQ0NzMsLTMzNTM5MDMzOSwtNz
+eyJoaXN0b3J5IjpbLTEwODI3NjE3NDYsLTMzNTM5MDMzOSwtNz
 c3NTk0NTgzLC0xMDIyNjkyMzU2LC05NTczMjA3NjksLTg0OTUy
 NjE4MiwtNDE0NTU1NTIsLTgwOTYzOTM1LC03NjE5MTM5ODksNj
 QyNTU4NzI5LDE4NjYwMDY4MTUsMjA0OTEzODcwNSwtODY1MTkz
