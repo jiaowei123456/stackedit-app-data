@@ -81,10 +81,10 @@ $\mathbf{v}_1, \mathbf{v}_2, \ldots, \mathbf{v}_T = \mathrm{PFFN}(\mathbf{s}_1, 
 ReLU Routing：为了使令牌拥有灵活的专家数量并保持可微性，我们用一个 ReLU 门控机制加上自适应 L1 惩罚来取代常见的 Topk + 指数化操作。
 
 $G_{i,j} = \mathrm{ReLU}(h(s_i)), \quad \mathbf{v}_i = \sum_{j=1}^{N_e} G_{i,j} \, e_{i,j}(s_i)$
-其中$N_e$是每个令牌的专家数量，$N_t$是令牌的数量。ReLU路由将激活更多的高信息令牌专家，提高参数效率。稀疏性由$Lreg控制，其系数λ使平均活跃专家比率接近预算：
+其中$N_e$是每个令牌的专家数量，$N_t$是令牌的数量。ReLU路由将激活更多的高信息令牌专家，提高参数效率。稀疏性由$L_{reg}$控制，其系数λ使平均活跃专家比率接近预算：
 $\mathcal{L} = \mathcal{L}_{\mathrm{task}} + \lambda \, \mathcal{L}_{\mathrm{reg}}, \quad \mathcal{L}_{\mathrm{reg}} = \sum_{i=1}^{N_t} \sum_{j=1}^{N_e} G_{i,j}$
 
-Dense-training / Sparse-inference (DTSI-MoE)：采用了htrain和hinfer两个路由器，Lreg仅用于hinfer。htrain和hinfer都在训练过程中更新，而在推理过程中只使用hinfer。事实证明，DS-MoE在降低推理成本的同时，使专家不会受到训练不足的困扰。
+Dense-training / Sparse-inference (DTSI-MoE)：采用了$h_{train}$和$h_{infer}$两个路由器，$L_{reg}$仅用于$h_{infer}$。$h_{train}$和$h_{infer}$都在训练过程中更新，而在推理过程中只使用$h_{infer}$。事实证明，DS-MoE在降低推理成本的同时，使专家不会受到训练不足的困扰。
 
 ### 3.4 Sparse MoE in RankMixer
 RankMixer 本质上是一种高度并行且可扩展的架构。其参数数量和计算成本可以通过四个相互垂直的维度进行扩展：令牌数量 T、模型宽度 D、层数 L 和专家数量 E。对于全密集激活版本，一个样本的参数数量和前向计算浮点运算次数可以计算为：
@@ -93,7 +93,7 @@ $\#\mathrm{Param} \approx 2kLT D^2, \quad \mathrm{FLOPs} \approx 4kLT D^2$
 ## 5 实验与分析：
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTEwODI3NjE3NDYsLTMzNTM5MDMzOSwtNz
+eyJoaXN0b3J5IjpbLTE0ODQ2Njc5ODAsLTMzNTM5MDMzOSwtNz
 c3NTk0NTgzLC0xMDIyNjkyMzU2LC05NTczMjA3NjksLTg0OTUy
 NjE4MiwtNDE0NTU1NTIsLTgwOTYzOTM1LC03NjE5MTM5ODksNj
 QyNTU4NzI5LDE4NjYwMDY4MTUsMjA0OTEzODcwNSwtODY1MTkz
