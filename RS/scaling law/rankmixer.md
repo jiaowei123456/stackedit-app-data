@@ -14,7 +14,9 @@
 4、模型设计必须利用推荐数据的特性，例如异构特征空间以及数百个字段之间的个性化跨特征交互。
 
 ## 2 论文创新点：
-1. Multi-head token mixing achieves
+1. Multi-head token mixing 获得跨token特征交互只能通过无参数操作符进行。该策略在性能和计算效率方面优于自注意机制。
+
+AI为你提供母语级高精翻译
 
 
 ### 2.1 预训练数据集的构建：
@@ -29,6 +31,6 @@
 ## 5 实验与分析：
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTgwODMxMzgwMSwyMDQ5MTM4NzA1LC04Nj
+eyJoaXN0b3J5IjpbMTM2MDI5OTU4NywyMDQ5MTM4NzA1LC04Nj
 UxOTMzNTNdfQ==
 -->
