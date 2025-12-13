@@ -27,12 +27,16 @@
 
 $S_{n-1} = \operatorname{LN}\!\left( \operatorname{TokenMixing}(X_{n-1}) + X_{n-1} \right)$
 $X_n = \mathrm{LN} \left( \mathrm{PFFN} \left( S_{n-1} \right) + S_{n-1} \right)$
-
+### 3.2 输入层和特征token化：
+1. 用户特征：包括用户 ID 及其他用户信息等
+2. 物品特征：视频 ID、作者 ID 等
+3. 序列特征
+4. 交叉特征：
 
 ## 5 实验与分析：
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTM4OTUyOTkwMCwtNzYxOTEzOTg5LDY0Mj
+eyJoaXN0b3J5IjpbMTM3Mjg2MTUyMiwtNzYxOTEzOTg5LDY0Mj
 U1ODcyOSwxODY2MDA2ODE1LDIwNDkxMzg3MDUsLTg2NTE5MzM1
 M119
 -->
