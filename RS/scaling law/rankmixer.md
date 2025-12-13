@@ -70,13 +70,15 @@ ReLU Routing：为了使令牌拥有灵活的专家数量并保持可微性，�
 $G_{i,j} = \mathrm{ReLU}(h(s_i)), \quad \mathbf{v}_i = \sum_{j=1}^{N_e} G_{i,j} \, e_{i,j}(s_i)$
 其中Ne是每个令牌的专家数量，Nt是令牌的数量。ReLU路由将激活更多的高信息令牌专家，提高参数效率。稀疏性由Lreg控制，其系数λ使平均活跃专家比率接近预算：
 $\mathcal{L} = \mathcal{L}_{\mathrm{task}} + \lambda \, \mathcal{L}_{\mathrm{reg}}, \quad \mathcal{L}_{\mathrm{reg}} = \sum_{i=1}^{N_t} \sum_{j=1}^{N_e} G_{i,j}$
-Dense-training / Sparse-inference (DTSI-MoE)：采用了htrain和hinfer两个路由器，lregg仅用于hinfer。htrain和hinfer都在训练过程中更新，而在推理过程中只使用hinfer。事实证明，DS-MoE在降低推理成本的同时，使专家不会受到训练不足的困扰。
+Dense-training / Sparse-inference (DTSI-MoE)：采用了htrain和hinfer两个路由器，Lreg仅用于hinfer。htrain和hinfer都在训练过程中更新，而在推理过程中只使用hinfer。事实证明，DS-MoE在降低推理成本的同时，使专家不会受到训练不足的困扰。
 
+### 3.4 Sparse MoE in RankMixer
+RankMixer 本质上是一种高度并行且可扩展的架构。其参数数量和计算成本可以通过四个相互垂直的维度进行扩展：令牌数量 T、模型宽度 D、层数 L 和专家数量 E。对于全密集激活版本，一个样本的参数数量和前向计算浮点运算次数（FLOPs）可以计算为
 
 ## 5 实验与分析：
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTA1NzIxNzE4NiwtMzM1MzkwMzM5LC03Nz
+eyJoaXN0b3J5IjpbLTgwODQ1MjU3MSwtMzM1MzkwMzM5LC03Nz
 c1OTQ1ODMsLTEwMjI2OTIzNTYsLTk1NzMyMDc2OSwtODQ5NTI2
 MTgyLC00MTQ1NTU1MiwtODA5NjM5MzUsLTc2MTkxMzk4OSw2ND
 I1NTg3MjksMTg2NjAwNjgxNSwyMDQ5MTM4NzA1LC04NjUxOTMz
