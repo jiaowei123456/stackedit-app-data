@@ -43,7 +43,8 @@ $x_i = \mathrm{Proj}\left(e_{\mathrm{input}}\left[d \cdot (i - 1) : d \cdot i\ri
 
 ### 3.3 RankMixer Block
 #### 3.3.1 Multi-head Token Mixing
-先把每个token分成H个头
+先把每个token分成H个头：
+$\left[ \mathbf{x}_t^{(1)} \parallel \mathbf{x}_t^{(2)} \parallel \cdots \parallel \mathbf{x}_t^{(H)} \right] = \mathrm{SplitHead}(\mathbf{x}_t)$
 
 
 
@@ -52,7 +53,7 @@ $x_i = \mathrm{Proj}\left(e_{\mathrm{input}}\left[d \cdot (i - 1) : d \cdot i\ri
 ## 5 实验与分析：
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMzM1MDI4MzQwLC04NDk1MjYxODIsLTQxND
-U1NTUyLC04MDk2MzkzNSwtNzYxOTEzOTg5LDY0MjU1ODcyOSwx
-ODY2MDA2ODE1LDIwNDkxMzg3MDUsLTg2NTE5MzM1M119
+eyJoaXN0b3J5IjpbLTE4OTE5MDAwMzgsLTg0OTUyNjE4MiwtND
+E0NTU1NTIsLTgwOTYzOTM1LC03NjE5MTM5ODksNjQyNTU4NzI5
+LDE4NjYwMDY4MTUsMjA0OTEzODcwNSwtODY1MTkzMzUzXX0=
 -->
