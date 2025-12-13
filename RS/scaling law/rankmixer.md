@@ -23,12 +23,12 @@
 ### 3.1 整体框架：
 ![输入图片说明](/imgs/2025-12-13/iXt3rIjZqdbgMP4S.png)
 
-输入为T个token，jing
+输入为T个token，经过连续L个Rankmixer以及平均池化后输出，每个 RankMixer 块有两个主要组成部分：（1）多头token mixing，以及（2）每个token的per-token FFN（PFFN）层，如图 1 所示。
 
 ## 5 实验与分析：
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMzE0NzEyODQ4LC03NjE5MTM5ODksNjQyNT
-U4NzI5LDE4NjYwMDY4MTUsMjA0OTEzODcwNSwtODY1MTkzMzUz
-XX0=
+eyJoaXN0b3J5IjpbMTkzNDQ3NTM0NCwtNzYxOTEzOTg5LDY0Mj
+U1ODcyOSwxODY2MDA2ODE1LDIwNDkxMzg3MDUsLTg2NTE5MzM1
+M119
 -->
