@@ -119,15 +119,18 @@ Self-Attention:在token之间应用自注意力机制进行路由。
 Scalability. 上图绘制了SMoE 的离线 AUC 增益与稀疏度的关系。
 1. 原始 SMoE 的性能随着激活的专家数量减少而单调下降，这说明了专家不平衡和训练不足的问题。
 2. 添加balance loss可减少相对于原始 SMoE 的性能下降，但仍不如 DTSI(Dense-training / Sparse-inference) + ReLU 版本，因为问题主要在于专家训练而非路由器。
-3. 
+
 Expert balance and diversity 普通稀疏多专家模型常常会遭遇专家失衡的问题。图文证明，将 DTSI与 ReLU 路由相结合能够有效解决这一问题：Dense-training确保大多数专家都能获得足够的梯度更新。ReLU 路由使激活比例在各个token之间动态变化——图中显示的激活比例会根据其信息内容自适应地变化，这与推荐数据的多样化且高度动态的分布非常吻合。
+
 ### 4.6 Online Serving cost
 做到了参数量提升70倍，但是推理耗时几乎不变，耗时计算公式：
 $\text{Latency} = \frac{\#\text{Param} \times \text{FLOPs/Param ratio}}{\text{MFU} \times (\text{Theoretical Hardware FLOPs})}$
-相比与原始online模型，延迟变化因素表：
+
+相比与原始online模型，延迟变化因素影响表：
 ![输入图片说明](/imgs/2025-12-15/H6jUiL03rt4smeof.png)
 
 其实只需要看FLOPs、MFU以及Hardware FOLPs就可以，分别升高了20倍，10倍，2倍，所以前者被后两者抵消了。
+
 MFU：如表 6 所示，MFU 表示机器计算的利用率。通过采用大型 **GEMM shape、良好的并行拓扑结构（将并行的每个令牌的 FFN 融合为一个内核）以及降低内存带宽成本和开销**，RankMixer 将 MFU 提高了近 10 倍，使模型从内存受限状态转变为计算受限状态。（感觉这个才是关键，其次没想到抖音居然之前用的是全精）
 
 ### 4.7 Online Performance
@@ -138,11 +141,11 @@ MFU：如表 6 所示，MFU 表示机器计算的利用率。通过采用大型 
 ![输入图片说明](/imgs/2025-12-15/p8K56RwBUuUC71nm.png)
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTM2NTM1NTQ0MCwxNTkzNjgzMzgyLC00OT
-EwODQwNjgsMTUyNTgzODA3MSw3NDM3ODY4MDQsNjg5ODE0NTE5
-LDI2MjcyMzI3NCw2NDYyMDEyNDQsMTQyNDMzNTQ2MSwtMTQ2MT
-AzMjY3NSwtMzM1MzkwMzM5LC03Nzc1OTQ1ODMsLTEwMjI2OTIz
-NTYsLTk1NzMyMDc2OSwtODQ5NTI2MTgyLC00MTQ1NTU1MiwtOD
-A5NjM5MzUsLTc2MTkxMzk4OSw2NDI1NTg3MjksMTg2NjAwNjgx
-NV19
+eyJoaXN0b3J5IjpbLTE5OTA4NTUwMDUsMTU5MzY4MzM4MiwtND
+kxMDg0MDY4LDE1MjU4MzgwNzEsNzQzNzg2ODA0LDY4OTgxNDUx
+OSwyNjI3MjMyNzQsNjQ2MjAxMjQ0LDE0MjQzMzU0NjEsLTE0Nj
+EwMzI2NzUsLTMzNTM5MDMzOSwtNzc3NTk0NTgzLC0xMDIyNjky
+MzU2LC05NTczMjA3NjksLTg0OTUyNjE4MiwtNDE0NTU1NTIsLT
+gwOTYzOTM1LC03NjE5MTM5ODksNjQyNTU4NzI5LDE4NjYwMDY4
+MTVdfQ==
 -->
