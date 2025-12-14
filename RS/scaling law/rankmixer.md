@@ -97,14 +97,14 @@ $\#\mathrm{Param} \approx 2kLT D^2, \quad \mathrm{FLOPs} \approx 4kLT D^2$
 离线实验：基于抖音推荐系统的训练数据进行，300+特征，两周数据训练。
 #### 4.4.2 Evaluation Metrics
 AUC、UAUC、MFU
-Finish/Skip AUC/UAUC：
+Finish/Skip AUC/UAUC：“finish=1/0”或“skip=1/0”标签表示用户是否在短时间内完成了视频观看或转到下一个视频。
 
 
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTIzMTU4ODkwNywxNDI0MzM1NDYxLC0xND
-YxMDMyNjc1LC0zMzUzOTAzMzksLTc3NzU5NDU4MywtMTAyMjY5
-MjM1NiwtOTU3MzIwNzY5LC04NDk1MjYxODIsLTQxNDU1NTUyLC
-04MDk2MzkzNSwtNzYxOTEzOTg5LDY0MjU1ODcyOSwxODY2MDA2
-ODE1LDIwNDkxMzg3MDUsLTg2NTE5MzM1M119
+eyJoaXN0b3J5IjpbNjQ2MjAxMjQ0LDE0MjQzMzU0NjEsLTE0Nj
+EwMzI2NzUsLTMzNTM5MDMzOSwtNzc3NTk0NTgzLC0xMDIyNjky
+MzU2LC05NTczMjA3NjksLTg0OTUyNjE4MiwtNDE0NTU1NTIsLT
+gwOTYzOTM1LC03NjE5MTM5ODksNjQyNTU4NzI5LDE4NjYwMDY4
+MTUsMjA0OTEzODcwNSwtODY1MTkzMzUzXX0=
 -->
