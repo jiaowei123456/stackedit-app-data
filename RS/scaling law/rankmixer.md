@@ -114,12 +114,13 @@ DLRM-MLP、DCNv2、RDCN、AutoInt、Hiformer、DHEN、Wukong
 All-Concat-MLP：将所有token进行连接，并通过一个大型MLP对其进行处理，然后再将其拆分成相同数量的token。
 All-Share：不进行拆分，所有的输入向量共享并喂到每个per-token FFN类似于MoE。
 Self-Attention:在token之间应用自注意力机制进行路由。
+### 4.5 Sparse-MoE Scalability and Expert Balance
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTA1NjI4ODkwMiw2ODk4MTQ1MTksMjYyNz
-IzMjc0LDY0NjIwMTI0NCwxNDI0MzM1NDYxLC0xNDYxMDMyNjc1
-LC0zMzUzOTAzMzksLTc3NzU5NDU4MywtMTAyMjY5MjM1NiwtOT
-U3MzIwNzY5LC04NDk1MjYxODIsLTQxNDU1NTUyLC04MDk2Mzkz
-NSwtNzYxOTEzOTg5LDY0MjU1ODcyOSwxODY2MDA2ODE1LDIwND
-kxMzg3MDUsLTg2NTE5MzM1M119
+eyJoaXN0b3J5IjpbNzQzNzg2ODA0LDY4OTgxNDUxOSwyNjI3Mj
+MyNzQsNjQ2MjAxMjQ0LDE0MjQzMzU0NjEsLTE0NjEwMzI2NzUs
+LTMzNTM5MDMzOSwtNzc3NTk0NTgzLC0xMDIyNjkyMzU2LC05NT
+czMjA3NjksLTg0OTUyNjE4MiwtNDE0NTU1NTIsLTgwOTYzOTM1
+LC03NjE5MTM5ODksNjQyNTU4NzI5LDE4NjYwMDY4MTUsMjA0OT
+EzODcwNSwtODY1MTkzMzUzXX0=
 -->
