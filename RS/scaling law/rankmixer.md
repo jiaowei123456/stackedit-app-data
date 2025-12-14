@@ -111,12 +111,12 @@ DLRM-MLP、DCNv2、RDCN、AutoInt、Hiformer、DHEN、Wukong
 ### 4.4 Ablation Study
 
 ![输入图片说明](/imgs/2025-12-15/kH4lRzLYLR7YQXI4.png)
-全连接-多层感知机：将所有标记进行连接，并通过一个大型多层感知机对其进行处理，然后再将其拆分成相同数量的标记。性能的下降表明了在学习大型矩阵以及削弱局部信息学习方面所面临的挑战。全共享：不进行拆分，整个输入
+All-Concat-MLP：将所有token进行连接，并通过一个大型MLP对其进行处理，然后再将其拆分成相同数量的标记。性能的下降表明了在学习大型矩阵以及削弱局部信息学习方面所面临的挑战。All-Share：不进行拆分，整个输入
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTE0Nzk0OTE1MzMsNjg5ODE0NTE5LDI2Mj
-cyMzI3NCw2NDYyMDEyNDQsMTQyNDMzNTQ2MSwtMTQ2MTAzMjY3
-NSwtMzM1MzkwMzM5LC03Nzc1OTQ1ODMsLTEwMjI2OTIzNTYsLT
-k1NzMyMDc2OSwtODQ5NTI2MTgyLC00MTQ1NTU1MiwtODA5NjM5
-MzUsLTc2MTkxMzk4OSw2NDI1NTg3MjksMTg2NjAwNjgxNSwyMD
-Q5MTM4NzA1LC04NjUxOTMzNTNdfQ==
+eyJoaXN0b3J5IjpbNzgzMDQxMTcsNjg5ODE0NTE5LDI2MjcyMz
+I3NCw2NDYyMDEyNDQsMTQyNDMzNTQ2MSwtMTQ2MTAzMjY3NSwt
+MzM1MzkwMzM5LC03Nzc1OTQ1ODMsLTEwMjI2OTIzNTYsLTk1Nz
+MyMDc2OSwtODQ5NTI2MTgyLC00MTQ1NTU1MiwtODA5NjM5MzUs
+LTc2MTkxMzk4OSw2NDI1NTg3MjksMTg2NjAwNjgxNSwyMDQ5MT
+M4NzA1LC04NjUxOTMzNTNdfQ==
 -->
