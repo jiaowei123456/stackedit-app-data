@@ -119,13 +119,15 @@ Self-Attention:在token之间应用自注意力机制进行路由。
 Scalability. 上图绘制了SMoE 的离线 AUC 增益与稀疏度的关系。
 1. 原始 SMoE 的性能随着激活的专家数量减少而单调下降，这说明了专家不平衡和训练不足的问题。
 2. 添加balance loss可减少相对于原始 SMoE 的性能下降，但仍不如 DTSI(Dense-training / Sparse-inference) + ReLU 版本，因为问题主要在于专家训练而非路由器。
+3. 
 Expert balance and diversity 普通稀疏多专家模型常常会遭遇专家失衡的问题。图文证明，将 DTSI与 ReLU 路由相结合能够有效解决这一问题：Dense-training确保大多数专家都能获得足够的梯度更新。ReLU 路由使激活比例在各个token之间动态变化——图中显示的激活比例会根据其信息内容自适应地变化，这与推荐数据的多样化且高度动态的分布非常吻合。
-### 4.5 Sparse-MoE Scalability and Expert Balance
+### 4.6 Online Serving cost
+做到了参数量提升70倍，但是推理耗时几乎不变
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbNDUwMDkzNjQwLDc0Mzc4NjgwNCw2ODk4MT
-Q1MTksMjYyNzIzMjc0LDY0NjIwMTI0NCwxNDI0MzM1NDYxLC0x
-NDYxMDMyNjc1LC0zMzUzOTAzMzksLTc3NzU5NDU4MywtMTAyMj
-Y5MjM1NiwtOTU3MzIwNzY5LC04NDk1MjYxODIsLTQxNDU1NTUy
-LC04MDk2MzkzNSwtNzYxOTEzOTg5LDY0MjU1ODcyOSwxODY2MD
-A2ODE1LDIwNDkxMzg3MDUsLTg2NTE5MzM1M119
+eyJoaXN0b3J5IjpbLTEyMDgyNDc5NTksNzQzNzg2ODA0LDY4OT
+gxNDUxOSwyNjI3MjMyNzQsNjQ2MjAxMjQ0LDE0MjQzMzU0NjEs
+LTE0NjEwMzI2NzUsLTMzNTM5MDMzOSwtNzc3NTk0NTgzLC0xMD
+IyNjkyMzU2LC05NTczMjA3NjksLTg0OTUyNjE4MiwtNDE0NTU1
+NTIsLTgwOTYzOTM1LC03NjE5MTM5ODksNjQyNTU4NzI5LDE4Nj
+YwMDY4MTUsMjA0OTEzODcwNSwtODY1MTkzMzUzXX0=
 -->
