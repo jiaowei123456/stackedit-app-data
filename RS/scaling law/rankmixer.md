@@ -111,9 +111,12 @@ DLRM-MLP、DCNv2、RDCN、AutoInt、Hiformer、DHEN、Wukong
 ### 4.4 Ablation Study
 
 ![输入图片说明](/imgs/2025-12-15/kH4lRzLYLR7YQXI4.png)
-All-Concat-MLP：将所有token进行连接，并通过一个大型MLP对其进行处理，然后再将其拆分成相同数量的token。性能的下降表明了在学习大型矩阵以及削弱局部信息学习方面所面临的挑战。All-Share：不进行拆分，所有的输入向量共享并喂到每个per-token FFN类似于MoE。
+All-Concat-MLP：将所有token进行连接，并通过一个大型MLP对其进行处理，然后再将其拆分成相同数量的token。
+All-Share：不进行拆分，所有的输入向量共享并喂到每个per-token FFN类似于MoE。
+Self-Attention:在token之间应用自注意力机制进行路由。
+
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTMzMzQ3MTczNiw2ODk4MTQ1MTksMjYyNz
+eyJoaXN0b3J5IjpbMTA1NjI4ODkwMiw2ODk4MTQ1MTksMjYyNz
 IzMjc0LDY0NjIwMTI0NCwxNDI0MzM1NDYxLC0xNDYxMDMyNjc1
 LC0zMzUzOTAzMzksLTc3NzU5NDU4MywtMTAyMjY5MjM1NiwtOT
 U3MzIwNzY5LC04NDk1MjYxODIsLTQxNDU1NTUyLC04MDk2Mzkz
