@@ -98,14 +98,18 @@ $\#\mathrm{Param} \approx 2kLT D^2, \quad \mathrm{FLOPs} \approx 4kLT D^2$
 #### 4.4.2 Evaluation Metrics
 AUC、UAUC、MFU
 Finish/Skip AUC/UAUC：“finish=1/0”或“skip=1/0”标签表示用户是否在短时间内完成了视频观看或转到下一个视频。
+#### 4.4.2 Baselines
+DLRM-MLP、DCNv2、RDCN、AutoInt、Hiformer、DHEN、Wukong
+### 4.2 Comparison with SOTA methods
 
 
 
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMjYyNzIzMjc0LDY0NjIwMTI0NCwxNDI0Mz
-M1NDYxLC0xNDYxMDMyNjc1LC0zMzUzOTAzMzksLTc3NzU5NDU4
-MywtMTAyMjY5MjM1NiwtOTU3MzIwNzY5LC04NDk1MjYxODIsLT
-QxNDU1NTUyLC04MDk2MzkzNSwtNzYxOTEzOTg5LDY0MjU1ODcy
-OSwxODY2MDA2ODE1LDIwNDkxMzg3MDUsLTg2NTE5MzM1M119
+eyJoaXN0b3J5IjpbLTQ5Mjc3NzkzNiwyNjI3MjMyNzQsNjQ2Mj
+AxMjQ0LDE0MjQzMzU0NjEsLTE0NjEwMzI2NzUsLTMzNTM5MDMz
+OSwtNzc3NTk0NTgzLC0xMDIyNjkyMzU2LC05NTczMjA3NjksLT
+g0OTUyNjE4MiwtNDE0NTU1NTIsLTgwOTYzOTM1LC03NjE5MTM5
+ODksNjQyNTU4NzI5LDE4NjYwMDY4MTUsMjA0OTEzODcwNSwtOD
+Y1MTkzMzUzXX0=
 -->
