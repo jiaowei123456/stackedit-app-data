@@ -130,13 +130,15 @@ $\text{Latency} = \frac{\#\text{Param} \times \text{FLOPs/Param ratio}}{\text{MF
 其实只需要看FLOPs、MFU以及Hardware FOLPs就可以，分别升高了20倍，10倍，2倍，所以前者被后两者抵消了。
 MFU：如表 6 所示，MFU 表示机器计算的利用率。通过采用大型 **GEMM shape、良好的并行拓扑结构（将并行的每个令牌的 FFN 融合为一个内核）以及降低内存带宽成本和开销**，RankMixer 将 MFU 提高了近 10 倍，使模型从内存受限状态转变为计算受限状态。（感觉这个才是关键，其次没想到抖音居然之前用的是全精）
 
+### 4.7 Online Performance
+
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTU5MzY4MzM4MiwtNDkxMDg0MDY4LDE1Mj
-U4MzgwNzEsNzQzNzg2ODA0LDY4OTgxNDUxOSwyNjI3MjMyNzQs
-NjQ2MjAxMjQ0LDE0MjQzMzU0NjEsLTE0NjEwMzI2NzUsLTMzNT
-M5MDMzOSwtNzc3NTk0NTgzLC0xMDIyNjkyMzU2LC05NTczMjA3
-NjksLTg0OTUyNjE4MiwtNDE0NTU1NTIsLTgwOTYzOTM1LC03Nj
-E5MTM5ODksNjQyNTU4NzI5LDE4NjYwMDY4MTUsMjA0OTEzODcw
-NV19
+eyJoaXN0b3J5IjpbMjg4ODE2OTExLDE1OTM2ODMzODIsLTQ5MT
+A4NDA2OCwxNTI1ODM4MDcxLDc0Mzc4NjgwNCw2ODk4MTQ1MTks
+MjYyNzIzMjc0LDY0NjIwMTI0NCwxNDI0MzM1NDYxLC0xNDYxMD
+MyNjc1LC0zMzUzOTAzMzksLTc3NzU5NDU4MywtMTAyMjY5MjM1
+NiwtOTU3MzIwNzY5LC04NDk1MjYxODIsLTQxNDU1NTUyLC04MD
+k2MzkzNSwtNzYxOTEzOTg5LDY0MjU1ODcyOSwxODY2MDA2ODE1
+XX0=
 -->
