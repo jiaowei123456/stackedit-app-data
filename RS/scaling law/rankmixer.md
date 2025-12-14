@@ -122,15 +122,14 @@ Scalability. 上图绘制了SMoE 的离线 AUC 增益与稀疏度的关系。
 3. 
 Expert balance and diversity 普通稀疏多专家模型常常会遭遇专家失衡的问题。图文证明，将 DTSI与 ReLU 路由相结合能够有效解决这一问题：Dense-training确保大多数专家都能获得足够的梯度更新。ReLU 路由使激活比例在各个token之间动态变化——图中显示的激活比例会根据其信息内容自适应地变化，这与推荐数据的多样化且高度动态的分布非常吻合。
 ### 4.6 Online Serving cost
-做到了参数量提升70倍，但是推理耗时几乎不变
-```
-$ \text{Latency} = \frac{\#\text{Param} \times \text{FLOPs/Param ratio}}{\text{MFU} \times (\text{Theoretical Hardware FLOPs})} $
-```
+做到了参数量提升70倍，但是推理耗时几乎不变，耗时计算公式：
+$\text{Latency} = \frac{\#\text{Param} \times \text{FLOPs/Param ratio}}{\text{MFU} \times (\text{Theoretical Hardware FLOPs})}$
+
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbODUyOTIwMzIzLDc0Mzc4NjgwNCw2ODk4MT
-Q1MTksMjYyNzIzMjc0LDY0NjIwMTI0NCwxNDI0MzM1NDYxLC0x
-NDYxMDMyNjc1LC0zMzUzOTAzMzksLTc3NzU5NDU4MywtMTAyMj
-Y5MjM1NiwtOTU3MzIwNzY5LC04NDk1MjYxODIsLTQxNDU1NTUy
-LC04MDk2MzkzNSwtNzYxOTEzOTg5LDY0MjU1ODcyOSwxODY2MD
-A2ODE1LDIwNDkxMzg3MDUsLTg2NTE5MzM1M119
+eyJoaXN0b3J5IjpbMTUyNTgzODA3MSw3NDM3ODY4MDQsNjg5OD
+E0NTE5LDI2MjcyMzI3NCw2NDYyMDEyNDQsMTQyNDMzNTQ2MSwt
+MTQ2MTAzMjY3NSwtMzM1MzkwMzM5LC03Nzc1OTQ1ODMsLTEwMj
+I2OTIzNTYsLTk1NzMyMDc2OSwtODQ5NTI2MTgyLC00MTQ1NTU1
+MiwtODA5NjM5MzUsLTc2MTkxMzk4OSw2NDI1NTg3MjksMTg2Nj
+AwNjgxNSwyMDQ5MTM4NzA1LC04NjUxOTMzNTNdfQ==
 -->
