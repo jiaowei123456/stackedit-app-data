@@ -117,11 +117,11 @@ Self-Attention:在token之间应用自注意力机制进行路由。
 ### 4.5 Sparse-MoE Scalability and Expert Balance
 ![输入图片说明](/imgs/2025-12-15/eWSDSUz96x2b92Zx.png)
 Scalability. 图 3 绘制了SMoE 的离线 AUC 增益与稀疏度的关系。
-1. 原始 SMoE 的性能随着激活的专家数量减少而单调下降，这说明了我们所指出的专家不平衡和训练不足的问题。
-2. 添加负载均衡损失可减少相对于原始 SMoE 的性能下降，但仍不如 DTSI + ReLU 版本，因为问题主要在于专家训练而非路由器。
+1. 原始 SMoE 的性能随着激活的专家数量减少而单调下降，这说明了专家不平衡和训练不足的问题。
+2. 添加balance loss可减少相对于原始 SMoE 的性能下降，但仍不如 DTSI + ReLU 版本，因为问题主要在于专家训练而非路由器。
 3. 这验证了稀疏 MoE 是将 RankMixer 从当前的 10 亿参数扩展到未来 100 亿规模部署的可行路径，同时不会超出成本预算。
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTEzNDM5ODA4OSw3NDM3ODY4MDQsNjg5OD
+eyJoaXN0b3J5IjpbLTU1NTY5OTYzNCw3NDM3ODY4MDQsNjg5OD
 E0NTE5LDI2MjcyMzI3NCw2NDYyMDEyNDQsMTQyNDMzNTQ2MSwt
 MTQ2MTAzMjY3NSwtMzM1MzkwMzM5LC03Nzc1OTQ1ODMsLTEwMj
 I2OTIzNTYsLTk1NzMyMDc2OSwtODQ5NTI2MTgyLC00MTQ1NTU1
