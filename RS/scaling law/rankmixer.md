@@ -131,14 +131,14 @@ $\text{Latency} = \frac{\#\text{Param} \times \text{FLOPs/Param ratio}}{\text{MF
 MFU：如表 6 所示，MFU 表示机器计算的利用率。通过采用大型 **GEMM shape、良好的并行拓扑结构（将并行的每个令牌的 FFN 融合为一个内核）以及降低内存带宽成本和开销**，RankMixer 将 MFU 提高了近 10 倍，使模型从内存受限状态转变为计算受限状态。（感觉这个才是关键，其次没想到抖音居然之前用的是全精）
 
 ### 4.7 Online Performance
-在抖音与抖音极速版sha8个月的AB实验与反转实验。
+在抖音与抖音极速版上面进行了8个月的AB实验与反转实验。
 推荐侧效果：很好，特别是在低活用户上面，**不过抖音极速版的comment的提升反而在高活用户更好，这是为什么？**
 ![输入图片说明](/imgs/2025-12-15/Ud8ZgNJAVaE1pLwR.png)
-广告侧效果：也很好
+广告侧效果：也很好。
 ![输入图片说明](/imgs/2025-12-15/p8K56RwBUuUC71nm.png)
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTczNTM1MzkzNywxNTkzNjgzMzgyLC00OT
+eyJoaXN0b3J5IjpbLTM2NTM1NTQ0MCwxNTkzNjgzMzgyLC00OT
 EwODQwNjgsMTUyNTgzODA3MSw3NDM3ODY4MDQsNjg5ODE0NTE5
 LDI2MjcyMzI3NCw2NDYyMDEyNDQsMTQyNDMzNTQ2MSwtMTQ2MT
 AzMjY3NSwtMzM1MzkwMzM5LC03Nzc1OTQ1ODMsLTEwMjI2OTIz
