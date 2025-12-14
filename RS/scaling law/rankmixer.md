@@ -107,12 +107,12 @@ DLRM-MLP、DCNv2、RDCN、AutoInt、Hiformer、DHEN、Wukong
 ### 4.3 Scaling Laws of different models
 ![输入图片说明](/imgs/2025-12-15/qVNhNnokzfSIBQLG.png)
 
-
+在本文的实验中，观察到了与 LLM 扩展规律相同的结论：模型质量主要与参数总数相关，不同的扩展方向（深度 L、宽度 D、令牌 T）几乎能产生相同的性能。**从计算效率的角度来看，更大的隐藏维度会产生更大的矩阵乘法形状，从而比增加更多层实现更高的 MFU，但最终的配置（100M 和 1B）分别为（D=768，T=16，L=2）和（D=1536，T=32，L=2）。
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTE2ODI5NTg3MTksMjYyNzIzMjc0LDY0Nj
-IwMTI0NCwxNDI0MzM1NDYxLC0xNDYxMDMyNjc1LC0zMzUzOTAz
-MzksLTc3NzU5NDU4MywtMTAyMjY5MjM1NiwtOTU3MzIwNzY5LC
-04NDk1MjYxODIsLTQxNDU1NTUyLC04MDk2MzkzNSwtNzYxOTEz
-OTg5LDY0MjU1ODcyOSwxODY2MDA2ODE1LDIwNDkxMzg3MDUsLT
-g2NTE5MzM1M119
+eyJoaXN0b3J5IjpbLTIxMjk0NzQzMCwyNjI3MjMyNzQsNjQ2Mj
+AxMjQ0LDE0MjQzMzU0NjEsLTE0NjEwMzI2NzUsLTMzNTM5MDMz
+OSwtNzc3NTk0NTgzLC0xMDIyNjkyMzU2LC05NTczMjA3NjksLT
+g0OTUyNjE4MiwtNDE0NTU1NTIsLTgwOTYzOTM1LC03NjE5MTM5
+ODksNjQyNTU4NzI5LDE4NjYwMDY4MTUsMjA0OTEzODcwNSwtOD
+Y1MTkzMzUzXX0=
 -->
