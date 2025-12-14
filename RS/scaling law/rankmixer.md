@@ -101,12 +101,14 @@ Finish/Skip AUC/UAUC：“finish=1/0”或“skip=1/0”标签表示用户是否
 #### 4.4.2 Baselines
 DLRM-MLP、DCNv2、RDCN、AutoInt、Hiformer、DHEN、Wukong
 ### 4.2 Comparison with SOTA methods
+同一亿参数，不同模型
+
 
 
 
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTQ5Mjc3NzkzNiwyNjI3MjMyNzQsNjQ2Mj
+eyJoaXN0b3J5IjpbMTIzNjkxOTE1MiwyNjI3MjMyNzQsNjQ2Mj
 AxMjQ0LDE0MjQzMzU0NjEsLTE0NjEwMzI2NzUsLTMzNTM5MDMz
 OSwtNzc3NTk0NTgzLC0xMDIyNjkyMzU2LC05NTczMjA3NjksLT
 g0OTUyNjE4MiwtNDE0NTU1NTIsLTgwOTYzOTM1LC03NjE5MTM5
