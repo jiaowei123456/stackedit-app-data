@@ -91,12 +91,14 @@ Dense-training / Sparse-inference (DTSI-MoE)：采用了$h_{train}$和$h_{infer}
 RankMixer 本质上是一种高度并行且可扩展的架构。其参数数量和计算成本可以通过四个相互垂直的维度进行扩展：令牌数量 T、模型宽度 D、层数 L 和专家数量 E。对于全密集激活版本，一个样本的参数数量和前向计算浮点运算次数可以计算为：
 $\#\mathrm{Param} \approx 2kLT D^2, \quad \mathrm{FLOPs} \approx 4kLT D^2$
 
-## 5 实验与分析：
+## 4 实验与分析：
+### 4.1 实验设置
+#### 
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTQyNDMzNTQ2MSwtMTQ2MTAzMjY3NSwtMz
-M1MzkwMzM5LC03Nzc1OTQ1ODMsLTEwMjI2OTIzNTYsLTk1NzMy
-MDc2OSwtODQ5NTI2MTgyLC00MTQ1NTU1MiwtODA5NjM5MzUsLT
-c2MTkxMzk4OSw2NDI1NTg3MjksMTg2NjAwNjgxNSwyMDQ5MTM4
-NzA1LC04NjUxOTMzNTNdfQ==
+eyJoaXN0b3J5IjpbLTEwOTYxNzI5MiwxNDI0MzM1NDYxLC0xND
+YxMDMyNjc1LC0zMzUzOTAzMzksLTc3NzU5NDU4MywtMTAyMjY5
+MjM1NiwtOTU3MzIwNzY5LC04NDk1MjYxODIsLTQxNDU1NTUyLC
+04MDk2MzkzNSwtNzYxOTEzOTg5LDY0MjU1ODcyOSwxODY2MDA2
+ODE1LDIwNDkxMzg3MDUsLTg2NTE5MzM1M119
 -->
