@@ -93,10 +93,11 @@ $\#\mathrm{Param} \approx 2kLT D^2, \quad \mathrm{FLOPs} \approx 4kLT D^2$
 
 ## 4 实验与分析：
 ### 4.1 实验设置
-#### 
+#### 4.4.1 Datasets and Environment.
+离线实验：基于抖音推荐系统的训练数据进行，300+特征，两周数据训练。
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTEwOTYxNzI5MiwxNDI0MzM1NDYxLC0xND
+eyJoaXN0b3J5IjpbMTQ5NTUxNjIzMCwxNDI0MzM1NDYxLC0xND
 YxMDMyNjc1LC0zMzUzOTAzMzksLTc3NzU5NDU4MywtMTAyMjY5
 MjM1NiwtOTU3MzIwNzY5LC04NDk1MjYxODIsLTQxNDU1NTUyLC
 04MDk2MzkzNSwtNzYxOTEzOTg5LDY0MjU1ODcyOSwxODY2MDA2
