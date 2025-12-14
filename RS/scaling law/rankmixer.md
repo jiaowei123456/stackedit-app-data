@@ -115,12 +115,16 @@ All-Concat-MLP：将所有token进行连接，并通过一个大型MLP对其进�
 All-Share：不进行拆分，所有的输入向量共享并喂到每个per-token FFN类似于MoE。
 Self-Attention:在token之间应用自注意力机制进行路由。
 ### 4.5 Sparse-MoE Scalability and Expert Balance
-可扩展性。图 3 绘制了 SMoE 的离线 AUC 增益与稀疏度的关系。将密集训练稀疏推理与 ReLU 路由相结合对于在激进的稀疏度下保持准确性至关重要，这使得 RankMixer 能够将参数容量（和内存占用）扩展超过 8 倍，同时几乎不会损失 AUC，并且在推理时间上节省了大量时间（吞吐量提高了 50%）。原始 SMoE 的性能随着激活的专家数量减少而单调下降，这说明了我们所指出的专家不平衡和训练不足的问题。添加负载均衡损失可减少相对于原始 SMoE 的性能下降，但仍不如 DTSI + ReLU 版本，因为问题主要在于专家训练而非路由器。这验证了稀疏 MoE 是将 RankMixer 从当前的 10 亿参数扩展到未来 100 亿规模部署的可行路径，同时不会超出成本预算。
+![输入图片说明](/imgs/2025-12-15/eWSDSUz96x2b92Zx.png)
+Scalability. 图 3 绘制了SMoE 的离线 AUC 增益与稀疏度的关系。
+1. 原始 SMoE 的性能随着激活的专家数量减少而单调下降，这说明了我们所指出的专家不平衡和训练不足的问题。
+2. 添加负载均衡损失可减少相对于原始 SMoE 的性能下降，但仍不如 DTSI + ReLU 版本，因为问题主要在于专家训练而非路由器。
+3. 这验证了稀疏 MoE 是将 RankMixer 从当前的 10 亿参数扩展到未来 100 亿规模部署的可行路径，同时不会超出成本预算。
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbNDY4NjA5NTIzLDc0Mzc4NjgwNCw2ODk4MT
-Q1MTksMjYyNzIzMjc0LDY0NjIwMTI0NCwxNDI0MzM1NDYxLC0x
-NDYxMDMyNjc1LC0zMzUzOTAzMzksLTc3NzU5NDU4MywtMTAyMj
-Y5MjM1NiwtOTU3MzIwNzY5LC04NDk1MjYxODIsLTQxNDU1NTUy
-LC04MDk2MzkzNSwtNzYxOTEzOTg5LDY0MjU1ODcyOSwxODY2MD
-A2ODE1LDIwNDkxMzg3MDUsLTg2NTE5MzM1M119
+eyJoaXN0b3J5IjpbLTEzNDM5ODA4OSw3NDM3ODY4MDQsNjg5OD
+E0NTE5LDI2MjcyMzI3NCw2NDYyMDEyNDQsMTQyNDMzNTQ2MSwt
+MTQ2MTAzMjY3NSwtMzM1MzkwMzM5LC03Nzc1OTQ1ODMsLTEwMj
+I2OTIzNTYsLTk1NzMyMDc2OSwtODQ5NTI2MTgyLC00MTQ1NTU1
+MiwtODA5NjM5MzUsLTc2MTkxMzk4OSw2NDI1NTg3MjksMTg2Nj
+AwNjgxNSwyMDQ5MTM4NzA1LC04NjUxOTMzNTNdfQ==
 -->
