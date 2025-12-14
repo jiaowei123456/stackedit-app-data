@@ -124,13 +124,13 @@ Expert balance and diversity 普通稀疏多专家模型常常会遭遇专家失
 ### 4.6 Online Serving cost
 做到了参数量提升70倍，但是推理耗时几乎不变，耗时计算公式：
 $\text{Latency} = \frac{\#\text{Param} \times \text{FLOPs/Param ratio}}{\text{MFU} \times (\text{Theoretical Hardware FLOPs})}$
+相比与原始online模型，延迟变化因素表：
 ![输入图片说明](/imgs/2025-12-15/H6jUiL03rt4smeof.png)
 
-其实只需要看FLOPs、MFU以及Hardware FOPs
-FOPs
-相比与原始online模型，
+其实只需要看FLOPs、MFU以及Hardware FOLPs就可以，分别升高了20倍，10倍，2倍，所以前者被后两者抵消了。
+
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTkwMzY2NTg3NiwxNTI1ODM4MDcxLDc0Mz
+eyJoaXN0b3J5IjpbLTQ5MTA4NDA2OCwxNTI1ODM4MDcxLDc0Mz
 c4NjgwNCw2ODk4MTQ1MTksMjYyNzIzMjc0LDY0NjIwMTI0NCwx
 NDI0MzM1NDYxLC0xNDYxMDMyNjc1LC0zMzUzOTAzMzksLTc3Nz
 U5NDU4MywtMTAyMjY5MjM1NiwtOTU3MzIwNzY5LC04NDk1MjYx
