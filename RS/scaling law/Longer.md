@@ -19,7 +19,7 @@
 
 
 ## 3 模型结构：
-### 3.1 整体框架：
+### 3.1 Problem Statement：
 
 
 
@@ -136,6 +136,6 @@ MFU：如表 6 所示，MFU 表示机器计算的利用率。通过采用大型 
 ![输入图片说明](/imgs/2025-12-15/p8K56RwBUuUC71nm.png)
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbOTMxMTgzMzY1LDEyODYyMzgzNzksLTkxOT
-c4MTAyOF19
+eyJoaXN0b3J5IjpbLTkxNjU2NDcwOCw5MzExODMzNjUsMTI4Nj
+IzODM3OSwtOTE5NzgxMDI4XX0=
 -->
