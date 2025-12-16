@@ -53,6 +53,10 @@ $\mathbf{O} = [\mathbf{G}; \mathbf{H}_s]$
 
 #### 3.5.2 Cross-Causal Attention (First Layer)
 
+第一层是目标注意力计算，论文中称为cross-causal attention：
+$Q = O W_Q, \quad K = R W_K, \quad V = R W_V$
+
+
 
 
 
@@ -112,7 +116,8 @@ MFU：如表 6 所示，MFU 表示机器计算的利用率。通过采用大型 
 ![输入图片说明](/imgs/2025-12-15/p8K56RwBUuUC71nm.png)
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTA3Mzk2NDA1OSw4MDMwNTk0MzUsMTYyOT
-E4MzczLDU3NTc3NTgwMywxMDc5NDIxMjcxLC0xNjI2NjIxNjU1
-LDkzMTE4MzM2NSwxMjg2MjM4Mzc5LC05MTk3ODEwMjhdfQ==
+eyJoaXN0b3J5IjpbLTU4NDE5Njg3LDEwNzM5NjQwNTksODAzMD
+U5NDM1LDE2MjkxODM3Myw1NzU3NzU4MDMsMTA3OTQyMTI3MSwt
+MTYyNjYyMTY1NSw5MzExODMzNjUsMTI4NjIzODM3OSwtOTE5Nz
+gxMDI4XX0=
 -->
