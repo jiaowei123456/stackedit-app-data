@@ -57,7 +57,7 @@ $\mathbf{O} = [\mathbf{G}; \mathbf{H}_s]$
 $Q = O W_Q, \quad K = R W_K, \quad V = R W_V$
 
 $\mathbf{Q} = \mathbf{O} \mathbf{W}_Q, \quad \mathbf{K} = \mathbf{R} \mathbf{W}_K, \quad \mathbf{V} = \mathbf{R} \mathbf{W}_V$
-其中O是目标query，R是key，value。
+其中O是目标query，R是key，value。M是一个右上值全为0左下值全为-infde三角矩阵
 
 
 
@@ -117,7 +117,7 @@ MFU：如表 6 所示，MFU 表示机器计算的利用率。通过采用大型 
 ![输入图片说明](/imgs/2025-12-15/p8K56RwBUuUC71nm.png)
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbNjA5NzE2MTkwLDEwNzM5NjQwNTksODAzMD
+eyJoaXN0b3J5IjpbLTYxNTc0Njg2LDEwNzM5NjQwNTksODAzMD
 U5NDM1LDE2MjkxODM3Myw1NzU3NzU4MDMsMTA3OTQyMTI3MSwt
 MTYyNjYyMTY1NSw5MzExODMzNjUsMTI4NjIzODM3OSwtOTE5Nz
 gxMDI4XX0=
