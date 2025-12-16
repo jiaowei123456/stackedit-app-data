@@ -10,6 +10,8 @@
 
 
 ## 1 论文解决的问题：
+1. 推进超长序列的端到端建模，以及不断扩展序列长度和完善长序列建模的体系结构，是下一代序列建模框架的关键要求。
+2. 
 
 
 ## 2 论文创新点：
@@ -139,6 +141,6 @@ MFU：如表 6 所示，MFU 表示机器计算的利用率。通过采用大型 
 ![输入图片说明](/imgs/2025-12-15/p8K56RwBUuUC71nm.png)
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbNzg4NTk2MTU2LDEyODYyMzgzNzksLTkxOT
-c4MTAyOF19
+eyJoaXN0b3J5IjpbMTI2MTIwOTYzMiwxMjg2MjM4Mzc5LC05MT
+k3ODEwMjhdfQ==
 -->
