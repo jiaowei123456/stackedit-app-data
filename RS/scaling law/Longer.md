@@ -45,7 +45,7 @@
 1. 将量化每次用户交互与目标项目之间时间距离的绝对时差特征作为sideinfo并连接到每个项目emb中；
 2. 可学习的绝对位置嵌入：对添加到项目emb的序列中的每个token的位置进行编码。
 
-在位置编码之后，token通过MLP来获得它们的输入（这个MLP是必须的吗？）：
+在位置编码之后，token通过MLP来获得它们的输入（这个MLP的输入输出）：
 
 $\mathbf{R} \in \mathbb{R}^{(m+L) \times d} = [\mathbf{G} \in \mathbb{R}^{m \times d}, \mathbf{H} \in \mathbb{R}^{L \times d}]$
 
@@ -110,7 +110,7 @@ MFU：如表 6 所示，MFU 表示机器计算的利用率。通过采用大型 
 ![输入图片说明](/imgs/2025-12-15/p8K56RwBUuUC71nm.png)
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTE1ODk0ODQyMDYsODAzMDU5NDM1LDE2Mj
-kxODM3Myw1NzU3NzU4MDMsMTA3OTQyMTI3MSwtMTYyNjYyMTY1
-NSw5MzExODMzNjUsMTI4NjIzODM3OSwtOTE5NzgxMDI4XX0=
+eyJoaXN0b3J5IjpbLTg1MDc0MzAwOCw4MDMwNTk0MzUsMTYyOT
+E4MzczLDU3NTc3NTgwMywxMDc5NDIxMjcxLC0xNjI2NjIxNjU1
+LDkzMTE4MzM2NSwxMjg2MjM4Mzc5LC05MTk3ODEwMjhdfQ==
 -->
