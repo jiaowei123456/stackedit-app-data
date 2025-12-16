@@ -11,23 +11,18 @@
 
 ## 1 论文解决的问题：
 1. 推进超长序列的端到端建模，以及不断扩展序列长度和完善长序列建模的体系结构，是下一代序列建模框架的关键要求。
-2. 
 
 
 ## 2 论文创新点：
 1. 一种用于gpu高效推荐的长序列优化transformer结构。它通过优化transformer结构，以端到端的方式将用户序列建模长度扩展到10,000(TWINv2?)。
 2. LONGER通过token合并和混合注意力策略充分提高了计算效率，减少了约50%的FLOPs，并被证明在性能上几乎是无损的。
-3. Sparse Mixture-of-Experts (MoE)：通过针对不同的数据动态激活每个标记的特定子集专家，我们能够以最小的计算成本显著提高模型的容量。
 
 
 ## 3 模型结构：
 ### 3.1 整体框架：
-![输入图片说明](/imgs/2025-12-13/iXt3rIjZqdbgMP4S.png)
 
-输入为T个token，经过连续L个Rankmixer以及平均池化后输出，每个 RankMixer 块有两个主要组成部分：（1）多头token mixing；（2）每个token的per-token FFN（PFFN）层，如图所示。
 
-$S_{n-1} = \operatorname{LN}\!\left( \operatorname{TokenMixing}(X_{n-1}) + X_{n-1} \right)$
-$X_n = \mathrm{LN} \left( \mathrm{PFFN} \left( S_{n-1} \right) + S_{n-1} \right)$
+
 ### 3.2 输入层和特征token化：
 1. 用户特征：包括用户 ID 及其他用户信息等
 2. 物品特征：视频 ID、作者 ID 等
@@ -141,6 +136,6 @@ MFU：如表 6 所示，MFU 表示机器计算的利用率。通过采用大型 
 ![输入图片说明](/imgs/2025-12-15/p8K56RwBUuUC71nm.png)
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTE5Mjk0NjI5OTcsMTI4NjIzODM3OSwtOT
-E5NzgxMDI4XX0=
+eyJoaXN0b3J5IjpbOTMxMTgzMzY1LDEyODYyMzgzNzksLTkxOT
+c4MTAyOF19
 -->
