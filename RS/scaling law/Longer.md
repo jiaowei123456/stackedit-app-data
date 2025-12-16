@@ -48,8 +48,10 @@
 在位置编码之后，token通过MLP来获得它们的输入（这个MLP的输入输出维度相同吗？）：
 $\mathbf{R} \in \mathbb{R}^{(m+L) \times d} = [\mathbf{G} \in \mathbb{R}^{m \times d}, \mathbf{H} \in \mathbb{R}^{L \times d}]$
 其中G表示全局token长度为m，H表示序列token长度为L
-然后获取查询矩阵，其中G为全部的全局token，Hs为抽样获得的k个序列token，注意这个k
+然后获取查询矩阵，其中G为全部的全局token，Hs为抽样获得的k个序列token，注意这个k和3.4的K不同。
 $\mathbf{O} = [\mathbf{G}; \mathbf{H}_s]$
+
+#### 3.5.2 Cross-Causal Attention (First Layer)
 
 
 
@@ -110,7 +112,7 @@ MFU：如表 6 所示，MFU 表示机器计算的利用率。通过采用大型 
 ![输入图片说明](/imgs/2025-12-15/p8K56RwBUuUC71nm.png)
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTk1Mzc2MDAwNiw4MDMwNTk0MzUsMTYyOT
+eyJoaXN0b3J5IjpbMTA3Mzk2NDA1OSw4MDMwNTk0MzUsMTYyOT
 E4MzczLDU3NTc3NTgwMywxMDc5NDIxMjcxLC0xNjI2NjIxNjU1
 LDkzMTE4MzM2NSwxMjg2MjM4Mzc5LC05MTk3ODEwMjhdfQ==
 -->
