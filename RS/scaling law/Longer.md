@@ -23,9 +23,8 @@
 推荐系统常用数学建模，跳过，后续使用到的变量会单独介绍。
 
 ### 3.2 Overall Framework：
-
 ![输入图片说明](/imgs/2025-12-16/t0HtAyrPKOUi68TF.png)
-
+上图展示了本文提出的模型Longer的整体架构。该框架集成了输入生成、令牌合并、混合注意机制和训练服务优化，以实现高效和可扩展的长序列建模。
 
 ### 3.3 RankMixer Block
 #### 3.3.1 Multi-head Token Mixing
@@ -125,6 +124,6 @@ MFU：如表 6 所示，MFU 表示机器计算的利用率。通过采用大型 
 ![输入图片说明](/imgs/2025-12-15/p8K56RwBUuUC71nm.png)
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTEyMDgzOTgzOTMsOTMxMTgzMzY1LDEyOD
-YyMzgzNzksLTkxOTc4MTAyOF19
+eyJoaXN0b3J5IjpbOTc4NTI3OTA1LDkzMTE4MzM2NSwxMjg2Mj
+M4Mzc5LC05MTk3ODEwMjhdfQ==
 -->
