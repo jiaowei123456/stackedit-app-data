@@ -34,6 +34,8 @@
 这些token作为锚点，保持注意力的多样性，并保留长程依赖关系建模。
 
 ### 3.4 Token Merge
+原始transformer的二次注意力计算复杂度为$$
+
 
 
 
@@ -91,7 +93,7 @@ MFU：如表 6 所示，MFU 表示机器计算的利用率。通过采用大型 
 ![输入图片说明](/imgs/2025-12-15/p8K56RwBUuUC71nm.png)
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbNzI4NjgwNDM3LDU3NTc3NTgwMywxMDc5ND
+eyJoaXN0b3J5IjpbOTI4MzQ3NjQ0LDU3NTc3NTgwMywxMDc5ND
 IxMjcxLC0xNjI2NjIxNjU1LDkzMTE4MzM2NSwxMjg2MjM4Mzc5
 LC05MTk3ODEwMjhdfQ==
 -->
