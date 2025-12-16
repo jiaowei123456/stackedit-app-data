@@ -27,7 +27,7 @@
 上图展示了本文提出的模型Longer的整体架构。该框架集成了全局token、token合并、混合注意机制和训练服务优化，以实现高效和可扩展的长序列建模。
 
 ### 3.3 Global Tokens
-我们引入了“全局标记”作为附加到输入序列中的辅助表示，以促进全局信息的提取和锚定。这些标记可以包括目标项表示标记、可学习的 CLS 标记、用户标识嵌入以及高阶压缩的用户-项目交互特征。按照设计，全局标记具有完整的注意力接收域，使其能够从整个序列中聚合上下文信号，同时也能影响所有其他序列标记。
+我们引入了“全局token”作为附加到输入序列中的辅助表示，以促进全局信息的提取和锚定。这些token可以包括目标项表示token、可学习的 CLS token、用户token embedding以及高阶压缩的用户-项目交互特征。按照设计，全局token具有完整的注意力接收域，使其能够从整个序列中聚合上下文信号，同时也能影响所有其他序列标记。
 
 ### 3.4 Sparse MoE in RankMixer
 为了进一步提高ROI，我们可以将每个token的FFN替换为Sparse Mixture-of-Experts (MoE)，这样模型的容量就能增加，而计算成本则大致保持不变。然而，普通的稀疏专家混合模型（Sparse-MoE）在 RankMixer 中会表现不佳，原因在于：
@@ -98,6 +98,7 @@ MFU：如表 6 所示，MFU 表示机器计算的利用率。通过采用大型 
 ![输入图片说明](/imgs/2025-12-15/p8K56RwBUuUC71nm.png)
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTA3OTQyMTI3MSwtMTYyNjYyMTY1NSw5Mz
-ExODMzNjUsMTI4NjIzODM3OSwtOTE5NzgxMDI4XX0=
+eyJoaXN0b3J5IjpbNTc1Nzc1ODAzLDEwNzk0MjEyNzEsLTE2Mj
+Y2MjE2NTUsOTMxMTgzMzY1LDEyODYyMzgzNzksLTkxOTc4MTAy
+OF19
 -->
