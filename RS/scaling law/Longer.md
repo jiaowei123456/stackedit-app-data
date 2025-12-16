@@ -52,7 +52,7 @@ $\mathbf{R} \in \mathbb{R}^{(m+L) \times d} = [\mathbf{G} \in \mathbb{R}^{m \tim
 $\mathbf{O} = [\mathbf{G}; \mathbf{H}_s]$
 
 #### 3.5.2 Cross-Causal Attention (First Layer)
-
+![输入图片说明](/imgs/2025-12-17/KHWNHKaaay6lGRd2.png)
 第一层是交叉因果注意力计算：
 $Q = O W_Q, \quad K = R W_K, \quad V = R W_V$
 
@@ -62,6 +62,7 @@ $\mathbf{M}_{i,j} = \begin{cases} 0, & \text{if } j \geq i, \text{ where } \{i, 
 因果掩码M设计一方面保持了序列中各元素之间的时间相关性。另一方面，它确保了序列对候选元素的不可见性，从而实现了 KV 缓存服务机制。在计算完注意力值后，结果会通过前馈网络（FFN）进行进一步处理。
 
 #### 3.5.3 Self-Causal Attention (Subsequent Layers).
+![输入图片说明](/imgs/2025-12-17/kRO2ZaF8Pi7GY9QQ.png)
 在交叉因果注意力层之后，后续的层由N个自因果注意力层组成。这些层专注于学习采样token序列内的内部关系。每个自因果注意力层之后都接有一个FFN。自因果注意力机制的计算使用了类似的公式：
 $\mathbf{Q} = \mathbf{O} \mathbf{W}_Q, \quad \mathbf{K} = \mathbf{R} \mathbf{W}_K, \quad \mathbf{V} = \mathbf{R} \mathbf{W}_V$
 其中Q, K, V全为上一层的输出经过一个线性层。
@@ -120,8 +121,8 @@ MFU：如表 6 所示，MFU 表示机器计算的利用率。通过采用大型 
 ![输入图片说明](/imgs/2025-12-15/p8K56RwBUuUC71nm.png)
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbNDc1MDI5MTU3LDEwNzM5NjQwNTksODAzMD
-U5NDM1LDE2MjkxODM3Myw1NzU3NzU4MDMsMTA3OTQyMTI3MSwt
-MTYyNjYyMTY1NSw5MzExODMzNjUsMTI4NjIzODM3OSwtOTE5Nz
-gxMDI4XX0=
+eyJoaXN0b3J5IjpbMTQxMjUzNTY0OSwxMDczOTY0MDU5LDgwMz
+A1OTQzNSwxNjI5MTgzNzMsNTc1Nzc1ODAzLDEwNzk0MjEyNzEs
+LTE2MjY2MjE2NTUsOTMxMTgzMzY1LDEyODYyMzgzNzksLTkxOT
+c4MTAyOF19
 -->
