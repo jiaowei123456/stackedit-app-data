@@ -40,9 +40,12 @@
 ### 3.5 LONGER Model Structure
 #### 3.5.1 Input Generation
 输入包括序列token以及全局token。
+
 同时输入端采用了两种形式的位置编码：
 1. 将量化每次用户交互与目标项目之间时间距离的绝对时差特征作为sideinfo并连接到每个项目emb中；
 2. 可学习的绝对位置嵌入：对添加到项目emb的序列中的每个token的位置进行编码。
+
+在位置编码之后，token通过MLP来获得它们的input表示
 
 
 
@@ -105,7 +108,7 @@ MFU：如表 6 所示，MFU 表示机器计算的利用率。通过采用大型 
 ![输入图片说明](/imgs/2025-12-15/p8K56RwBUuUC71nm.png)
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbODAzMDU5NDM1LDE2MjkxODM3Myw1NzU3Nz
-U4MDMsMTA3OTQyMTI3MSwtMTYyNjYyMTY1NSw5MzExODMzNjUs
-MTI4NjIzODM3OSwtOTE5NzgxMDI4XX0=
+eyJoaXN0b3J5IjpbLTk1NzcxOTU0OSw4MDMwNTk0MzUsMTYyOT
+E4MzczLDU3NTc3NTgwMywxMDc5NDIxMjcxLC0xNjI2NjIxNjU1
+LDkzMTE4MzM2NSwxMjg2MjM4Mzc5LC05MTk3ODEwMjhdfQ==
 -->
