@@ -10,10 +10,7 @@
 
 
 ## 1 论文解决的问题：
-1、必须严格遵守严格的延迟限制，并支持极高的每秒查询数（QPS）。
-2、原始rank模型的注意力机制主要在CPU计算时期提出，核心操作大多受内存限制而非计算限制，在现代 GPU 上，这导致了较差的 GPU 并行性以及极低的 MFU（模型运算次数利用率）。
-3、架构应与硬件相匹配，以在现代 GPU 上实现最大化的MFU和计算吞吐量。
-4、模型设计必须利用推荐数据的特性，例如异构特征空间以及数百个字段之间的个性化跨特征交互。
+
 
 ## 2 论文创新点：
 1. Multi-head token mixing ：只通过无参数操作符获得跨token特征交互。该策略在性能和计算效率方面优于自注意机制。
@@ -142,6 +139,6 @@ MFU：如表 6 所示，MFU 表示机器计算的利用率。通过采用大型 
 ![输入图片说明](/imgs/2025-12-15/p8K56RwBUuUC71nm.png)
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTEyNjE4NjYyNDksMTI4NjIzODM3OSwtOT
-E5NzgxMDI4XX0=
+eyJoaXN0b3J5IjpbNzg4NTk2MTU2LDEyODYyMzgzNzksLTkxOT
+c4MTAyOF19
 -->
