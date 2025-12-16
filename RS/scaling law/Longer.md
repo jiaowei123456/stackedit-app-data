@@ -15,7 +15,7 @@
 
 
 ## 2 论文创新点：
-1. Multi-head token mixing ：只通过无参数操作符获得跨token特征交互。该策略在性能和计算效率方面优于自注意机制。
+1. 一种用于gpu高效推荐的长序列优化transformer结构。它通过优化transformer结构，提出了工业GPU-efficient的观点，并以端到端的方式将用户序列建模长度扩展到10,000。
 2. Per-token feed-forward networks (FFNs)：通过为不同的特征子空间建模分配独立的参数，极大地扩展了模型容量，解决了特征空间间的控制问题。
 3. Sparse Mixture-of-Experts (MoE)：通过针对不同的数据动态激活每个标记的特定子集专家，我们能够以最小的计算成本显著提高模型的容量。
 
@@ -141,6 +141,6 @@ MFU：如表 6 所示，MFU 表示机器计算的利用率。通过采用大型 
 ![输入图片说明](/imgs/2025-12-15/p8K56RwBUuUC71nm.png)
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTI2MTIwOTYzMiwxMjg2MjM4Mzc5LC05MT
-k3ODEwMjhdfQ==
+eyJoaXN0b3J5IjpbLTE5NDAwNzAzMzIsMTI4NjIzODM3OSwtOT
+E5NzgxMDI4XX0=
 -->
