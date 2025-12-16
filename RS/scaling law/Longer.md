@@ -27,24 +27,15 @@
 上图展示了本文提出的模型Longer的整体架构。该框架集成了全局token、token合并、混合注意机制和训练服务优化，以实现高效和可扩展的长序列建模。
 
 ### 3.3 Global Tokens
+![输入图片说明](/imgs/2025-12-17/bcbBzWDQy2kWs2yi.png)
 本文引入了“全局token”作为附加到输入序列中的辅助表示，主要有两个作用：
 1. 全局token充当集中式信息锚点，增强了用户历史记录、上下文属性和候选项目之间的特征交互。
-2. 稳定了长序列中的注意力动态，特别是在稀疏注意力配置下。引入少量全局token可缓解“注意力汇聚”效应，即深层注意力层过度关注早期token。这些标记作为锚点，保持注意力的多样性，并保留长程依赖关系建模。
+2. 稳定了长序列中的注意力动态，特别是在稀疏注意力配置下。引入少量全局token可缓解“注意力汇聚”效应，即深层注意力层过度关注早期token。
+这些token作为锚点，保持注意力的多样性，并保留长程依赖关系建模。
 
-### 3.4 Sparse MoE in RankMixer
-为了进一步提高ROI，我们可以将每个token的FFN替换为Sparse Mixture-of-Experts (MoE)，这样模型的容量就能增加，而计算成本则大致保持不变。然而，普通的稀疏专家混合模型（Sparse-MoE）在 RankMixer 中会表现不佳，原因在于：
-（i）uniform k-expert routing：对前 k 个特征词的处理方式是同等对待所有特征token，这会浪费低信息特征token的资源并剥夺高信息特征token的资源，从而阻碍模型捕捉token之间的差异。
-（ii）expert under-training：Per-token FFNs已经将参数乘以token的数量；再加上非共享专家会进一步增加专家的数量，导致路由高度不均衡且专家训练效果不佳。
+### 3.4 Token Merge
 
-文中提出两个解决方案：
 
-ReLU Routing：为了使令牌拥有灵活的专家数量并保持可微性，我们用一个 ReLU 门控机制加上自适应 L1 惩罚来取代常见的 Topk + 指数化操作。
-
-$G_{i,j} = \mathrm{ReLU}(h(s_i)), \quad \mathbf{v}_i = \sum_{j=1}^{N_e} G_{i,j} \, e_{i,j}(s_i)$
-其中$N_e$是每个令牌的专家数量，$N_t$是令牌的数量。ReLU路由将激活更多的高信息令牌专家，提高参数效率。稀疏性由$L_{reg}$控制，其系数λ使平均活跃专家比率接近预算：
-$\mathcal{L} = \mathcal{L}_{\mathrm{task}} + \lambda \, \mathcal{L}_{\mathrm{reg}}, \quad \mathcal{L}_{\mathrm{reg}} = \sum_{i=1}^{N_t} \sum_{j=1}^{N_e} G_{i,j}$
-
-Dense-training / Sparse-inference (DTSI-MoE)：采用了$h_{train}$和$h_{infer}$两个路由器，$L_{reg}$仅用于$h_{infer}$。$h_{train}$和$h_{infer}$都在训练过程中更新，而在推理过程中只使用$h_{infer}$。事实证明，DS-MoE在降低推理成本的同时，使专家不会受到训练不足的困扰。
 
 ### 3.5 Scaling Up Directions
 RankMixer 本质上是一种高度并行且可扩展的架构。其参数数量和计算成本可以通过四个相互垂直的维度进行扩展：令牌数量 T、模型宽度 D、层数 L 和专家数量 E。对于全密集激活版本，一个样本的参数数量和前向计算浮点运算次数可以计算为：
@@ -100,7 +91,7 @@ MFU：如表 6 所示，MFU 表示机器计算的利用率。通过采用大型 
 ![输入图片说明](/imgs/2025-12-15/p8K56RwBUuUC71nm.png)
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTY4ODIzMDk4Myw1NzU3NzU4MDMsMTA3OT
-QyMTI3MSwtMTYyNjYyMTY1NSw5MzExODMzNjUsMTI4NjIzODM3
-OSwtOTE5NzgxMDI4XX0=
+eyJoaXN0b3J5IjpbNzI4NjgwNDM3LDU3NTc3NTgwMywxMDc5ND
+IxMjcxLC0xNjI2NjIxNjU1LDkzMTE4MzM2NSwxMjg2MjM4Mzc5
+LC05MTk3ODEwMjhdfQ==
 -->
