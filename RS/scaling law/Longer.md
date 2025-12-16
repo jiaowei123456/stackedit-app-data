@@ -34,7 +34,8 @@
 这些token作为锚点，保持注意力的多样性，并保留长程依赖关系建模。
 
 ### 3.4 Token Merge
-原始transformer的二次注意力计算复杂度为$O(L^2d)$，其中L为序列长度，d为embedding维度，本文使用Token Merge策略避免丢失远程依赖关系：将相邻的K个token分组并压缩为更短的序列（相邻指的是时间戳相邻？），K个token内部会过InnerTrans(()90(0（））transformer
+原始transformer的二次注意力计算复杂度为$O(L^2d)$，其中L为序列长度，d为embedding维度，本文使用Token Merge策略避免丢失远程依赖关系：将相邻的K个token分组并压缩为更短的序列（相邻指的是时间戳相邻？），K个token内部会过InnerTrans（transformer），通过缩短序列长度来降低计算复杂度，同时增加参数量。
+
 
 
 
@@ -93,7 +94,7 @@ MFU：如表 6 所示，MFU 表示机器计算的利用率。通过采用大型 
 ![输入图片说明](/imgs/2025-12-15/p8K56RwBUuUC71nm.png)
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTU4NjU5NDQ5NCwxNjI5MTgzNzMsNTc1Nz
-c1ODAzLDEwNzk0MjEyNzEsLTE2MjY2MjE2NTUsOTMxMTgzMzY1
-LDEyODYyMzgzNzksLTkxOTc4MTAyOF19
+eyJoaXN0b3J5IjpbLTEzMDU3Mjk4NzcsMTYyOTE4MzczLDU3NT
+c3NTgwMywxMDc5NDIxMjcxLC0xNjI2NjIxNjU1LDkzMTE4MzM2
+NSwxMjg2MjM4Mzc5LC05MTk3ODEwMjhdfQ==
 -->
