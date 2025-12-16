@@ -69,8 +69,8 @@ $\mathbf{Q} = \mathbf{O} \mathbf{W}_Q, \quad \mathbf{K} = \mathbf{R} \mathbf{W}_
 
 ### 3.6 Training and Deployment Optimization
 #### 3.6.1 Training Framework
-
-
+训练流程始于以批处理或流式形式进行的数据摄取，随后通过 Fountain 模块进行预处理。处理后的训练数据随后被分发到多个 GPU 运行器中，在那里密集和稀疏参数会同步更新。该框架的一个关键特性是其统一的参数存储和训练架构。无论是密集参数还是稀疏参数，都可在 GPU 机器上同步进行存储和更新，从而无需外部参数服务器组件。为了更好地适应推荐系统中的特征分布模式，该框架采用了分层存储系统来处理稀疏嵌入，能够高效支持大型嵌入表。在这一设计中，高频特征存储在高带宽的 GPU 内存（HBM）中，中频特征存放在 CPU 主内存（MEM）中，低频特征则被卸载到本地固态硬盘（SSD）上。这种分层存储布局经过优化，以匹配推荐数据的访问特性，实现了延迟、吞吐量和容量之间的实际平衡。核心创新在于将计算和参数存储完全集中于 GPU 机器上，从而减少通信开销和内存传输延迟。这带来了更高的训练吞吐量、更低的滞留率和更强的收敛稳定性。
+#### 3.6.2 Mixed Precision Training and Recompute
 
 
 
@@ -124,8 +124,8 @@ MFU：如表 6 所示，MFU 表示机器计算的利用率。通过采用大型 
 ![输入图片说明](/imgs/2025-12-15/p8K56RwBUuUC71nm.png)
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbODAyMjc5NzI5LDEwNzM5NjQwNTksODAzMD
-U5NDM1LDE2MjkxODM3Myw1NzU3NzU4MDMsMTA3OTQyMTI3MSwt
-MTYyNjYyMTY1NSw5MzExODMzNjUsMTI4NjIzODM3OSwtOTE5Nz
-gxMDI4XX0=
+eyJoaXN0b3J5IjpbLTEwMTY3MTExMzksMTA3Mzk2NDA1OSw4MD
+MwNTk0MzUsMTYyOTE4MzczLDU3NTc3NTgwMywxMDc5NDIxMjcx
+LC0xNjI2NjIxNjU1LDkzMTE4MzM2NSwxMjg2MjM4Mzc5LC05MT
+k3ODEwMjhdfQ==
 -->
