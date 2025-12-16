@@ -48,7 +48,7 @@
 在位置编码之后，token通过MLP来获得它们的输入（这个MLP的输入输出维度相同吗？）：
 $\mathbf{R} \in \mathbb{R}^{(m+L) \times d} = [\mathbf{G} \in \mathbb{R}^{m \times d}, \mathbf{H} \in \mathbb{R}^{L \times d}]$
 其中G表示全局token长度为m，H表示序列token长度为L
-然后获取查询矩阵，其中G为全部的全局token，Hs为抽样获得的k个序列token，注意这个k和3.4的K不同。
+然后获取查询矩阵，其中G为全部的全局token，Hs为抽样获得的k个序列token，注意这个k和3.4的K不同，抽样的策略效果后面有做实验进行比较。
 $\mathbf{O} = [\mathbf{G}; \mathbf{H}_s]$
 
 #### 3.5.2 Cross-Causal Attention (First Layer)
@@ -57,7 +57,8 @@ $\mathbf{O} = [\mathbf{G}; \mathbf{H}_s]$
 $Q = O W_Q, \quad K = R W_K, \quad V = R W_V$
 
 $\mathbf{Q} = \mathbf{O} \mathbf{W}_Q, \quad \mathbf{K} = \mathbf{R} \mathbf{W}_K, \quad \mathbf{V} = \mathbf{R} \mathbf{W}_V$
-其中O是目标query，R是key，value。M是一个右上值全为0左下值全为-infde三角矩阵
+其中O是目标query，R是key，value。M是一个右上值全为0左下值全为-inf的三角矩阵。
+$\mathbf{M}_{i,j} = \begin{cases} 0, & \text{if } j \geq i, \text{ where } \{i, j\} \in [1, m + L] \\ -\infty, & \text{otherwise} \end{cases}$
 
 
 
@@ -117,8 +118,8 @@ MFU：如表 6 所示，MFU 表示机器计算的利用率。通过采用大型 
 ![输入图片说明](/imgs/2025-12-15/p8K56RwBUuUC71nm.png)
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTYxNTc0Njg2LDEwNzM5NjQwNTksODAzMD
-U5NDM1LDE2MjkxODM3Myw1NzU3NzU4MDMsMTA3OTQyMTI3MSwt
-MTYyNjYyMTY1NSw5MzExODMzNjUsMTI4NjIzODM3OSwtOTE5Nz
-gxMDI4XX0=
+eyJoaXN0b3J5IjpbMjY1ODYxMzQsMTA3Mzk2NDA1OSw4MDMwNT
+k0MzUsMTYyOTE4MzczLDU3NTc3NTgwMywxMDc5NDIxMjcxLC0x
+NjI2NjIxNjU1LDkzMTE4MzM2NSwxMjg2MjM4Mzc5LC05MTk3OD
+EwMjhdfQ==
 -->
