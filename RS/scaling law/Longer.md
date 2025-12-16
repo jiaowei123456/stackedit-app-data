@@ -24,22 +24,11 @@
 
 ### 3.2 Overall Framework：
 ![输入图片说明](/imgs/2025-12-16/t0HtAyrPKOUi68TF.png)
-上图展示了本文提出的模型Longer的整体架构。该框架集成了输入生成、令牌合并、混合注意机制和训练服务优化，以实现高效和可扩展的长序列建模。
+上图展示了本文提出的模型Longer的整体架构。该框架集成了input生成、token合并、混合注意机制和训练服务优化，以实现高效和可扩展的长序列建模。
 
 ### 3.3 RankMixer Block
 #### 3.3.1 Multi-head Token Mixing
-先把每个token分成H个头：
-$\left[ \mathbf{x}_t^{(1)} \parallel \mathbf{x}_t^{(2)} \parallel \cdots \parallel \mathbf{x}_t^{(H)} \right] = \mathrm{SplitHead}(\mathbf{x}_t)$
 
-然后把T个token的每个h位置的头拼接起来（所有的多头操作都号称为了从multi-perspective解决任务，有没有文章能证明？）：
-$\mathbf{s}^h = \left[ \mathbf{x}_1^h; \mathbf{x}_2^h; \ldots; \mathbf{x}_T^h \right]$
-
-最后把拼接之后的H个$s^h$堆叠在一起，输出为$\mathbf{S} \in \mathbb{R}^{H \times \frac{TD}{H}}$。
-
-原文中设置H=T，加上残差连接和归一化层后为：
-$s_1, s_2, \ldots, s_T = \mathrm{LN}\!\left( \mathrm{TokenMixing}(x_1, x_2, \ldots, x_T) + (x_1, x_2, \ldots, x_T) \right)$
-
-尽管自注意力机制在大型语言模型中表现出了极高的有效性，但我们发现它对于推荐系统而言效果并不理想。**在自注意力机制中，注意力权重是通过token的内积来计算的。这种方法在自然语言处理中效果良好，因为所有的token共享一个统一的embbeding空间。然而，在推荐任务中，特征空间本质上是异构的。在两个异构的语义空间之间计算内积相似度是极其困难的**——特别是在推荐系统中，用户和项目侧特征的 ID 空间可能包含数亿个元素。（逻辑是对的，所以行为序列建模一直用的是同语义空间的内积建模）（不过这个TokenMixing怎么这么像切牌啊，把token来回切）
 #### 3.3.2 Per-token FFN
 之前的 DLRM 和 DHEN 模型往往会在一个单一的交互模块中将来自多个不同语义空间的特征混合在一起，这可能会导致高频字段占据主导地位，从而掩盖低频或长尾信号，最终损害整体推荐质量。我们引入了一种参数独立的前馈网络架构，称为Per-token FFN。在传统的设计中，FFN 的参数在所有token中是共享的，但我们的方法对每个token都进行专门的变换，从而使得每个token有自己的FFN。
 
@@ -124,6 +113,6 @@ MFU：如表 6 所示，MFU 表示机器计算的利用率。通过采用大型 
 ![输入图片说明](/imgs/2025-12-15/p8K56RwBUuUC71nm.png)
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbOTc4NTI3OTA1LDkzMTE4MzM2NSwxMjg2Mj
-M4Mzc5LC05MTk3ODEwMjhdfQ==
+eyJoaXN0b3J5IjpbLTE2MjY2MjE2NTUsOTMxMTgzMzY1LDEyOD
+YyMzgzNzksLTkxOTc4MTAyOF19
 -->
