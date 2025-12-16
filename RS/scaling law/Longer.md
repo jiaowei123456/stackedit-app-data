@@ -24,25 +24,10 @@
 
 ### 3.2 Overall Framework：
 ![输入图片说明](/imgs/2025-12-16/t0HtAyrPKOUi68TF.png)
-上图展示了本文提出的模型Longer的整体架构。该框架集成了input生成、token合并、混合注意机制和训练服务优化，以实现高效和可扩展的长序列建模。
+上图展示了本文提出的模型Longer的整体架构。该框架集成了全局token、token合并、混合注意机制和训练服务优化，以实现高效和可扩展的长序列建模。
 
-### 3.3 RankMixer Block
-#### 3.3.1 Multi-head Token Mixing
+### 3.3 Global Tokens
 
-#### 3.3.2 Per-token FFN
-之前的 DLRM 和 DHEN 模型往往会在一个单一的交互模块中将来自多个不同语义空间的特征混合在一起，这可能会导致高频字段占据主导地位，从而掩盖低频或长尾信号，最终损害整体推荐质量。我们引入了一种参数独立的前馈网络架构，称为Per-token FFN。在传统的设计中，FFN 的参数在所有token中是共享的，但我们的方法对每个token都进行专门的变换，从而使得每个token有自己的FFN。
-
-对于第 t 个令牌 $s_t$ ，每个令牌的 FFN 可以表示为
-$\mathbf{v}_t = f_{\mathrm{pffn}}^{t,2} \left( \mathrm{Gelu} \left( f_{\mathrm{pffn}}^{t,1} (s_t) \right) \right)$
-其中：
-$f_{\mathrm{pffn}}^{t,i}(x) = x \mathbf{W}_{\mathrm{pffn}}^{t,i} + \mathbf{b}_{\mathrm{pffn}}^{t,i}$
-
-输入为$\mathbf{s_t} \in \mathbb{R}^{\frac{TD}{H}}$，网络结构和传统的FFN网络差不多，先通过$f_{\mathrm{pffn}}^{t,1}$升维，然后通过$f_{\mathrm{pffn}}^{t,2}$降维，$Gelu(·)$是激活函数。
-
-将per-token FFN模块总结为
-$\mathbf{v}_1, \mathbf{v}_2, \ldots, \mathbf{v}_T = \mathrm{PFFN}(\mathbf{s}_1, \mathbf{s}_2, \ldots, \mathbf{s}_T)$
-
-与参数全共享FFN相比，per-token FFN在保持计算复杂度不变的情况下，通过引入更多的参数来增强建模能力。（为什么，$\mathbf{W}_{\mathrm{pffn}}$如果是全参数共享的FFN参数应该是$T×D*T×kD$，per-token FFN参数应该是$D*kD*T$，感觉参数量变少了，有没有大佬帮忙推导一下？）
 
 ### 3.4 Sparse MoE in RankMixer
 为了进一步提高ROI，我们可以将每个token的FFN替换为Sparse Mixture-of-Experts (MoE)，这样模型的容量就能增加，而计算成本则大致保持不变。然而，普通的稀疏专家混合模型（Sparse-MoE）在 RankMixer 中会表现不佳，原因在于：
@@ -113,6 +98,6 @@ MFU：如表 6 所示，MFU 表示机器计算的利用率。通过采用大型 
 ![输入图片说明](/imgs/2025-12-15/p8K56RwBUuUC71nm.png)
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTE2MjY2MjE2NTUsOTMxMTgzMzY1LDEyOD
-YyMzgzNzksLTkxOTc4MTAyOF19
+eyJoaXN0b3J5IjpbLTc0NTA2NDM4OCwtMTYyNjYyMTY1NSw5Mz
+ExODMzNjUsMTI4NjIzODM3OSwtOTE5NzgxMDI4XX0=
 -->
