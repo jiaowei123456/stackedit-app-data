@@ -6,7 +6,7 @@
 
 ## 背景
 1. 全面建模长序列（长度＞$10^3$）对于推荐的准确性和多样性具有显著优势，并有助于缓解信息茧房现象。
-2. Two-stage retrieval、Pre-trained User Embeddings和策略显著提高了计算效率，但它们不可避免地会牺牲原始的完整序列信息，原因在于上下游信息的不一致或者对原始超长序列的间接感知，因此这些方法实际上只是朝着端到端长序列建模这一目标所经历的中间阶段。
+2. Two-stage retrieval、Pre-trained User Embeddings和Memory-augmented Models等策略显著提高了计算效率，但它们不可避免地会牺牲原始的完整序列信息，原因在于上下游信息的不一致或者对原始超长序列的间接感知，因此这些方法实际上只是朝着端到端长序列建模这一目标所经历的中间阶段。
 
 
 ## 1 论文解决的问题：
@@ -142,6 +142,6 @@ MFU：如表 6 所示，MFU 表示机器计算的利用率。通过采用大型 
 ![输入图片说明](/imgs/2025-12-15/p8K56RwBUuUC71nm.png)
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTE4MDQwMDc4OCwxMjg2MjM4Mzc5LC05MT
-k3ODEwMjhdfQ==
+eyJoaXN0b3J5IjpbLTEyNjE4NjYyNDksMTI4NjIzODM3OSwtOT
+E5NzgxMDI4XX0=
 -->
