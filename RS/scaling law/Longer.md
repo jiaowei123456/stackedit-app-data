@@ -74,6 +74,7 @@ $\mathbf{Q} = \mathbf{O} \mathbf{W}_Q, \quad \mathbf{K} = \mathbf{R} \mathbf{W}_
 为了在训练过程中缓解 GPU 内存压力，采用了重计算策略并结合了混合精度训练。对于梯度计算，使用反向模式自动微分，这种方式比正向模式更高效，但需要存储前向传播过程中的所有中间激活值。这些激活值可能会成为内存的主要瓶颈。为了解决这个问题，允许在前向传播过程中丢弃选定的激活值，并在反向传播过程中重新计算它们。这是以牺牲计算效率为代价换取内存节省的一种方式。由于 TensorFlow 原生版本没有提供对重计算的官方支持，使用 custom_gradient 机制来实现。
 此外，采用了基于 BF16/FP16 的混合精度训练方法。用户可以在模型层面配置精度，将更高精度应用于关键组件，而在其他部分使用较低精度。这种方法在生产工作负载中显示出显著的优势，包括平均提升 18% 的吞吐量、减少 16% 的训练时间以及降低 18% 的内存使用量，密集层的内存使用量最多可减少 28%。
 #### 3.6.3 KV Cache Serving
+![输入图片说明](/imgs/2025-12-17/ZGSG4PQvmT0NDNjX.png)
 为了在对多个候选物料进行评分时提高推理效率，引入了一种 KV 缓存机制，该机制将用户行为token与针对候选物料的全局token之间的注意力计算分离开来。由于用户序列在不同候选物料之间保持不变，其内部表示可以一次性计算并重复使用。
 
 ## 4 实验与分析：
@@ -126,7 +127,7 @@ MFU：如表 6 所示，MFU 表示机器计算的利用率。通过采用大型 
 ![输入图片说明](/imgs/2025-12-15/p8K56RwBUuUC71nm.png)
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTQwODMxMjc5NSwxMDczOTY0MDU5LDgwMz
+eyJoaXN0b3J5IjpbLTU3NjE2NjI2OSwxMDczOTY0MDU5LDgwMz
 A1OTQzNSwxNjI5MTgzNzMsNTc1Nzc1ODAzLDEwNzk0MjEyNzEs
 LTE2MjY2MjE2NTUsOTMxMTgzMzY1LDEyODYyMzgzNzksLTkxOT
 c4MTAyOF19
