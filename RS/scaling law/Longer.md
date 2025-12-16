@@ -68,6 +68,9 @@ $\mathbf{Q} = \mathbf{O} \mathbf{W}_Q, \quad \mathbf{K} = \mathbf{R} \mathbf{W}_
 其中Q, K, V全为上一层的输出经过一个线性层。
 
 ### 3.6 Training and Deployment Optimization
+#### 3.6.1 Training Framework
+
+
 
 
 
@@ -121,8 +124,8 @@ MFU：如表 6 所示，MFU 表示机器计算的利用率。通过采用大型 
 ![输入图片说明](/imgs/2025-12-15/p8K56RwBUuUC71nm.png)
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTQxMjUzNTY0OSwxMDczOTY0MDU5LDgwMz
-A1OTQzNSwxNjI5MTgzNzMsNTc1Nzc1ODAzLDEwNzk0MjEyNzEs
-LTE2MjY2MjE2NTUsOTMxMTgzMzY1LDEyODYyMzgzNzksLTkxOT
-c4MTAyOF19
+eyJoaXN0b3J5IjpbODAyMjc5NzI5LDEwNzM5NjQwNTksODAzMD
+U5NDM1LDE2MjkxODM3Myw1NzU3NzU4MDMsMTA3OTQyMTI3MSwt
+MTYyNjYyMTY1NSw5MzExODMzNjUsMTI4NjIzODM3OSwtOTE5Nz
+gxMDI4XX0=
 -->
