@@ -38,7 +38,10 @@
 原始transformer的二次注意力计算复杂度为$O(L^2d)$，其中L为序列长度，d为embedding维度，本文使用Token Merge策略避免丢失远程依赖关系：将相邻的K个token分组并压缩为更短的序列（相邻指的是时间戳相邻？），K个token内部会过InnerTrans（transformer），通过缩短序列长度来降低计算复杂度，同时增加参数量。
 
 ### 3.5 LONGER Model Structure
-#### 3.5。1 LONGER Model Structure
+#### 3.5.1 Input Generation
+输入包括序列token以及全局token。
+同时输入端采用了两种形式的位置编码：(1)将量化每次用户交互与目标项目之间时间距离的绝对时差特征作为侧信息并连接到每个项目嵌入中；(2)可学习的绝对位置嵌入，对添加到项目嵌入的序列中的每个标记的位置进行编码。
+
 
 
 
@@ -99,7 +102,7 @@ MFU：如表 6 所示，MFU 表示机器计算的利用率。通过采用大型 
 ![输入图片说明](/imgs/2025-12-15/p8K56RwBUuUC71nm.png)
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTExNjk3MTgzMjYsMTYyOTE4MzczLDU3NT
-c3NTgwMywxMDc5NDIxMjcxLC0xNjI2NjIxNjU1LDkzMTE4MzM2
-NSwxMjg2MjM4Mzc5LC05MTk3ODEwMjhdfQ==
+eyJoaXN0b3J5IjpbNjM3NTE0MjcxLDE2MjkxODM3Myw1NzU3Nz
+U4MDMsMTA3OTQyMTI3MSwtMTYyNjYyMTY1NSw5MzExODMzNjUs
+MTI4NjIzODM3OSwtOTE5NzgxMDI4XX0=
 -->
