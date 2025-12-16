@@ -56,7 +56,7 @@ $\mathbf{O} = [\mathbf{G}; \mathbf{H}_s]$
 第一层是交叉因果注意力计算：
 $Q = O W_Q, \quad K = R W_K, \quad V = R W_V$
 
-$\mathbf{Q} = \mathbf{O} \mathbf{W}_Q, \quad \mathbf{K} = \mathbf{R} \mathbf{W}_K, \quad \mathbf{V} = \mathbf{R} \mathbf{W}_V$
+$\text{Attention}(\mathbf{Q}, \mathbf{K}, \mathbf{V}) = \text{Softmax}\left( \frac{\mathbf{Q}\mathbf{K}^T}{\sqrt{d}} + \mathbf{M} \right) \mathbf{V}$
 其中O是目标query，R是key，value。M是一个右上值全为0左下值全为-inf的三角矩阵。
 $\mathbf{M}_{i,j} = \begin{cases} 0, & \text{if } j \geq i, \text{ where } \{i, j\} \in [1, m + L] \\ -\infty, & \text{otherwise} \end{cases}$
 因果掩码M设计一方面保持了序列中各元素之间的时间相关性。另一方面，它确保了序列对候选元素的不可见性，从而实现了 KV 缓存服务机制。在计算完注意力值后，结果会通过前馈网络（FFN）进行进一步处理。
@@ -64,7 +64,7 @@ $\mathbf{M}_{i,j} = \begin{cases} 0, & \text{if } j \geq i, \text{ where } \{i, 
 #### 3.5.3 Self-Causal Attention (Subsequent Layers).
 ![输入图片说明](/imgs/2025-12-17/kRO2ZaF8Pi7GY9QQ.png)
 在交叉因果注意力层之后，后续的层由N个自因果注意力层组成。这些层专注于学习采样token序列内的内部关系。每个自因果注意力层之后都接有一个FFN。自因果注意力机制的计算使用了类似的公式：
-$\mathbf{Q} = \mathbf{O} \mathbf{W}_Q, \quad \mathbf{K} = \mathbf{R} \mathbf{W}_K, \quad \mathbf{V} = \mathbf{R} \mathbf{W}_V$
+$\text{Attention}(\mathbf{Q}, \mathbf{K}, \mathbf{V}) = \text{Softmax}\left( \frac{\mathbf{Q}\mathbf{K}^T}{\sqrt{d}} + \mathbf{M} \right) \mathbf{V}$
 其中Q, K, V全为上一层的输出经过一个线性层。
 
 ### 3.6 Training and Deployment Optimization
@@ -127,7 +127,7 @@ MFU：如表 6 所示，MFU 表示机器计算的利用率。通过采用大型 
 ![输入图片说明](/imgs/2025-12-15/p8K56RwBUuUC71nm.png)
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTU3NjE2NjI2OSwxMDczOTY0MDU5LDgwMz
+eyJoaXN0b3J5IjpbMTcwNjgwOTk3NSwxMDczOTY0MDU5LDgwMz
 A1OTQzNSwxNjI5MTgzNzMsNTc1Nzc1ODAzLDEwNzk0MjEyNzEs
 LTE2MjY2MjE2NTUsOTMxMTgzMzY1LDEyODYyMzgzNzksLTkxOT
 c4MTAyOF19
