@@ -63,6 +63,8 @@ $\mathbf{M}_{i,j} = \begin{cases} 0, & \text{if } j \geq i, \text{ where } \{i, 
 
 #### 3.5.3 Self-Causal Attention (Subsequent Layers).
 在交叉因果注意力层之后，后续的层由几个自因果注意力层组成。这些层专注于学习采样token序列内的内部关系，使模型能够捕捉行为序列中token内的依赖关系和模式。每个自因果注意力层之后都接有一个全连接网络（FFN），这有助于进一步处理由注意力机制所学习到的信息。自因果注意力机制的计算使用了类似的公式：
+$\mathbf{Q} = \mathbf{O} \mathbf{W}_Q, \quad \mathbf{K} = \mathbf{R} \mathbf{W}_K, \quad \mathbf{V} = \mathbf{R} \mathbf{W}_V$
+其中Q, K, V全为上一层的输出过一个xian'x。
 
 
 
@@ -120,7 +122,7 @@ MFU：如表 6 所示，MFU 表示机器计算的利用率。通过采用大型 
 ![输入图片说明](/imgs/2025-12-15/p8K56RwBUuUC71nm.png)
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTE1NTYyODk1MTgsMTA3Mzk2NDA1OSw4MD
+eyJoaXN0b3J5IjpbLTE1MTY5NTUwMzQsMTA3Mzk2NDA1OSw4MD
 MwNTk0MzUsMTYyOTE4MzczLDU3NTc3NTgwMywxMDc5NDIxMjcx
 LC0xNjI2NjIxNjU1LDkzMTE4MzM2NSwxMjg2MjM4Mzc5LC05MT
 k3ODEwMjhdfQ==
