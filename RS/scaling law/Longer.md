@@ -20,10 +20,9 @@
 
 ## 3 模型结构：
 ### 3.1 Problem Statement：
+推荐x
 
-
-
-### 3.2 输入层和特征token化：
+### 3.2 Overall Framework：
 1. 用户特征：包括用户 ID 及其他用户信息等
 2. 物品特征：视频 ID、作者 ID 等
 3. 序列特征：通过序列模块处理后的序列特征用于捕捉时间相关性
@@ -136,6 +135,6 @@ MFU：如表 6 所示，MFU 表示机器计算的利用率。通过采用大型 
 ![输入图片说明](/imgs/2025-12-15/p8K56RwBUuUC71nm.png)
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTkxNjU2NDcwOCw5MzExODMzNjUsMTI4Nj
-IzODM3OSwtOTE5NzgxMDI4XX0=
+eyJoaXN0b3J5IjpbLTEzNjYxNjIxOTIsOTMxMTgzMzY1LDEyOD
+YyMzgzNzksLTkxOTc4MTAyOF19
 -->
