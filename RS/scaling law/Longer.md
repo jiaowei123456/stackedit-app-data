@@ -53,13 +53,15 @@ $\mathbf{O} = [\mathbf{G}; \mathbf{H}_s]$
 
 #### 3.5.2 Cross-Causal Attention (First Layer)
 
-第一层是目标注意力计算，论文中称为cross-causal attention：
+第一层是交叉因果注意力计算：
 $Q = O W_Q, \quad K = R W_K, \quad V = R W_V$
 
 $\mathbf{Q} = \mathbf{O} \mathbf{W}_Q, \quad \mathbf{K} = \mathbf{R} \mathbf{W}_K, \quad \mathbf{V} = \mathbf{R} \mathbf{W}_V$
 其中O是目标query，R是key，value。M是一个右上值全为0左下值全为-inf的三角矩阵。
 $\mathbf{M}_{i,j} = \begin{cases} 0, & \text{if } j \geq i, \text{ where } \{i, j\} \in [1, m + L] \\ -\infty, & \text{otherwise} \end{cases}$
+因果掩码设计一方面保持了序列中各元素之间的时间相关性。另一方面，它确保了序列对候选元素的不可见性，从而实现了 KV 缓存服务机制（见第 3.6.3 节）。在计算完注意力值后，结果会通过前馈网络（FFN）进行进一步处理
 
+#### 3.5.3 Self-Causal Attention (Subsequent Layers).
 
 
 
@@ -118,8 +120,8 @@ MFU：如表 6 所示，MFU 表示机器计算的利用率。通过采用大型 
 ![输入图片说明](/imgs/2025-12-15/p8K56RwBUuUC71nm.png)
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMjY1ODYxMzQsMTA3Mzk2NDA1OSw4MDMwNT
-k0MzUsMTYyOTE4MzczLDU3NTc3NTgwMywxMDc5NDIxMjcxLC0x
-NjI2NjIxNjU1LDkzMTE4MzM2NSwxMjg2MjM4Mzc5LC05MTk3OD
-EwMjhdfQ==
+eyJoaXN0b3J5IjpbLTcwMDM3MjIzNSwxMDczOTY0MDU5LDgwMz
+A1OTQzNSwxNjI5MTgzNzMsNTc1Nzc1ODAzLDEwNzk0MjEyNzEs
+LTE2MjY2MjE2NTUsOTMxMTgzMzY1LDEyODYyMzgzNzksLTkxOT
+c4MTAyOF19
 -->
