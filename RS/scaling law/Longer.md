@@ -23,19 +23,9 @@
 推荐系统常用数学建模，跳过，后续使用到的变量会单独介绍。
 
 ### 3.2 Overall Framework：
-1. 用户特征：包括用户 ID 及其他用户信息等
-2. 物品特征：视频 ID、作者 ID 等
-3. 序列特征：通过序列模块处理后的序列特征用于捕捉时间相关性
-4. 交叉特征：用户侧与物品侧的交叉特征
 
-Tokenization：为了实现高效的并行计算，不同维度的embedding必须转换为维度对齐的向量，这些向量被称为特征Token，这个过程称为Tokenization。
+![输入图片说明](/imgs/2025-12-16/t0HtAyrPKOUi68TF.png)
 
-**最简单的策略是为每个特征分配一个embbeding，当特征为几百个时，每个token所分配的参数和计算量会衰减到很少，从而导致对重要特征的建模不足以及GPU核心的不充分利用。相反，token数量过少（例如仅一个token）会使模型结构退化为简单的深度神经网络（DNN），无法清晰地表示不同的特征空间，这可能会导致主导特征掩盖其他特征。**
-
-为了解决这些问题，本文提出了一种基于语义的分词方法，结合领域知识将特征分组为几个语义连贯的簇。这些分组的特征依次连接成一个嵌入向量 $e_{\mathrm{input}} = \left[ e_1; e_2; \ldots; e_N \right]$，随后将其划分为具有固定维度大小的适当数量的标记。每个特征标记 $x_i ∈ R^D$ 捕获一组表示相似语义方面的特征嵌入。
-$x_i = \mathrm{Proj}\left(e_{\mathrm{input}}\left[d \cdot (i - 1) : d \cdot i\right]\right), \quad i = 1, \ldots, T$
-
-输出为 $x_i ∈ R^{T×D}$ ，T个token，每个token D维。
 
 ### 3.3 RankMixer Block
 #### 3.3.1 Multi-head Token Mixing
@@ -135,6 +125,6 @@ MFU：如表 6 所示，MFU 表示机器计算的利用率。通过采用大型 
 ![输入图片说明](/imgs/2025-12-15/p8K56RwBUuUC71nm.png)
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTEwMzEyNDM3MzcsOTMxMTgzMzY1LDEyOD
+eyJoaXN0b3J5IjpbLTEyMDgzOTgzOTMsOTMxMTgzMzY1LDEyOD
 YyMzgzNzksLTkxOTc4MTAyOF19
 -->
