@@ -62,17 +62,13 @@ $\mathbf{M}_{i,j} = \begin{cases} 0, & \text{if } j \geq i, \text{ where } \{i, 
 因果掩码M设计一方面保持了序列中各元素之间的时间相关性。另一方面，它确保了序列对候选元素的不可见性，从而实现了 KV 缓存服务机制。在计算完注意力值后，结果会通过前馈网络（FFN）进行进一步处理。
 
 #### 3.5.3 Self-Causal Attention (Subsequent Layers).
-在交叉因果注意力层之后，后续的层由几个自因果注意力层组成。这些层专注于学习采样token序列内的内部关系。每个自因果注意力层之后都接有一个FFN。自因果注意力机制的计算使用了类似的公式：
+在交叉因果注意力层之后，后续的层由N个自因果注意力层组成。这些层专注于学习采样token序列内的内部关系。每个自因果注意力层之后都接有一个FFN。自因果注意力机制的计算使用了类似的公式：
 $\mathbf{Q} = \mathbf{O} \mathbf{W}_Q, \quad \mathbf{K} = \mathbf{R} \mathbf{W}_K, \quad \mathbf{V} = \mathbf{R} \mathbf{W}_V$
 其中Q, K, V全为上一层的输出经过一个线性层。
 
-#### 3.5.4 Stacking and Compression.
+### 3.6 Training and Deployment Optimization
 
 
-
-### 3.5 Scaling Up Directions
-RankMixer 本质上是一种高度并行且可扩展的架构。其参数数量和计算成本可以通过四个相互垂直的维度进行扩展：令牌数量 T、模型宽度 D、层数 L 和专家数量 E。对于全密集激活版本，一个样本的参数数量和前向计算浮点运算次数可以计算为：
-$\#\mathrm{Param} \approx 2kLT D^2, \quad \mathrm{FLOPs} \approx 4kLT D^2$
 
 ## 4 实验与分析：
 ### 4.1 实验设置
@@ -124,8 +120,8 @@ MFU：如表 6 所示，MFU 表示机器计算的利用率。通过采用大型 
 ![输入图片说明](/imgs/2025-12-15/p8K56RwBUuUC71nm.png)
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTA5Mjk5OTk4NSwxMDczOTY0MDU5LDgwMz
-A1OTQzNSwxNjI5MTgzNzMsNTc1Nzc1ODAzLDEwNzk0MjEyNzEs
-LTE2MjY2MjE2NTUsOTMxMTgzMzY1LDEyODYyMzgzNzksLTkxOT
-c4MTAyOF19
+eyJoaXN0b3J5IjpbNDc1MDI5MTU3LDEwNzM5NjQwNTksODAzMD
+U5NDM1LDE2MjkxODM3Myw1NzU3NzU4MDMsMTA3OTQyMTI3MSwt
+MTYyNjYyMTY1NSw5MzExODMzNjUsMTI4NjIzODM3OSwtOTE5Nz
+gxMDI4XX0=
 -->
