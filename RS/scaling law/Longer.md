@@ -28,7 +28,8 @@
 
 ### 3.3 Global Tokens
 本文引入了“全局token”作为附加到输入序列中的辅助表示，主要有两个作用：
-1. 全局token充当集中式信息锚点，增强了用户历史记录、上下文属性和候选项目之间的特征交互。其次，它们稳定了长序列中的注意力动态，特别是在稀疏注意力配置下。正如 StreamLLM [23] 所展示的那样，引入少量全局标记可缓解“注意力汇聚”效应，即深层注意力层过度关注早期标记。这些标记作为锚点，保持注意力的多样性，并保留长程依赖关系建模。
+1. 全局token充当集中式信息锚点，增强了用户历史记录、上下文属性和候选项目之间的特征交互。
+2. 稳定了长序列中的注意力动态，特别是在稀疏注意力配置下。引入少量全局token可缓解“注意力汇聚”效应，即深层注意力层过度关注早期token。这些标记作为锚点，保持注意力的多样性，并保留长程依赖关系建模。
 
 ### 3.4 Sparse MoE in RankMixer
 为了进一步提高ROI，我们可以将每个token的FFN替换为Sparse Mixture-of-Experts (MoE)，这样模型的容量就能增加，而计算成本则大致保持不变。然而，普通的稀疏专家混合模型（Sparse-MoE）在 RankMixer 中会表现不佳，原因在于：
@@ -99,7 +100,7 @@ MFU：如表 6 所示，MFU 表示机器计算的利用率。通过采用大型 
 ![输入图片说明](/imgs/2025-12-15/p8K56RwBUuUC71nm.png)
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTY0NjI5MTYwNyw1NzU3NzU4MDMsMTA3OT
+eyJoaXN0b3J5IjpbLTY4ODIzMDk4Myw1NzU3NzU4MDMsMTA3OT
 QyMTI3MSwtMTYyNjYyMTY1NSw5MzExODMzNjUsMTI4NjIzODM3
 OSwtOTE5NzgxMDI4XX0=
 -->
