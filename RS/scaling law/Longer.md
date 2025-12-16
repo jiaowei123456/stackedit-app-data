@@ -20,7 +20,7 @@
 
 ## 3 模型结构：
 ### 3.1 Problem Statement：
-推荐x
+推荐系统常用数学建模，跳过，后续使用到的变量会单独介绍。
 
 ### 3.2 Overall Framework：
 1. 用户特征：包括用户 ID 及其他用户信息等
@@ -135,6 +135,6 @@ MFU：如表 6 所示，MFU 表示机器计算的利用率。通过采用大型 
 ![输入图片说明](/imgs/2025-12-15/p8K56RwBUuUC71nm.png)
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTEzNjYxNjIxOTIsOTMxMTgzMzY1LDEyOD
+eyJoaXN0b3J5IjpbLTEwMzEyNDM3MzcsOTMxMTgzMzY1LDEyOD
 YyMzgzNzksLTkxOTc4MTAyOF19
 -->
