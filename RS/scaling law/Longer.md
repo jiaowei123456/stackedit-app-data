@@ -90,15 +90,17 @@ $\text{Attention}(\mathbf{Q}, \mathbf{K}, \mathbf{V}) = \text{Softmax}\left( \fr
 ![输入图片说明](/imgs/2025-12-17/iGfaAIwezYSdGNEC.png)
 
 改变用于概括用户近期行为的查询数量（k）：当k=100 时， 与使用所有查询（k = 250）时所获得的性能非常接近，但所需的浮点运算量仅为后者的 54%。
+
 对不同的查询选择策略进行了比较：1）使用可学习的查询（随机初始化）的效果最差。2）直接选择最近的 100 次用户行为（Recent 100）实现了总体上最佳的性能。3）如均匀抽样或结合最近的和均匀抽样的项目，效果则介于两者之间。
+
 #### 4.3 Scaling Analysis
 
 
 
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTU1ODYzMjU0MywtNjk0MTY5MzE3LC0yMD
-Y3ODc5Nzk3LDEwNzM5NjQwNTksODAzMDU5NDM1LDE2MjkxODM3
-Myw1NzU3NzU4MDMsMTA3OTQyMTI3MSwtMTYyNjYyMTY1NSw5Mz
-ExODMzNjUsMTI4NjIzODM3OSwtOTE5NzgxMDI4XX0=
+eyJoaXN0b3J5IjpbLTIwMTgyODkyNzcsLTY5NDE2OTMxNywtMj
+A2Nzg3OTc5NywxMDczOTY0MDU5LDgwMzA1OTQzNSwxNjI5MTgz
+NzMsNTc1Nzc1ODAzLDEwNzk0MjEyNzEsLTE2MjY2MjE2NTUsOT
+MxMTgzMzY1LDEyODYyMzgzNzksLTkxOTc4MTAyOF19
 -->
