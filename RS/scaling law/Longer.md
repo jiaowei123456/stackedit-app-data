@@ -79,11 +79,14 @@ $\text{Attention}(\mathbf{Q}, \mathbf{K}, \mathbf{V}) = \text{Softmax}\left( \fr
 为了在对多个候选物料进行评分时提高推理效率，引入了一种 KV 缓存机制，该机制将用户行为token与针对候选物料的全局token之间的注意力计算分离开来。由于用户序列在不同候选物料之间保持不变，其内部表示可以一次性计算并重复使用。
 
 ## 4 实验与分析：
-### Experimental Setting
-字节抖音广告CVR预测系统进行评估，离线数据为130天52亿个样本，其中123天用于训练，7天用于预测
+### 4.1 Experimental Setting
+字节抖音广告CVR预测系统进行评估，离线数据为130天52亿个样本，其中123天用于训练，7天用于预测。
+对比模型：短序列方法包括 TWIN和 DIN（Recent50）。长序列方法包括 SumPooling、DIN、HSTU和 Transformer。
+
+### 4.1 Overall Performance
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTc5NjA4NTg0MCwtMjA2Nzg3OTc5NywxMD
+eyJoaXN0b3J5IjpbLTk5MDE4NDI4NCwtMjA2Nzg3OTc5NywxMD
 czOTY0MDU5LDgwMzA1OTQzNSwxNjI5MTgzNzMsNTc1Nzc1ODAz
 LDEwNzk0MjEyNzEsLTE2MjY2MjE2NTUsOTMxMTgzMzY1LDEyOD
 YyMzgzNzksLTkxOTc4MTAyOF19
