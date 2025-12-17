@@ -83,10 +83,15 @@ $\text{Attention}(\mathbf{Q}, \mathbf{K}, \mathbf{V}) = \text{Softmax}\left( \fr
 字节抖音广告CVR预测系统进行评估，离线数据为130天52亿个样本，其中123天用于训练，7天用于预测。
 对比模型：短序列方法包括 TWIN和 DIN（Recent50）。长序列方法包括 SumPooling、DIN、HSTU和 Transformer。
 
-### 4.1 Overall Performance
+### 4.2 Overall Performance
+#### 4.2.1 Comparison of existing methods
+![输入图片说明](/imgs/2025-12-17/ar2Cq6hLoS2m2jHJ.png)
+#### 4.2.1 Ablation study
+![输入图片说明](/imgs/2025-12-17/iGfaAIwezYSdGNEC.png)
+
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTk5MDE4NDI4NCwtMjA2Nzg3OTc5NywxMD
+eyJoaXN0b3J5IjpbLTExOTAzOTQ0MywtMjA2Nzg3OTc5NywxMD
 czOTY0MDU5LDgwMzA1OTQzNSwxNjI5MTgzNzMsNTc1Nzc1ODAz
 LDEwNzk0MjEyNzEsLTE2MjY2MjE2NTUsOTMxMTgzMzY1LDEyOD
 YyMzgzNzksLTkxOTc4MTAyOF19
