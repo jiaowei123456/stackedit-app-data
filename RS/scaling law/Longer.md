@@ -89,11 +89,13 @@ $\text{Attention}(\mathbf{Q}, \mathbf{K}, \mathbf{V}) = \text{Softmax}\left( \fr
 #### 4.2.1 Ablation study
 ![输入图片说明](/imgs/2025-12-17/iGfaAIwezYSdGNEC.png)
 
-改变用于概括用户近期行为的查询数量（k）。当k=100 时， AUC 为 0.85290，LogLoss 为 0.47103——与使用所有查询（k = 250）时所获得的性能非常接近，但所需的浮点运算量仅为后者的 54%。
+改变用于概括用户近期行为的查询数量（k）：当k=100 时， 与使用所有查询（k = 250）时所获得的性能非常接近，但所需的浮点运算量仅为后者的 54%。
+对不同的查询选择策略进行了比较：1）使用可学习的查询（随机初始化）的效果最差（AUC = 0.84946）。相比之下，直接选择最近的 100 次用户行为（Recent 100）实现了总体上最佳的性能。其他策略，如均匀抽样或结合最近的和均匀抽样的项目，所得的 AUC 略低，而 LogLoss 则更高。这些发现表明，用具有信息性的行为（特别是最近的行为）来初始化查询对于在长序列建模中有效地捕捉用户意图至关重要。
+
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTU1NjQzMDA2NiwtNjk0MTY5MzE3LC0yMD
-Y3ODc5Nzk3LDEwNzM5NjQwNTksODAzMDU5NDM1LDE2MjkxODM3
-Myw1NzU3NzU4MDMsMTA3OTQyMTI3MSwtMTYyNjYyMTY1NSw5Mz
-ExODMzNjUsMTI4NjIzODM3OSwtOTE5NzgxMDI4XX0=
+eyJoaXN0b3J5IjpbNzkyMDE3NjM4LC02OTQxNjkzMTcsLTIwNj
+c4Nzk3OTcsMTA3Mzk2NDA1OSw4MDMwNTk0MzUsMTYyOTE4Mzcz
+LDU3NTc3NTgwMywxMDc5NDIxMjcxLC0xNjI2NjIxNjU1LDkzMT
+E4MzM2NSwxMjg2MjM4Mzc5LC05MTk3ODEwMjhdfQ==
 -->
