@@ -98,6 +98,9 @@ $\text{Attention}(\mathbf{Q}, \mathbf{K}, \mathbf{V}) = \text{Softmax}\left( \fr
 
 ### 4.4 Online A/B Tests
 在抖音电商与抖音广告上都展示出很好的效果
+![输入图片说明](/imgs/2025-12-17/tqB3osTgQDVTWXcS.png)
+![输入图片说明](/imgs/2025-12-17/TkfYg5yYPUGrlxbG.png)
+
 
 
 
@@ -106,9 +109,9 @@ $\text{Attention}(\mathbf{Q}, \mathbf{K}, \mathbf{V}) = \text{Softmax}\left( \fr
 
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbNDU4MTk4MjgyLC0yMDE4Mjg5Mjc3LC02OT
-QxNjkzMTcsLTIwNjc4Nzk3OTcsMTA3Mzk2NDA1OSw4MDMwNTk0
-MzUsMTYyOTE4MzczLDU3NTc3NTgwMywxMDc5NDIxMjcxLC0xNj
-I2NjIxNjU1LDkzMTE4MzM2NSwxMjg2MjM4Mzc5LC05MTk3ODEw
-MjhdfQ==
+eyJoaXN0b3J5IjpbLTE0OTI3MjE2NDIsLTIwMTgyODkyNzcsLT
+Y5NDE2OTMxNywtMjA2Nzg3OTc5NywxMDczOTY0MDU5LDgwMzA1
+OTQzNSwxNjI5MTgzNzMsNTc1Nzc1ODAzLDEwNzk0MjEyNzEsLT
+E2MjY2MjE2NTUsOTMxMTgzMzY1LDEyODYyMzgzNzksLTkxOTc4
+MTAyOF19
 -->
