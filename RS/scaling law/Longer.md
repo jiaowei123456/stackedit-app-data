@@ -80,11 +80,11 @@ $\text{Attention}(\mathbf{Q}, \mathbf{K}, \mathbf{V}) = \text{Softmax}\left( \fr
 
 ## 4 实验与分析：
 ### Experimental Setting
-字节抖音广告CVR预测系统进行评估，离线数据为130天
+字节抖音广告CVR预测系统进行评估，离线数据为130天52亿个样本，其中123天用于训练，7天用于预测
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTE5MDY5MTg4NDYsLTIwNjc4Nzk3OTcsMT
-A3Mzk2NDA1OSw4MDMwNTk0MzUsMTYyOTE4MzczLDU3NTc3NTgw
-MywxMDc5NDIxMjcxLC0xNjI2NjIxNjU1LDkzMTE4MzM2NSwxMj
-g2MjM4Mzc5LC05MTk3ODEwMjhdfQ==
+eyJoaXN0b3J5IjpbMTc5NjA4NTg0MCwtMjA2Nzg3OTc5NywxMD
+czOTY0MDU5LDgwMzA1OTQzNSwxNjI5MTgzNzMsNTc1Nzc1ODAz
+LDEwNzk0MjEyNzEsLTE2MjY2MjE2NTUsOTMxMTgzMzY1LDEyOD
+YyMzgzNzksLTkxOTc4MTAyOF19
 -->
