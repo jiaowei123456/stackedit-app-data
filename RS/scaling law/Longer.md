@@ -79,57 +79,10 @@ $\text{Attention}(\mathbf{Q}, \mathbf{K}, \mathbf{V}) = \text{Softmax}\left( \fr
 为了在对多个候选物料进行评分时提高推理效率，引入了一种 KV 缓存机制，该机制将用户行为token与针对候选物料的全局token之间的注意力计算分离开来。由于用户序列在不同候选物料之间保持不变，其内部表示可以一次性计算并重复使用。
 
 ## 4 实验与分析：
-### 4.1 实验设置
-#### 4.4.1 Datasets and Environment
-离线实验：基于抖音推荐系统的训练数据进行，300+特征，两周数据训练。
-#### 4.4.2 Evaluation Metrics
-AUC、UAUC、MFU
-Finish/Skip AUC/UAUC：“finish=1/0”或“skip=1/0”标签表示用户是否在短时间内完成了视频观看或转到下一个视频。
-#### 4.4.2 Baselines
-DLRM-MLP、DCNv2、RDCN、AutoInt、Hiformer、DHEN、Wukong
-### 4.2 Comparison with SOTA methods
-不同模型比较，RankMixer效果最优：
-![输入图片说明](/imgs/2025-12-15/Kz5s7WXsvZkGX1kI.png)
-
-### 4.3 Scaling Laws of different models
-![输入图片说明](/imgs/2025-12-15/qVNhNnokzfSIBQLG.png)
-
-在本文的实验中，观察到了与 LLM 扩展规律相同的结论：模型质量主要与参数总数相关，不同的扩展方向（深度 L、宽度 D、令牌 T）几乎能产生相同的性能。**从计算效率的角度来看，更大的隐藏层维度会产生更大的矩阵乘法，从而比增加更多层实现更高的 MFU，最终的配置（100M 和 1B）分别为（D=768，T=16，L=2）和（D=1536，T=32，L=2）**
-### 4.4 Ablation Study
-
-![输入图片说明](/imgs/2025-12-15/kH4lRzLYLR7YQXI4.png)
-All-Concat-MLP：将所有token进行连接，并通过一个大型MLP对其进行处理，然后再将其拆分成相同数量的token。
-All-Share：不进行拆分，所有的输入向量共享并喂到每个per-token FFN类似于MoE。
-Self-Attention:在token之间应用自注意力机制进行路由。
-### 4.5 Sparse-MoE Scalability and Expert Balance
-![输入图片说明](/imgs/2025-12-15/eWSDSUz96x2b92Zx.png)
-Scalability. 上图绘制了SMoE 的离线 AUC 增益与稀疏度的关系。
-1. 原始 SMoE 的性能随着激活的专家数量减少而单调下降，这说明了专家不平衡和训练不足的问题。
-2. 添加balance loss可减少相对于原始 SMoE 的性能下降，但仍不如 DTSI(Dense-training / Sparse-inference) + ReLU 版本，因为问题主要在于专家训练而非路由器。
-
-Expert balance and diversity 普通稀疏多专家模型常常会遭遇专家失衡的问题。图文证明，将 DTSI与 ReLU 路由相结合能够有效解决这一问题：Dense-training确保大多数专家都能获得足够的梯度更新。ReLU 路由使激活比例在各个token之间动态变化——图中显示的激活比例会根据其信息内容自适应地变化，这与推荐数据的多样化且高度动态的分布非常吻合。
-
-### 4.6 Online Serving cost
-做到了参数量提升70倍，但是推理耗时几乎不变，耗时计算公式：
-$\text{Latency} = \frac{\#\text{Param} \times \text{FLOPs/Param ratio}}{\text{MFU} \times (\text{Theoretical Hardware FLOPs})}$
-
-相比与原始online模型，延迟变化因素影响表：
-![输入图片说明](/imgs/2025-12-15/H6jUiL03rt4smeof.png)
-
-其实只需要看FLOPs、MFU以及Hardware FOLPs就可以，分别升高了20倍，10倍，2倍，所以前者被后两者抵消了。
-
-MFU：如表 6 所示，MFU 表示机器计算的利用率。通过采用大型 **GEMM shape、良好的并行拓扑结构（将并行的每个令牌的 FFN 融合为一个内核）以及降低内存带宽成本和开销**，RankMixer 将 MFU 提高了近 10 倍，使模型从内存受限状态转变为计算受限状态。（感觉这个才是关键，其次没想到抖音居然之前用的是全精）
-
-### 4.7 Online Performance
-在抖音与抖音极速版上面进行了8个月的AB实验与反转实验。
-推荐侧效果：很好，特别是在低活用户上面，**不过抖音极速版的comment的提升反而在高活用户更好，这是为什么？**
-![输入图片说明](/imgs/2025-12-15/Ud8ZgNJAVaE1pLwR.png)
-广告侧效果：也很好。
-![输入图片说明](/imgs/2025-12-15/p8K56RwBUuUC71nm.png)
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTIwNjc4Nzk3OTcsMTA3Mzk2NDA1OSw4MD
-MwNTk0MzUsMTYyOTE4MzczLDU3NTc3NTgwMywxMDc5NDIxMjcx
-LC0xNjI2NjIxNjU1LDkzMTE4MzM2NSwxMjg2MjM4Mzc5LC05MT
-k3ODEwMjhdfQ==
+eyJoaXN0b3J5IjpbMTI1NzI0NDY4NCwtMjA2Nzg3OTc5NywxMD
+czOTY0MDU5LDgwMzA1OTQzNSwxNjI5MTgzNzMsNTc1Nzc1ODAz
+LDEwNzk0MjEyNzEsLTE2MjY2MjE2NTUsOTMxMTgzMzY1LDEyOD
+YyMzgzNzksLTkxOTc4MTAyOF19
 -->
