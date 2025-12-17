@@ -89,11 +89,11 @@ $\text{Attention}(\mathbf{Q}, \mathbf{K}, \mathbf{V}) = \text{Softmax}\left( \fr
 #### 4.2.1 Ablation study
 ![输入图片说明](/imgs/2025-12-17/iGfaAIwezYSdGNEC.png)
 
-
+改变用于概括用户近期行为的查询数量（k）。当k=100 时， AUC 为 0.85290，LogLoss 为 0.47103——与使用所有查询（k = 250）时所获得的性能非常接近，但所需的浮点运算量仅为后者的 54%。
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTY5NDE2OTMxNywtMjA2Nzg3OTc5NywxMD
-czOTY0MDU5LDgwMzA1OTQzNSwxNjI5MTgzNzMsNTc1Nzc1ODAz
-LDEwNzk0MjEyNzEsLTE2MjY2MjE2NTUsOTMxMTgzMzY1LDEyOD
-YyMzgzNzksLTkxOTc4MTAyOF19
+eyJoaXN0b3J5IjpbLTU1NjQzMDA2NiwtNjk0MTY5MzE3LC0yMD
+Y3ODc5Nzk3LDEwNzM5NjQwNTksODAzMDU5NDM1LDE2MjkxODM3
+Myw1NzU3NzU4MDMsMTA3OTQyMTI3MSwtMTYyNjYyMTY1NSw5Mz
+ExODMzNjUsMTI4NjIzODM3OSwtOTE5NzgxMDI4XX0=
 -->
