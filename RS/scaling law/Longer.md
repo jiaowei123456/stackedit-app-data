@@ -94,13 +94,14 @@ $\text{Attention}(\mathbf{Q}, \mathbf{K}, \mathbf{V}) = \text{Softmax}\left( \fr
 对不同的查询选择策略进行了比较：1）使用可学习的查询（随机初始化）的效果最差。2）直接选择最近的 100 次用户行为（Recent 100）实现了总体上最佳的性能。3）如均匀抽样或结合最近的和均匀抽样的项目，效果则介于两者之间。
 
 #### 4.3 Scaling Analysis
-1. 序列增加长度与带来的收益成mi
+1. 序列长度、参数、运算量与带来的收益均成幂指函数
+
 
 
 
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTcxMzEzODUwMCwtMjAxODI4OTI3NywtNj
+eyJoaXN0b3J5IjpbMTg2MjMwNTE2NywtMjAxODI4OTI3NywtNj
 k0MTY5MzE3LC0yMDY3ODc5Nzk3LDEwNzM5NjQwNTksODAzMDU5
 NDM1LDE2MjkxODM3Myw1NzU3NzU4MDMsMTA3OTQyMTI3MSwtMT
 YyNjYyMTY1NSw5MzExODMzNjUsMTI4NjIzODM3OSwtOTE5Nzgx
