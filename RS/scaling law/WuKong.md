@@ -6,7 +6,7 @@ Scaling Law在模型效果的可持续提升中起着关键作用。遗憾的是
 
 ## 背景
 1、随着现代数据集呈指数级增长，scaling law可扩展性变得愈发重要。
-2、DHEN和Wukong设计创新的深度神经网络结构以提高扩展性能。
+2、以往DL的RS通过增加emb维度和宽度来获得类似scaling law规律，但是仅仅扩展模型的emb层并不能增强其捕获越来越多特征之间复杂交互的能力。
 
 ## 1 论文解决的问题：
 1、必须严格遵守严格的延迟限制，并支持极高的每秒查询数（QPS）。
@@ -141,6 +141,6 @@ MFU：如表 6 所示，MFU 表示机器计算的利用率。通过采用大型 
 ![输入图片说明](/imgs/2025-12-15/p8K56RwBUuUC71nm.png)
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTExMDk1NTAzNTEsMjEzNjE0MDUxNywtND
-c3MjYyMjM1XX0=
+eyJoaXN0b3J5IjpbLTkwMzMxMTgxMiwyMTM2MTQwNTE3LC00Nz
+cyNjIyMzVdfQ==
 -->
