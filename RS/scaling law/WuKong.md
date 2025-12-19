@@ -6,7 +6,8 @@ Scaling Law在模型效果的可持续提升中起着关键作用。遗憾的是
 
 ## 背景
 1、随着现代数据集呈指数级增长，scaling law可扩展性变得愈发重要。
-2、以往DL的RS通过增加emb维度和宽度来获得类似scaling law规律，但是仅仅扩展模型的emb层并不能增强其捕获越来越多特征之间复杂交互的能力。
+2、以往DL的RS通过增加emb维度和宽度来获得类似scaling law规律，但是仅仅扩展模型的emb层并不能增强其捕获越来越多特征之间复杂交互的能力，ROI较低。
+为推荐模型寻找一种替代的扩展机制，该机制能够建立一种类似于在大型语言模型领域所确立的扩展规律。具体而言，我们希望设计出一种统一的架构，其质量能够随着数据集大小、计算资源和参数预算的增加而持续提升，并采用协同策略实现这一目标。
 
 ## 1 论文解决的问题：
 1、必须严格遵守严格的延迟限制，并支持极高的每秒查询数（QPS）。
@@ -141,6 +142,6 @@ MFU：如表 6 所示，MFU 表示机器计算的利用率。通过采用大型 
 ![输入图片说明](/imgs/2025-12-15/p8K56RwBUuUC71nm.png)
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTkwMzMxMTgxMiwyMTM2MTQwNTE3LC00Nz
+eyJoaXN0b3J5IjpbMjA1ODE5MTAzNCwyMTM2MTQwNTE3LC00Nz
 cyNjIyMzVdfQ==
 -->
