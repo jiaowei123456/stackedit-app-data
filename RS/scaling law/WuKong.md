@@ -33,7 +33,7 @@ $\mathrm{FMB}(X_i) = \mathrm{reshape}\left( \mathrm{MLP}\left( \mathrm{LN}\left(
 
 PS：
 1. FM和原始的FM还是不太一样的，没有包含可学习的交叉特征权重，而是直接通过MLP进行映射输出；
-3. 这一部分的参数主要在MLP
+3. 这一部分的参数应该主要在MLP上面，作为一个scaling law的范式，比较好奇参数如何有效增加。
 
 其中FM有两种：
 4. $\mathrm{FM}(X) = X X^\top$ 计算复杂度为$o(n^2d)$
@@ -93,7 +93,7 @@ MFU：如表 6 所示，MFU 表示机器计算的利用率。通过采用大型 
 ![输入图片说明](/imgs/2025-12-15/p8K56RwBUuUC71nm.png)
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMzA0OTU5Mjg0LC0xNjk2NzQ2NDcsLTkyOT
-gxMTMxNCw1ODE3ODc3ODcsNDUyNTQzNDk0LDIxMzYxNDA1MTcs
-LTQ3NzI2MjIzNV19
+eyJoaXN0b3J5IjpbMTY2MjI2NTI1NSwtMTY5Njc0NjQ3LC05Mj
+k4MTEzMTQsNTgxNzg3Nzg3LDQ1MjU0MzQ5NCwyMTM2MTQwNTE3
+LC00NzcyNjIyMzVdfQ==
 -->
