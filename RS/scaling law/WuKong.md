@@ -19,7 +19,7 @@ Scaling Law在模型效果的可持续提升中起着关键作用。遗憾的是
 
 ### 3.2 Embedding Layer：
 常见的Embedding层处理方式：多-hot 输入 → 嵌入表 → （sum）聚合
-不管是离散还是连续特征都会通过Embedding层转为d维的emb。
+不管是离散还是连续特征都会通过Embedding层转为d维的emb
 
 ### 3.3  Interaction Stack
 
@@ -33,7 +33,7 @@ $\mathrm{FMB}(X_i) = \mathrm{reshape}\left( \mathrm{MLP}\left( \mathrm{LN}\left(
 
 其中FM有两种：
 1. $\mathrm{FM}(X) = X X^\top$ 计算复杂度为$o(n^2d)$
-2. 
+2. $\mathrm{FM}(X) = X X^\top Y$  ，其中$Y$为维度为$n×k$可学习的矩阵计算复杂度为$o(ndk)$
 
 ### 3.5 Scaling Up Directions
 RankMixer 本质上是一种高度并行且可扩展的架构。其参数数量和计算成本可以通过四个相互垂直的维度进行扩展：令牌数量 T、模型宽度 D、层数 L 和专家数量 E。对于全密集激活版本，一个样本的参数数量和前向计算浮点运算次数可以计算为：
@@ -89,7 +89,7 @@ MFU：如表 6 所示，MFU 表示机器计算的利用率。通过采用大型 
 ![输入图片说明](/imgs/2025-12-15/p8K56RwBUuUC71nm.png)
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTE2NzE0MDE3MTAsLTE2OTY3NDY0NywtOT
-I5ODExMzE0LDU4MTc4Nzc4Nyw0NTI1NDM0OTQsMjEzNjE0MDUx
-NywtNDc3MjYyMjM1XX0=
+eyJoaXN0b3J5IjpbLTY1ODI2ODU5MSwtMTY5Njc0NjQ3LC05Mj
+k4MTEzMTQsNTgxNzg3Nzg3LDQ1MjU0MzQ5NCwyMTM2MTQwNTE3
+LC00NzcyNjIyMzVdfQ==
 -->
