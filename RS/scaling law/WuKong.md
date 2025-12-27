@@ -27,7 +27,7 @@ Scaling Law在模型效果的可持续提升中起着关键作用。遗憾的是
 $X_{i+1} = \mathrm{LN}\left( \mathrm{concat}\left( \mathrm{FMB}_i(X_i), \mathrm{LCB}_i(X_i) \right) + X_i \right)$
 
 ### 3.4 Factorization Machine Block (FMB)
-FMB实现高阶特征交互，特征交互文章中提到是$2^i$阶交叉特征：
+FMB实现高阶特征交互，文章中提到第$i$层可以获得$2^i$阶交叉特征,yixia：
 
 $\mathrm{FMB}(X_i) = \mathrm{reshape}\left( \mathrm{MLP}\left( \mathrm{LN}\left( \mathrm{flatten}\left( \mathrm{FM}(X_i) \right) \right) \right) \right)$
 
@@ -40,8 +40,7 @@ PS：
 2. 这一部分的参数应该主要在MLP上面，作为一个scaling law的范式，比较好奇参数如何有效增加。
 
 ### 3.5 Linear Compress Block (LCB)
-RankMixer 本质上是一种高度并行且可扩展的架构。其参数数量和计算成本可以通过四个相互垂直的维度进行扩展：令牌数量 T、模型宽度 D、层数 L 和专家数量 E。对于全密集激活版本，一个样本的参数数量和前向计算浮点运算次数可以计算为：
-$\#\mathrm{Param} \approx 2kLT D^2, \quad \mathrm{FLOPs} \approx 4kLT D^2$
+$\mathrm{LCB}(X_i) = W_L X_i$
 
 ## 4 实验与分析：
 ### 4.1 实验设置
@@ -93,7 +92,7 @@ MFU：如表 6 所示，MFU 表示机器计算的利用率。通过采用大型 
 ![输入图片说明](/imgs/2025-12-15/p8K56RwBUuUC71nm.png)
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTMwNzY0NjA1NiwtMTY5Njc0NjQ3LC05Mj
+eyJoaXN0b3J5IjpbMjAzNTU2NDIyMywtMTY5Njc0NjQ3LC05Mj
 k4MTEzMTQsNTgxNzg3Nzg3LDQ1MjU0MzQ5NCwyMTM2MTQwNTE3
 LC00NzcyNjIyMzVdfQ==
 -->
