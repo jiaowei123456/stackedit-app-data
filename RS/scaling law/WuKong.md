@@ -11,13 +11,13 @@ Scaling Law在模型效果的可持续提升中起着关键作用。遗憾的是
 
 
 ## 3 模型结构：
-### 3.1 整体框架：
+### 3.1 Overview：
 ![输入图片说明](/imgs/2025-12-27/Av7AKks5hSxBSJKu.png)
 
 如图2所示，WuKong随后采用了**Interaction Stack**，这是一种统一的神经网络层堆栈，用于捕获emb之间的**指数级高阶交叉特征**。交互堆栈的灵感来自二进制指数的概念。交互堆栈中的每一层由**Factorization Machine Block**（FMB）和**Linear Compression Block**（LCB）组成。
 
 
-### 3.2 输入层和特征token化：
+### 3.2 Embedding Layer：
 1. 用户特征：包括用户 ID 及其他用户信息等
 2. 物品特征：视频 ID、作者 ID 等
 3. 序列特征：通过序列模块处理后的序列特征用于捕捉时间相关性
@@ -130,6 +130,6 @@ MFU：如表 6 所示，MFU 表示机器计算的利用率。通过采用大型 
 ![输入图片说明](/imgs/2025-12-15/p8K56RwBUuUC71nm.png)
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMzE4NDEzOTUyLDQ1MjU0MzQ5NCwyMTM2MT
+eyJoaXN0b3J5IjpbNTgxNzg3Nzg3LDQ1MjU0MzQ5NCwyMTM2MT
 QwNTE3LC00NzcyNjIyMzVdfQ==
 -->
