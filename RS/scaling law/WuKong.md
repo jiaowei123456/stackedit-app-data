@@ -22,7 +22,10 @@ Scaling Law在模型效果的可持续提升中起着关键作用。遗憾的是
 不管是离散还是连续特征都会通过Embedding层转为d维的emb。
 
 ### 3.3  Interaction Stack
-FMB计算层的输入嵌入之间的特征交互，而LCB只是转发层的线性压缩输入嵌入。然后将FMB和LCB的输出连接起来。
+
+
+
+$X_{i+1} = \mathrm{LN}\left( \mathrm{concat}\left( \mathrm{FMB}_i(X_i), \mathrm{LCB}_i(X_i) \right) + X_i \right)$
 
 ### 3.4 Sparse MoE in RankMixer
 为了进一步提高ROI，我们可以将每个token的FFN替换为Sparse Mixture-of-Experts (MoE)，这样模型的容量就能增加，而计算成本则大致保持不变。然而，普通的稀疏专家混合模型（Sparse-MoE）在 RankMixer 中会表现不佳，原因在于：
@@ -93,6 +96,7 @@ MFU：如表 6 所示，MFU 表示机器计算的利用率。通过采用大型 
 ![输入图片说明](/imgs/2025-12-15/p8K56RwBUuUC71nm.png)
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTkyOTgxMTMxNCw1ODE3ODc3ODcsNDUyNT
-QzNDk0LDIxMzYxNDA1MTcsLTQ3NzI2MjIzNV19
+eyJoaXN0b3J5IjpbLTE2OTY3NDY0NywtOTI5ODExMzE0LDU4MT
+c4Nzc4Nyw0NTI1NDM0OTQsMjEzNjE0MDUxNywtNDc3MjYyMjM1
+XX0=
 -->
