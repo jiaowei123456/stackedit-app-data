@@ -58,6 +58,11 @@ PS：
 3. $k$：FM中压缩幅度
 4. MLP层数
 
+# 2 部署
+提到了几点优势：
+1. 
+
+
 ## 4 实验与分析：
 ### 4.1 实验设置
 #### 4.4.1 Datasets and Environment
@@ -108,7 +113,7 @@ MFU：如表 6 所示，MFU 表示机器计算的利用率。通过采用大型 
 ![输入图片说明](/imgs/2025-12-15/p8K56RwBUuUC71nm.png)
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTIxMjQ2MzIwOTcsOTI4MTA3MjksLTE2OT
-Y3NDY0NywtOTI5ODExMzE0LDU4MTc4Nzc4Nyw0NTI1NDM0OTQs
-MjEzNjE0MDUxNywtNDc3MjYyMjM1XX0=
+eyJoaXN0b3J5IjpbLTQxNjg4NTAyMSw5MjgxMDcyOSwtMTY5Nj
+c0NjQ3LC05Mjk4MTEzMTQsNTgxNzg3Nzg3LDQ1MjU0MzQ5NCwy
+MTM2MTQwNTE3LC00NzcyNjIyMzVdfQ==
 -->
