@@ -35,11 +35,10 @@ $\mathrm{FMB}(X_i) = \mathrm{reshape}\left( \mathrm{MLP}\left( \mathrm{LN}\left(
 1. $\mathrm{FM}(X) = X X^\top$ 计算复杂度为$o(n^2d)$
 2. $\mathrm{FM}(X) = X X^\top Y$  ，其中$Y$为维度为$n×k$可学习的矩阵，$k<<n$，计算复杂度为$o(ndk)$
 
-MLP的输出维度为$\mathrm{FM}(X) = X X^\top Y$
+MLP的输出维度为$n_F×d$
 
 PS：
-3. FM和原始的FM还是不太一样的，没有包含可学习的交叉特征权重，而是直接通过MLP进行映射输出；
-4. 这一部分的参数应该主要在MLP上面，交叉特征会随着层数的增加成指数级增加，如果MLP层不改变输入维度，那MLP的参数数量也会随层数成指数增加。
+1. FM和原始的FM还是不太一样的，没有包含可学习的交叉特征权重，而是直接通过MLP进行映射输出；
 
 ### 1.5 Linear Compress Block (LCB)
 LCB简单地线性映射，而不增加交叉特征阶数。具体来说，它保证第$i$交互层捕获范围从1到$2^i$的交叉特征阶数。LCB的操作描述如下：
@@ -56,8 +55,8 @@ PS：
 通过调整超参数，可以放大整个模型，主要可以调节的是：
 
 1.  $l$ 越大，特征交互的阶数越高
-2. 控制两个模块产生的emb数
--   ：控制压缩幅度
+2. $n_F$和$n_L$控制两个模块产生的emb数
+3. 控制压缩幅度
 -   控制MLP的层数 在放大过程中，首先专注于增加，以使模型能够捕捉更高阶的相互作用。之后扩大了其他超参数，以增强模型捕捉更广的交互。
 
 
@@ -112,7 +111,7 @@ MFU：如表 6 所示，MFU 表示机器计算的利用率。通过采用大型 
 ![输入图片说明](/imgs/2025-12-15/p8K56RwBUuUC71nm.png)
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTE2MzM1NTAyNTgsOTI4MTA3MjksLTE2OT
+eyJoaXN0b3J5IjpbLTIwNzY1NDM1MTQsOTI4MTA3MjksLTE2OT
 Y3NDY0NywtOTI5ODExMzE0LDU4MTc4Nzc4Nyw0NTI1NDM0OTQs
 MjEzNjE0MDUxNywtNDc3MjYyMjM1XX0=
 -->
