@@ -19,7 +19,7 @@ Scaling Law在模型效果的可持续提升中起着关键作用。遗憾的是
 
 ### 3.2 Embedding Layer：
 常见的Embedding层处理方式：多-hot 输入 → 嵌入表 → （sum）聚合
-不管是离散还是连续特征都会通过Embedding层转为d维的emb
+不管是离散还是连续特征都会通过Embedding层转为$d$维的emb，emb为$X_0 \in \mathbb{R}^{n \times d}$，也是后续模型的输入
 
 ### 3.3  Interaction Stack
 
@@ -89,7 +89,7 @@ MFU：如表 6 所示，MFU 表示机器计算的利用率。通过采用大型 
 ![输入图片说明](/imgs/2025-12-15/p8K56RwBUuUC71nm.png)
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTY1ODI2ODU5MSwtMTY5Njc0NjQ3LC05Mj
-k4MTEzMTQsNTgxNzg3Nzg3LDQ1MjU0MzQ5NCwyMTM2MTQwNTE3
-LC00NzcyNjIyMzVdfQ==
+eyJoaXN0b3J5IjpbLTE5MjM0NjM4MzQsLTE2OTY3NDY0NywtOT
+I5ODExMzE0LDU4MTc4Nzc4Nyw0NTI1NDM0OTQsMjEzNjE0MDUx
+NywtNDc3MjYyMjM1XX0=
 -->
