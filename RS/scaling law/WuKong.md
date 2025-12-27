@@ -37,7 +37,7 @@ $\mathrm{FMB}(X_i) = \mathrm{reshape}\left( \mathrm{MLP}\left( \mathrm{LN}\left(
 
 PS：
 1. FM和原始的FM还是不太一样的，没有包含可学习的交叉特征权重，而是直接通过MLP进行映射输出；
-2. 这一部分的参数应该主要在MLP上面，作为一个scaling law的范式，其中fa。
+2. 这一部分的参数应该主要在MLP上面，作为一个scaling law的范式，交叉特征会随着层数的增加成指数级增加，如果MLP层不改变输出维度，那c。
 
 ### 3.5 Linear Compress Block (LCB)
 $\mathrm{LCB}(X_i) = W_L X_i$
@@ -92,7 +92,7 @@ MFU：如表 6 所示，MFU 表示机器计算的利用率。通过采用大型 
 ![输入图片说明](/imgs/2025-12-15/p8K56RwBUuUC71nm.png)
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTE0NTI5MzEzNzYsLTE2OTY3NDY0NywtOT
-I5ODExMzE0LDU4MTc4Nzc4Nyw0NTI1NDM0OTQsMjEzNjE0MDUx
-NywtNDc3MjYyMjM1XX0=
+eyJoaXN0b3J5IjpbNzg4MjkzODc4LC0xNjk2NzQ2NDcsLTkyOT
+gxMTMxNCw1ODE3ODc3ODcsNDUyNTQzNDk0LDIxMzYxNDA1MTcs
+LTQ3NzI2MjIzNV19
 -->
