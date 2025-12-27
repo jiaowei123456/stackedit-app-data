@@ -65,7 +65,7 @@ PS：
 3. WuKong将每个emb视为一个单独的单元，专注于基于emb的交互。与那些仅能捕捉元素间相互作用的架构相比，这种方法大大降低了计算需求。
 
 
-## 4 实验与分析：
+## 2 实验与分析：
 ### 4.1 实验设置
 #### 4.4.1 Datasets and Environment
 离线实验：基于抖音推荐系统的训练数据进行，300+特征，两周数据训练。
@@ -115,7 +115,7 @@ MFU：如表 6 所示，MFU 表示机器计算的利用率。通过采用大型 
 ![输入图片说明](/imgs/2025-12-15/p8K56RwBUuUC71nm.png)
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTMzNDc2MTMxMiw5MjgxMDcyOSwtMTY5Nj
-c0NjQ3LC05Mjk4MTEzMTQsNTgxNzg3Nzg3LDQ1MjU0MzQ5NCwy
-MTM2MTQwNTE3LC00NzcyNjIyMzVdfQ==
+eyJoaXN0b3J5IjpbLTE5NDIwNDk1MDYsOTI4MTA3MjksLTE2OT
+Y3NDY0NywtOTI5ODExMzE0LDU4MTc4Nzc4Nyw0NTI1NDM0OTQs
+MjEzNjE0MDUxNywtNDc3MjYyMjM1XX0=
 -->
