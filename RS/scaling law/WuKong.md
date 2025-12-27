@@ -40,8 +40,12 @@ PS：
 2. 这一部分的参数应该主要在MLP上面，交叉特征会随着层数的增加成指数级增加，如果MLP层不改变输入维度，那MLP的参数数量也会随层数成指数增加。
 
 ### 3.5 Linear Compress Block (LCB)
-LCB简单地线性重组嵌入，而不增加交互顺序，这对于确保在整个层中保持交互顺序的不变性至关重要。具体来说，它保证第i交互层捕获范围从1到2i的交互顺序。LCB的操作描述如下：
+LCB简单地线性映射，而不增加交互顺序，这对于确保在整个层中保持交互顺序的不变性至关重要。具体来说，它保证第i交互层捕获范围从1到2i的交互顺序。LCB的操作描述如下：
 $\mathrm{LCB}(X_i) = W_L X_i$
+
+其中$W_L \in \mathbb{R}^{n_L \times n_i}$
+
+
 
 ## 4 实验与分析：
 ### 4.1 实验设置
@@ -93,7 +97,7 @@ MFU：如表 6 所示，MFU 表示机器计算的利用率。通过采用大型 
 ![输入图片说明](/imgs/2025-12-15/p8K56RwBUuUC71nm.png)
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbODMwNzY0MzA0LC0xNjk2NzQ2NDcsLTkyOT
+eyJoaXN0b3J5IjpbMzU2Njc4OTc5LC0xNjk2NzQ2NDcsLTkyOT
 gxMTMxNCw1ODE3ODc3ODcsNDUyNTQzNDk0LDIxMzYxNDA1MTcs
 LTQ3NzI2MjIzNV19
 -->
