@@ -31,15 +31,15 @@ FMB实现高阶特征交互，特征交互文章中提到是$2^i$阶交叉特征
 
 $\mathrm{FMB}(X_i) = \mathrm{reshape}\left( \mathrm{MLP}\left( \mathrm{LN}\left( \mathrm{flatten}\left( \mathrm{FM}(X_i) \right) \right) \right) \right)$
 
+其中FM有两种：
+1. $\mathrm{FM}(X) = X X^\top$ 计算复杂度为$o(n^2d)$
+2. $\mathrm{FM}(X) = X X^\top Y$  ，其中$Y$为维度为$n×k$可学习的矩阵，$k<<n$，计算复杂度为$o(ndk)$
+
 PS：
 1. FM和原始的FM还是不太一样的，没有包含可学习的交叉特征权重，而是直接通过MLP进行映射输出；
-3. 这一部分的参数应该主要在MLP上面，作为一个scaling law的范式，比较好奇参数如何有效增加。
+2. 这一部分的参数应该主要在MLP上面，作为一个scaling law的范式，比较好奇参数如何有效增加。
 
-其中FM有两种：
-4. $\mathrm{FM}(X) = X X^\top$ 计算复杂度为$o(n^2d)$
-5. $\mathrm{FM}(X) = X X^\top Y$  ，其中$Y$为维度为$n×k$可学习的矩阵，$k<<n$，计算复杂度为$o(ndk)$
-
-### 3.5 Scaling Up Directions
+### 3.5 Linear Compress Block (LCB)
 RankMixer 本质上是一种高度并行且可扩展的架构。其参数数量和计算成本可以通过四个相互垂直的维度进行扩展：令牌数量 T、模型宽度 D、层数 L 和专家数量 E。对于全密集激活版本，一个样本的参数数量和前向计算浮点运算次数可以计算为：
 $\#\mathrm{Param} \approx 2kLT D^2, \quad \mathrm{FLOPs} \approx 4kLT D^2$
 
@@ -93,7 +93,7 @@ MFU：如表 6 所示，MFU 表示机器计算的利用率。通过采用大型 
 ![输入图片说明](/imgs/2025-12-15/p8K56RwBUuUC71nm.png)
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTY2MjI2NTI1NSwtMTY5Njc0NjQ3LC05Mj
+eyJoaXN0b3J5IjpbLTMwNzY0NjA1NiwtMTY5Njc0NjQ3LC05Mj
 k4MTEzMTQsNTgxNzg3Nzg3LDQ1MjU0MzQ5NCwyMTM2MTQwNTE3
 LC00NzcyNjIyMzVdfQ==
 -->
