@@ -49,6 +49,15 @@ PS：
 为什么不增加特征阶数很重要？
 可能是
 
+## 1.6 scaling Wukong
+
+通过调整超参数，可以放大整个模型，主要可以调节的是：
+
+1.  $l$ 越大，特征交互的阶数越高
+2. 控制两个模块产生的emb数
+-   ：控制压缩幅度
+-   控制MLP的层数 在放大过程中，首先专注于增加，以使模型能够捕捉更高阶的相互作用。之后扩大了其他超参数，以增强模型捕捉更广的交互。
+
 
 
 ## 4 实验与分析：
@@ -101,7 +110,7 @@ MFU：如表 6 所示，MFU 表示机器计算的利用率。通过采用大型 
 ![输入图片说明](/imgs/2025-12-15/p8K56RwBUuUC71nm.png)
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbOTI4MTA3MjksLTE2OTY3NDY0NywtOTI5OD
-ExMzE0LDU4MTc4Nzc4Nyw0NTI1NDM0OTQsMjEzNjE0MDUxNywt
-NDc3MjYyMjM1XX0=
+eyJoaXN0b3J5IjpbNjc3NzY4NzcyLDkyODEwNzI5LC0xNjk2Nz
+Q2NDcsLTkyOTgxMTMxNCw1ODE3ODc3ODcsNDUyNTQzNDk0LDIx
+MzYxNDA1MTcsLTQ3NzI2MjIzNV19
 -->
