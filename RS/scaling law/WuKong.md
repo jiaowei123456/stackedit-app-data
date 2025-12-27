@@ -11,22 +11,22 @@ Scaling Law在模型效果的可持续提升中起着关键作用。遗憾的是
 
 
 ## 1 模型结构：
-### 1.1 Overview：
+## 1.1 Overview：
 ![输入图片说明](/imgs/2025-12-27/Av7AKks5hSxBSJKu.png)
 
 如图所示，WuKong随后采用了**Interaction Stack**，这是一种统一的神经网络层堆栈，用于捕获emb之间的**指数级高阶交叉特征**。交互堆栈的灵感来自二进制指数的概念。交互堆栈中的每一层由**Factorization Machine Block**（FMB）和**Linear Compression Block**（LCB）组成。
 
 
-### 1.2 Embedding Layer：
+## 1.2 Embedding Layer：
 常见的Embedding层处理方式：多-hot 输入 → 嵌入表 → （sum）聚合
 不管是离散还是连续特征都会通过Embedding层转为$d$维的emb，emb为$X_0 \in \mathbb{R}^{n \times d}$，也是后续模型的输入。
 
-### 1.3  Interaction Stack
+## 1.3  Interaction Stack
 
 
 $X_{i+1} = \mathrm{LN}\left( \mathrm{concat}\left( \mathrm{FMB}_i(X_i), \mathrm{LCB}_i(X_i) \right) + X_i \right)$
 
-### 1.4 Factorization Machine Block (FMB)
+## 1.4 Factorization Machine Block (FMB)
 FMB实现高阶特征交互，文章中提到第$i$层可以获得$2^i$阶交叉特征，以下是第$i$层的网络结构：
 
 $\mathrm{FMB}(X_i) = \mathrm{reshape}\left( \mathrm{MLP}\left( \mathrm{LN}\left( \mathrm{flatten}\left( \mathrm{FM}(X_i) \right) \right) \right) \right)$
@@ -40,7 +40,7 @@ MLP的输出维度为$n_F×d$
 PS：
 1. FM和原始的FM还是不太一样的，没有包含可学习的交叉特征权重，而是直接通过MLP进行映射输出；
 
-### 1.5 Linear Compress Block (LCB)
+## 1.5 Linear Compress Block (LCB)
 LCB简单地线性映射，而不增加交叉特征阶数。具体来说，它保证第$i$交互层捕获范围从1到$2^i$的交叉特征阶数。LCB的操作描述如下：
 $\mathrm{LCB}(X_i) = W_L X_i$
 
@@ -59,10 +59,10 @@ PS：
 4. MLP层数
 
 ## 1.7 讨论
-提到了几点优势：
-1. WuKong所采用的将多个 FM 逐层堆叠的创新方法极大地提升了传统 FM 的能力。这使得悟空能够捕捉任意阶的交互，使其非常适合处理大规模、复杂的数据集，这些数据集需要进行高阶推理。
+提到了3点优势：
+1. 将多个 FM 逐层堆叠极大地提升了传统 FM 的能力。这使得WuKong能够捕捉任意阶的交互，使其非常适合处理大规模、复杂的数据集。
 2. WuKong主要使用 MLPs 将交互的结果转换为嵌入表示，然后用于进一步的交互。这种对 MLP 的独特使用增强了模型有效处理和解释复杂、异构特征的能力。
-3. WuKong将每个嵌入视为一个单独的单元，专注于基于嵌入的交互。与那些仅能捕捉元素间相互作用的架构相比，这种方法大大降低了计算需求。
+3. WuKong将每个emb视为一个单独的单元，专注于基于emb的交互。与那些仅能捕捉元素间相互作用的架构相比，这种方法大大降低了计算需求。
 
 
 ## 4 实验与分析：
@@ -115,7 +115,7 @@ MFU：如表 6 所示，MFU 表示机器计算的利用率。通过采用大型 
 ![输入图片说明](/imgs/2025-12-15/p8K56RwBUuUC71nm.png)
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTE2NDYyMTM1MDksOTI4MTA3MjksLTE2OT
-Y3NDY0NywtOTI5ODExMzE0LDU4MTc4Nzc4Nyw0NTI1NDM0OTQs
-MjEzNjE0MDUxNywtNDc3MjYyMjM1XX0=
+eyJoaXN0b3J5IjpbLTMzNDc2MTMxMiw5MjgxMDcyOSwtMTY5Nj
+c0NjQ3LC05Mjk4MTEzMTQsNTgxNzg3Nzg3LDQ1MjU0MzQ5NCwy
+MTM2MTQwNTE3LC00NzcyNjIyMzVdfQ==
 -->
