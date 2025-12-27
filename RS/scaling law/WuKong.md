@@ -46,7 +46,8 @@ $\mathrm{LCB}(X_i) = W_L X_i$
 其中$W_L \in \mathbb{R}^{n_L \times n_i}$，$n_L$是超参数。
 
 PS：
-为什么保持了交叉特征顺序？
+为什么不增加特征阶数很重要？
+可能是
 
 
 
@@ -100,7 +101,7 @@ MFU：如表 6 所示，MFU 表示机器计算的利用率。通过采用大型 
 ![输入图片说明](/imgs/2025-12-15/p8K56RwBUuUC71nm.png)
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTkzNjU1NjIwMywtMTY5Njc0NjQ3LC05Mj
+eyJoaXN0b3J5IjpbLTQxNDU2ODIxMywtMTY5Njc0NjQ3LC05Mj
 k4MTEzMTQsNTgxNzg3Nzg3LDQ1MjU0MzQ5NCwyMTM2MTQwNTE3
 LC00NzcyNjIyMzVdfQ==
 -->
