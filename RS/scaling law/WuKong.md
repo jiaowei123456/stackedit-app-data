@@ -27,8 +27,11 @@ Scaling Law在模型效果的可持续提升中起着关键作用。遗憾的是
 $X_{i+1} = \mathrm{LN}\left( \mathrm{concat}\left( \mathrm{FMB}_i(X_i), \mathrm{LCB}_i(X_i) \right) + X_i \right)$
 
 ### 3.4 Factorization Machine Block (FMB)
-FMB实现高阶特征交互，特征交互文章中提到是$$
+FMB实现高阶特征交互，特征交互文章中提到是$2^i$阶交叉特征：
+
 $\mathrm{FMB}(X_i) = \mathrm{reshape}\left( \mathrm{MLP}\left( \mathrm{LN}\left( \mathrm{flatten}\left( \mathrm{FM}(X_i) \right) \right) \right) \right)$
+
+qizh
 
 ### 3.5 Scaling Up Directions
 RankMixer 本质上是一种高度并行且可扩展的架构。其参数数量和计算成本可以通过四个相互垂直的维度进行扩展：令牌数量 T、模型宽度 D、层数 L 和专家数量 E。对于全密集激活版本，一个样本的参数数量和前向计算浮点运算次数可以计算为：
@@ -84,7 +87,7 @@ MFU：如表 6 所示，MFU 表示机器计算的利用率。通过采用大型 
 ![输入图片说明](/imgs/2025-12-15/p8K56RwBUuUC71nm.png)
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTYzODY3MzIyMywtMTY5Njc0NjQ3LC05Mj
-k4MTEzMTQsNTgxNzg3Nzg3LDQ1MjU0MzQ5NCwyMTM2MTQwNTE3
-LC00NzcyNjIyMzVdfQ==
+eyJoaXN0b3J5IjpbOTc4OTk4ODYzLC0xNjk2NzQ2NDcsLTkyOT
+gxMTMxNCw1ODE3ODc3ODcsNDUyNTQzNDk0LDIxMzYxNDA1MTcs
+LTQ3NzI2MjIzNV19
 -->
