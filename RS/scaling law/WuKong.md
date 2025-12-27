@@ -10,23 +10,23 @@ Scaling Law在模型效果的可持续提升中起着关键作用。遗憾的是
 3. 希望为推荐模型寻找一种替代的扩展机制。具体而言，希望设计出一种统一的架构，其质量能够随着数据集大小、计算资源和参数预算的增加而持续提升。
 
 
-## 3 模型结构：
-### 3.1 Overview：
+## 1 模型结构：
+### 1.1 Overview：
 ![输入图片说明](/imgs/2025-12-27/Av7AKks5hSxBSJKu.png)
 
-如图2所示，WuKong随后采用了**Interaction Stack**，这是一种统一的神经网络层堆栈，用于捕获emb之间的**指数级高阶交叉特征**。交互堆栈的灵感来自二进制指数的概念。交互堆栈中的每一层由**Factorization Machine Block**（FMB）和**Linear Compression Block**（LCB）组成。
+如图所示，WuKong随后采用了**Interaction Stack**，这是一种统一的神经网络层堆栈，用于捕获emb之间的**指数级高阶交叉特征**。交互堆栈的灵感来自二进制指数的概念。交互堆栈中的每一层由**Factorization Machine Block**（FMB）和**Linear Compression Block**（LCB）组成。
 
 
-### 3.2 Embedding Layer：
+### 1.2 Embedding Layer：
 常见的Embedding层处理方式：多-hot 输入 → 嵌入表 → （sum）聚合
 不管是离散还是连续特征都会通过Embedding层转为$d$维的emb，emb为$X_0 \in \mathbb{R}^{n \times d}$，也是后续模型的输入。
 
-### 3.3  Interaction Stack
+### 1.3  Interaction Stack
 
 
 $X_{i+1} = \mathrm{LN}\left( \mathrm{concat}\left( \mathrm{FMB}_i(X_i), \mathrm{LCB}_i(X_i) \right) + X_i \right)$
 
-### 3.4 Factorization Machine Block (FMB)
+### 1.4 Factorization Machine Block (FMB)
 FMB实现高阶特征交互，文章中提到第$i$层可以获得$2^i$阶交叉特征，以下是第$i$层的网络结构：
 
 $\mathrm{FMB}(X_i) = \mathrm{reshape}\left( \mathrm{MLP}\left( \mathrm{LN}\left( \mathrm{flatten}\left( \mathrm{FM}(X_i) \right) \right) \right) \right)$
@@ -39,7 +39,7 @@ PS：
 1. FM和原始的FM还是不太一样的，没有包含可学习的交叉特征权重，而是直接通过MLP进行映射输出；
 2. 这一部分的参数应该主要在MLP上面，交叉特征会随着层数的增加成指数级增加，如果MLP层不改变输入维度，那MLP的参数数量也会随层数成指数增加。
 
-### 3.5 Linear Compress Block (LCB)
+### 1.5 Linear Compress Block (LCB)
 LCB简单地线性映射，而不增加交叉特征阶数。具体来说，它保证第$i$交互层捕获范围从1到$2^i$的交叉特征阶数。LCB的操作描述如下：
 $\mathrm{LCB}(X_i) = W_L X_i$
 
@@ -101,7 +101,7 @@ MFU：如表 6 所示，MFU 表示机器计算的利用率。通过采用大型 
 ![输入图片说明](/imgs/2025-12-15/p8K56RwBUuUC71nm.png)
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTQxNDU2ODIxMywtMTY5Njc0NjQ3LC05Mj
-k4MTEzMTQsNTgxNzg3Nzg3LDQ1MjU0MzQ5NCwyMTM2MTQwNTE3
-LC00NzcyNjIyMzVdfQ==
+eyJoaXN0b3J5IjpbOTI4MTA3MjksLTE2OTY3NDY0NywtOTI5OD
+ExMzE0LDU4MTc4Nzc4Nyw0NTI1NDM0OTQsMjEzNjE0MDUxNywt
+NDc3MjYyMjM1XX0=
 -->
