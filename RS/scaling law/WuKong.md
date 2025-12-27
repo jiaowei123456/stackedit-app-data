@@ -58,9 +58,11 @@ PS：
 3. $k$：FM中压缩幅度
 4. MLP层数
 
-# 2 部署
+## 1.7 讨论
 提到了几点优势：
-1. 
+1. WuKong所采用的将多个 FM 逐层堆叠的创新方法极大地提升了传统 FM 的能力。这使得悟空能够捕捉任意阶的交互，使其非常适合处理大规模、复杂的数据集，这些数据集需要进行高阶推理。
+2. WuKong主要使用 MLPs 将交互的结果转换为嵌入表示，然后用于进一步的交互。这种对 MLP 的独特使用增强了模型有效处理和解释复杂、异构特征的能力。
+3. WuKong将每个嵌入视为一个单独的单元，专注于基于嵌入的交互。与那些仅能捕捉元素间相互作用的架构相比，这种方法大大降低了计算需求。
 
 
 ## 4 实验与分析：
@@ -113,7 +115,7 @@ MFU：如表 6 所示，MFU 表示机器计算的利用率。通过采用大型 
 ![输入图片说明](/imgs/2025-12-15/p8K56RwBUuUC71nm.png)
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTQxNjg4NTAyMSw5MjgxMDcyOSwtMTY5Nj
-c0NjQ3LC05Mjk4MTEzMTQsNTgxNzg3Nzg3LDQ1MjU0MzQ5NCwy
-MTM2MTQwNTE3LC00NzcyNjIyMzVdfQ==
+eyJoaXN0b3J5IjpbLTE2NDYyMTM1MDksOTI4MTA3MjksLTE2OT
+Y3NDY0NywtOTI5ODExMzE0LDU4MTc4Nzc4Nyw0NTI1NDM0OTQs
+MjEzNjE0MDUxNywtNDc3MjYyMjM1XX0=
 -->
