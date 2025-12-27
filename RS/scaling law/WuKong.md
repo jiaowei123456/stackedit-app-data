@@ -9,23 +9,12 @@ Scaling Law在模型效果的可持续提升中起着关键作用。遗憾的是
 2. 以往DL的RS通过增加emb维度和宽度来获得类似scaling law规律，但是仅仅扩展模型的emb层并不能增强其捕获越来越多特征之间复杂交互的能力，ROI较低。
 3. 希望为推荐模型寻找一种替代的扩展机制。具体而言，希望设计出一种统一的架构，其质量能够随着数据集大小、计算资源和参数预算的增加而持续提升。
 
-## 1 论文解决的问题：
-1、必须严格遵守严格的延迟限制，并支持极高的每秒查询数（QPS）。
-2、原始rank模型的注意力机制主要在CPU计算时期提出，核心操作大多受内存限制而非计算限制，在现代 GPU 上，这导致了较差的 GPU 并行性以及极低的 MFU（模型运算次数利用率）。
-3、架构应与硬件相匹配，以在现代 GPU 上实现最大化的MFU和计算吞吐量。
-4、模型设计必须利用推荐数据的特性，例如异构特征空间以及数百个字段之间的个性化跨特征交互。
-
-## 2 论文创新点：
-1. Multi-head token mixing ：只通过无参数操作符获得跨token特征交互。该策略在性能和计算效率方面优于自注意机制。
-2. Per-token feed-forward networks (FFNs)：通过为不同的特征子空间建模分配独立的参数，极大地扩展了模型容量，解决了特征空间间的控制问题。
-3. Sparse Mixture-of-Experts (MoE)：通过针对不同的数据动态激活每个标记的特定子集专家，我们能够以最小的计算成本显著提高模型的容量。
-
 
 ## 3 模型结构：
 ### 3.1 整体框架：
-![输入图片说明](/imgs/2025-12-13/iXt3rIjZqdbgMP4S.png)
+![输入图片说明](/imgs/2025-12-27/Av7AKks5hSxBSJKu.png)
 
-输入为T个token，经过连续L个Rankmixer以及平均池化后输出，每个 RankMixer 块有两个主要组成部分：（1）多头token mixing；（2）每个token的per-token FFN（PFFN）层，如图所示。
+如图2所示，悟空随后采用了Interaction Stack，这是一种统一的神经网络层堆栈，用于捕获嵌入之间的交互。交互堆栈的灵感来自二进制指数的概念，允许每个连续层捕获指数级高阶交互。交互堆栈中的每一层由分解机块（FMB，第3.4节）和线性压缩块（LCB，第3.5节）组成。FMB和LCB分别从上一层接收输入，其输出被集成为当前层的输出。在交互堆栈之后是最后的多层感知器（MLP）层，它将交互结果映射到预测中。
 
 $S_{n-1} = \operatorname{LN}\!\left( \operatorname{TokenMixing}(X_{n-1}) + X_{n-1} \right)$
 $X_n = \mathrm{LN} \left( \mathrm{PFFN} \left( S_{n-1} \right) + S_{n-1} \right)$
@@ -142,6 +131,6 @@ MFU：如表 6 所示，MFU 表示机器计算的利用率。通过采用大型 
 ![输入图片说明](/imgs/2025-12-15/p8K56RwBUuUC71nm.png)
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbNDUyNTQzNDk0LDIxMzYxNDA1MTcsLTQ3Nz
-I2MjIzNV19
+eyJoaXN0b3J5IjpbMTczNDIyNDU1OSw0NTI1NDM0OTQsMjEzNj
+E0MDUxNywtNDc3MjYyMjM1XX0=
 -->
