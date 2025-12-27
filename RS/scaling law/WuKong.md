@@ -14,7 +14,7 @@ Scaling Law在模型效果的可持续提升中起着关键作用。遗憾的是
 ### 3.1 整体框架：
 ![输入图片说明](/imgs/2025-12-27/Av7AKks5hSxBSJKu.png)
 
-如图2所示，悟空随后采用了Interaction Stack，这是一种统一的神经网络层堆栈，用于捕获嵌入之间的交互。交互堆栈的灵感来自二进制指数的概念，允许每个连续层捕获指数级高阶交互。交互堆栈中的每一层由分解机块（FMB，第3.4节）和线性压缩块（LCB，第3.5节）组成。FMB和LCB分别从上一层接收输入，其输出被集成为当前层的输出。在交互堆栈之后是最后的多层感知器（MLP）层，它将交互结果映射到预测中。
+如图2所示，WuKong随后采用了**Interaction Stack**，这是一种统一的神经网络层堆栈，用于捕获emb之间的交互。交互堆栈的灵感来自二进制指数的概念，允许每个连续层捕获指数级高阶交互。交互堆栈中的每一层由**Factorization Machine Block**（FMB）和**Linear Compression Block**（LCB）组成。FMB和LCB分别从上一层接收输入，其输出被集成为当前层的输出。在交互堆栈之后是最后的多层感知器（MLP）层，它将交互结果映射到预测中。
 
 $S_{n-1} = \operatorname{LN}\!\left( \operatorname{TokenMixing}(X_{n-1}) + X_{n-1} \right)$
 $X_n = \mathrm{LN} \left( \mathrm{PFFN} \left( S_{n-1} \right) + S_{n-1} \right)$
@@ -131,6 +131,6 @@ MFU：如表 6 所示，MFU 表示机器计算的利用率。通过采用大型 
 ![输入图片说明](/imgs/2025-12-15/p8K56RwBUuUC71nm.png)
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTczNDIyNDU1OSw0NTI1NDM0OTQsMjEzNj
-E0MDUxNywtNDc3MjYyMjM1XX0=
+eyJoaXN0b3J5IjpbNzY1NDE0Mjk3LDQ1MjU0MzQ5NCwyMTM2MT
+QwNTE3LC00NzcyNjIyMzVdfQ==
 -->
