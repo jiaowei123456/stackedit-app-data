@@ -35,9 +35,11 @@ $\mathrm{FMB}(X_i) = \mathrm{reshape}\left( \mathrm{MLP}\left( \mathrm{LN}\left(
 1. $\mathrm{FM}(X) = X X^\top$ 计算复杂度为$o(n^2d)$
 2. $\mathrm{FM}(X) = X X^\top Y$  ，其中$Y$为维度为$n×k$可学习的矩阵，$k<<n$，计算复杂度为$o(ndk)$
 
+MLP的输出维度为$\mathrm{FM}(X) = X X^\top Y$
+
 PS：
-1. FM和原始的FM还是不太一样的，没有包含可学习的交叉特征权重，而是直接通过MLP进行映射输出；
-2. 这一部分的参数应该主要在MLP上面，交叉特征会随着层数的增加成指数级增加，如果MLP层不改变输入维度，那MLP的参数数量也会随层数成指数增加。
+3. FM和原始的FM还是不太一样的，没有包含可学习的交叉特征权重，而是直接通过MLP进行映射输出；
+4. 这一部分的参数应该主要在MLP上面，交叉特征会随着层数的增加成指数级增加，如果MLP层不改变输入维度，那MLP的参数数量也会随层数成指数增加。
 
 ### 1.5 Linear Compress Block (LCB)
 LCB简单地线性映射，而不增加交叉特征阶数。具体来说，它保证第$i$交互层捕获范围从1到$2^i$的交叉特征阶数。LCB的操作描述如下：
@@ -110,7 +112,7 @@ MFU：如表 6 所示，MFU 表示机器计算的利用率。通过采用大型 
 ![输入图片说明](/imgs/2025-12-15/p8K56RwBUuUC71nm.png)
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbNjc3NzY4NzcyLDkyODEwNzI5LC0xNjk2Nz
-Q2NDcsLTkyOTgxMTMxNCw1ODE3ODc3ODcsNDUyNTQzNDk0LDIx
-MzYxNDA1MTcsLTQ3NzI2MjIzNV19
+eyJoaXN0b3J5IjpbLTE2MzM1NTAyNTgsOTI4MTA3MjksLTE2OT
+Y3NDY0NywtOTI5ODExMzE0LDU4MTc4Nzc4Nyw0NTI1NDM0OTQs
+MjEzNjE0MDUxNywtNDc3MjYyMjM1XX0=
 -->
