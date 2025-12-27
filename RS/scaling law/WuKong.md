@@ -18,37 +18,11 @@ Scaling Law在模型效果的可持续提升中起着关键作用。遗憾的是
 
 
 ### 3.2 Embedding Layer：
-常见的Embedding层处理方式：多-hot 输入 → 嵌入表 → 聚合
+常见的Embedding层处理方式：多-hot 输入 → 嵌入表 → （sum）聚合
 不管是离散还是连续特征都会通过Embedding层转为d维的emb。
 
-### 3.3 RankMixer Block
-#### 3.3.1 Multi-head Token Mixing
-先把每个token分成H个头：
-$\left[ \mathbf{x}_t^{(1)} \parallel \mathbf{x}_t^{(2)} \parallel \cdots \parallel \mathbf{x}_t^{(H)} \right] = \mathrm{SplitHead}(\mathbf{x}_t)$
+### 3.3  Interaction Stack
 
-然后把T个token的每个h位置的头拼接起来（所有的多头操作都号称为了从multi-perspective解决任务，有没有文章能证明？）：
-$\mathbf{s}^h = \left[ \mathbf{x}_1^h; \mathbf{x}_2^h; \ldots; \mathbf{x}_T^h \right]$
-
-最后把拼接之后的H个$s^h$堆叠在一起，输出为$\mathbf{S} \in \mathbb{R}^{H \times \frac{TD}{H}}$。
-
-原文中设置H=T，加上残差连接和归一化层后为：
-$s_1, s_2, \ldots, s_T = \mathrm{LN}\!\left( \mathrm{TokenMixing}(x_1, x_2, \ldots, x_T) + (x_1, x_2, \ldots, x_T) \right)$
-
-尽管自注意力机制在大型语言模型中表现出了极高的有效性，但我们发现它对于推荐系统而言效果并不理想。**在自注意力机制中，注意力权重是通过token的内积来计算的。这种方法在自然语言处理中效果良好，因为所有的token共享一个统一的embbeding空间。然而，在推荐任务中，特征空间本质上是异构的。在两个异构的语义空间之间计算内积相似度是极其困难的**——特别是在推荐系统中，用户和项目侧特征的 ID 空间可能包含数亿个元素。（逻辑是对的，所以行为序列建模一直用的是同语义空间的内积建模）（不过这个TokenMixing怎么这么像切牌啊，把token来回切）
-#### 3.3.2 Per-token FFN
-之前的 DLRM 和 DHEN 模型往往会在一个单一的交互模块中将来自多个不同语义空间的特征混合在一起，这可能会导致高频字段占据主导地位，从而掩盖低频或长尾信号，最终损害整体推荐质量。我们引入了一种参数独立的前馈网络架构，称为Per-token FFN。在传统的设计中，FFN 的参数在所有token中是共享的，但我们的方法对每个token都进行专门的变换，从而使得每个token有自己的FFN。
-
-对于第 t 个令牌 $s_t$ ，每个令牌的 FFN 可以表示为
-$\mathbf{v}_t = f_{\mathrm{pffn}}^{t,2} \left( \mathrm{Gelu} \left( f_{\mathrm{pffn}}^{t,1} (s_t) \right) \right)$
-其中：
-$f_{\mathrm{pffn}}^{t,i}(x) = x \mathbf{W}_{\mathrm{pffn}}^{t,i} + \mathbf{b}_{\mathrm{pffn}}^{t,i}$
-
-输入为$\mathbf{s_t} \in \mathbb{R}^{\frac{TD}{H}}$，网络结构和传统的FFN网络差不多，先通过$f_{\mathrm{pffn}}^{t,1}$升维，然后通过$f_{\mathrm{pffn}}^{t,2}$降维，$Gelu(·)$是激活函数。
-
-将per-token FFN模块总结为
-$\mathbf{v}_1, \mathbf{v}_2, \ldots, \mathbf{v}_T = \mathrm{PFFN}(\mathbf{s}_1, \mathbf{s}_2, \ldots, \mathbf{s}_T)$
-
-与参数全共享FFN相比，per-token FFN在保持计算复杂度不变的情况下，通过引入更多的参数来增强建模能力。（为什么，$\mathbf{W}_{\mathrm{pffn}}$如果是全参数共享的FFN参数应该是$T×D*T×kD$，per-token FFN参数应该是$D*kD*T$，感觉参数量变少了，有没有大佬帮忙推导一下？）
 
 ### 3.4 Sparse MoE in RankMixer
 为了进一步提高ROI，我们可以将每个token的FFN替换为Sparse Mixture-of-Experts (MoE)，这样模型的容量就能增加，而计算成本则大致保持不变。然而，普通的稀疏专家混合模型（Sparse-MoE）在 RankMixer 中会表现不佳，原因在于：
@@ -119,6 +93,6 @@ MFU：如表 6 所示，MFU 表示机器计算的利用率。通过采用大型 
 ![输入图片说明](/imgs/2025-12-15/p8K56RwBUuUC71nm.png)
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTc5ODkzNTUyMCw1ODE3ODc3ODcsNDUyNT
-QzNDk0LDIxMzYxNDA1MTcsLTQ3NzI2MjIzNV19
+eyJoaXN0b3J5IjpbLTEwOTI2MDcwODUsNTgxNzg3Nzg3LDQ1Mj
+U0MzQ5NCwyMTM2MTQwNTE3LC00NzcyNjIyMzVdfQ==
 -->
