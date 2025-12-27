@@ -27,7 +27,7 @@ Scaling Law在模型效果的可持续提升中起着关键作用。遗憾的是
 $X_{i+1} = \mathrm{LN}\left( \mathrm{concat}\left( \mathrm{FMB}_i(X_i), \mathrm{LCB}_i(X_i) \right) + X_i \right)$
 
 ### 3.4 Factorization Machine Block (FMB)
-FMB实现高阶特征交互，文章中提到第$i$层可以获得$2^i$阶交叉特征,yixia：
+FMB实现高阶特征交互，文章中提到第$i$层可以获得$2^i$阶交叉特征，以下是第$i$层的网络结构：
 
 $\mathrm{FMB}(X_i) = \mathrm{reshape}\left( \mathrm{MLP}\left( \mathrm{LN}\left( \mathrm{flatten}\left( \mathrm{FM}(X_i) \right) \right) \right) \right)$
 
@@ -37,7 +37,7 @@ $\mathrm{FMB}(X_i) = \mathrm{reshape}\left( \mathrm{MLP}\left( \mathrm{LN}\left(
 
 PS：
 1. FM和原始的FM还是不太一样的，没有包含可学习的交叉特征权重，而是直接通过MLP进行映射输出；
-2. 这一部分的参数应该主要在MLP上面，作为一个scaling law的范式，比较好奇参数如何有效增加。
+2. 这一部分的参数应该主要在MLP上面，作为一个scaling law的范式，其中fa。
 
 ### 3.5 Linear Compress Block (LCB)
 $\mathrm{LCB}(X_i) = W_L X_i$
@@ -92,7 +92,7 @@ MFU：如表 6 所示，MFU 表示机器计算的利用率。通过采用大型 
 ![输入图片说明](/imgs/2025-12-15/p8K56RwBUuUC71nm.png)
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMjAzNTU2NDIyMywtMTY5Njc0NjQ3LC05Mj
-k4MTEzMTQsNTgxNzg3Nzg3LDQ1MjU0MzQ5NCwyMTM2MTQwNTE3
-LC00NzcyNjIyMzVdfQ==
+eyJoaXN0b3J5IjpbLTE0NTI5MzEzNzYsLTE2OTY3NDY0NywtOT
+I5ODExMzE0LDU4MTc4Nzc4Nyw0NTI1NDM0OTQsMjEzNjE0MDUx
+NywtNDc3MjYyMjM1XX0=
 -->
