@@ -31,9 +31,13 @@ FMB实现高阶特征交互，特征交互文章中提到是$2^i$阶交叉特征
 
 $\mathrm{FMB}(X_i) = \mathrm{reshape}\left( \mathrm{MLP}\left( \mathrm{LN}\left( \mathrm{flatten}\left( \mathrm{FM}(X_i) \right) \right) \right) \right)$
 
+PS：
+1. FM和原始的FM还是不太一样的，没有包含可学习的交叉特征权重，而是直接通过MLP进行映射输出；
+3. 这一部分的参数主要在MLP
+
 其中FM有两种：
-1. $\mathrm{FM}(X) = X X^\top$ 计算复杂度为$o(n^2d)$
-2. $\mathrm{FM}(X) = X X^\top Y$  ，其中$Y$为维度为$n×k$可学习的矩阵，$k<<n$，计算复杂度为$o(ndk)$
+4. $\mathrm{FM}(X) = X X^\top$ 计算复杂度为$o(n^2d)$
+5. $\mathrm{FM}(X) = X X^\top Y$  ，其中$Y$为维度为$n×k$可学习的矩阵，$k<<n$，计算复杂度为$o(ndk)$
 
 ### 3.5 Scaling Up Directions
 RankMixer 本质上是一种高度并行且可扩展的架构。其参数数量和计算成本可以通过四个相互垂直的维度进行扩展：令牌数量 T、模型宽度 D、层数 L 和专家数量 E。对于全密集激活版本，一个样本的参数数量和前向计算浮点运算次数可以计算为：
@@ -89,7 +93,7 @@ MFU：如表 6 所示，MFU 表示机器计算的利用率。通过采用大型 
 ![输入图片说明](/imgs/2025-12-15/p8K56RwBUuUC71nm.png)
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTEyMzE2NjQ1MjMsLTE2OTY3NDY0NywtOT
-I5ODExMzE0LDU4MTc4Nzc4Nyw0NTI1NDM0OTQsMjEzNjE0MDUx
-NywtNDc3MjYyMjM1XX0=
+eyJoaXN0b3J5IjpbMzA0OTU5Mjg0LC0xNjk2NzQ2NDcsLTkyOT
+gxMTMxNCw1ODE3ODc3ODcsNDUyNTQzNDk0LDIxMzYxNDA1MTcs
+LTQ3NzI2MjIzNV19
 -->
