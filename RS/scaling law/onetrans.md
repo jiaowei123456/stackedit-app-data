@@ -1,7 +1,7 @@
 # OneTrans: Unified Feature Interaction and Sequence Modeling with One Transformer in Industrial Recommender
 [原文链接]([arxiv.org/pdf/2510.26104](https://arxiv.org/pdf/2510.26104))
 ## 0 摘要：
-在推荐系统中，扩展特征交叉模块（例如：Wukong，Rankmixer）或用户行为序列模块（Longer）。取得了显著的成功。然而，这些努力通常是在不同的方向上进行的，这阻碍了双向信息交换以及统一的优化和扩展。在本文中，我们提出了一个统一的Transformer架构，同时执行用户行为序列建模和特征交叉。OneTrans采用统一的tokenizer将序列和非序列特征转换为单个Token序列。在向非序列Tokne分配特定于特定于特定参数的参数时,堆叠的OneTrans块将共享参数,在类似的顺序令牌上共享参数。通过因果关系和交叉请求KV缓存,OneTrans可以预先计算和缓存中间表示,在训练和推理期间显著地降低了计算成本。在工业水平数据集上的实验结果表明,通过增加的参数有效地提高了一阶式的尺度,持续优于较强的基线,并在在线a / B测试中以每个用户GMV的速度提高5.68%的升力。
+在推荐系统中，扩展特征交叉模块（例如：Wukong，Rankmixer）或用户行为序列模块（Longer）。取得了显著的成功。然而，这些努力通常是在不同的方向上进行的，这阻碍了双向信息交换以及统一的优化和扩展。在本文中，我们提出了一个统一的Transformer架构，同时执行用户行为序列建模和特征交叉。OneTrans采用统一的tokenizer将序列和非序列特征转换为单个Token序列。在，序列Token使用共有参数,堆叠的OneTrans块中。通过因果关系和交叉请求KV缓存,OneTrans可以预先计算和缓存中间表示,在训练和推理期间显著地降低了计算成本。在工业水平数据集上的实验结果表明,通过增加的参数有效地提高了一阶式的尺度,持续优于较强的基线,并在在线a / B测试中以每个用户GMV的速度提高5.68%的升力。
 
 ## 背景
 
@@ -24,5 +24,5 @@
 ## 5 实验与分析：
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMzE0OTMwMTIxXX0=
+eyJoaXN0b3J5IjpbMTIxMTgxNzQ5Nl19
 -->
