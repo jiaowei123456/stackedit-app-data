@@ -8,7 +8,8 @@
 2. 大模型表现出scaling law，推荐系统也想要（LONGER， WuKong， RankMixer）
 
 ## 1 论文解决的问题：
-1. 序列建模然后特征交叉的pipline限制了双向信息流，限制了静态/上下文特征如何塑造序列表示[27]。其次，模块分离会分割执行并增加延迟，而一个单一的 Transformer 式骨干可以重复使用 LLM 的优化，例如键值缓存、内存高效注意力和混合精度等，以实现更有效的扩展[11]。
+1. 序列建模然后特征交叉的pipline限制了双向信息流动，限制了静态/上下文特征构建序列表征。
+2. 两个模块分离会串行执行并增加延迟，而统一的Transformer式骨干可以重复使用 LLM 的优化，例如KV缓存、内存高效注意力和混合精度等，以实现更有效的扩展。
 
 ## 2 论文创新点：
 
@@ -25,5 +26,5 @@
 ## 5 实验与分析：
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTU1Mzk1MzkxNV19
+eyJoaXN0b3J5IjpbLTE3OTYwMDk1MzNdfQ==
 -->
