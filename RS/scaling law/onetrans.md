@@ -1,5 +1,5 @@
 # OneTrans: Unified Feature Interaction and Sequence Modeling with One Transformer in Industrial Recommender
-[原文链接]()
+[原文链接]([arxiv.org/pdf/2510.26104](https://arxiv.org/pdf/2510.26104))
 ## 0 摘要：
 
 
@@ -24,5 +24,5 @@
 ## 5 实验与分析：
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTIxMzk2OTg1MjBdfQ==
+eyJoaXN0b3J5IjpbLTU4NzU0ODAxOF19
 -->
