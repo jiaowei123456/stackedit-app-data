@@ -5,9 +5,7 @@
 
 ## 背景
 1. 主流精排模型包含两个重要模块：（1）序列建模：利用局部注意力或 Transformer 编码器将用户的多行为序列编码为具有候选意识的表示形式。(DIN，SIM，ETA，TWIN，TWINv2，LONGER)（2）特征交叉：通过FM（DeepFM）或显式交叉网络（DCN，DCNv2，SENet，PEPNet）或特征组上的注意力机制（RankMixer）来学习非序列特征之间的高阶交叉。（先序列建模，将长序列压缩为短特征，过特征交叉获得高阶表示，然后过下游任务）
-2. 
-
-
+2. 大模型表现出scaling law，推荐系统也想要（LONGER， WuKong， RankMixer）
 
 ## 1 论文解决的问题：
 
@@ -27,5 +25,5 @@
 ## 5 实验与分析：
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbNjAwMDUxOTI5XX0=
+eyJoaXN0b3J5IjpbLTE4MTI4MTIzMjhdfQ==
 -->
