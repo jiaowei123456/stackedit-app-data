@@ -13,7 +13,7 @@
 
 ## 2 论文创新点：
 1. 在本文中，提出了 ONETRANS 这一创新的架构模式，它具有统一的 Transformer 基础架构，能够同时进行用户行为序列建模和特征交互。
-2. ONETRANS的基础架构实现了双向信息流动。它采用了一个统一的tokenizer，将序列特征和非序列特征都转换为一个单一的Token或者Token序列，然后由一系列堆叠的 ONETRAN 块（一种专为工业推荐系统设计的 Transformer 变体）进行处理。为了适应推荐系统中各种不同的标记来源，与语言模型中仅包含文本标记的情况不同，每个 ONETRAN 块采用了类似于 HiFormer [11] 的混合参数化方式。具体来说，所有序列标记（来自序列特征）共享一组 Q/K/V 和 FFN 权重，而每个非序列标记（来自非序列特征）则接收标记特定的参数以保留其独特的语义。
+2. ONETRANS的基础架构实现了双向信息流动。它采用了一个统一的tokenizer，将序列特征和非序列特征都转换为一个Token序列或单一的Token，然后由一系列堆叠的 ONETRANS Block进行处理。为了适应推荐系统中各种不同的Token来源，与LLM中仅包含文本Token的情况不同，每个 ONETRAN 块采用了类似于 HiFormer的混合参数化方式。具体来说，所有序列Token（来自序列特征）共享一组 Q/K/V 和 FFN 权重，而每个非序列Token则接收标记特定的参数以保留其独特的语义。
 
 ### 2.1 预训练数据集的构建：
 
@@ -27,5 +27,5 @@
 ## 5 实验与分析：
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTExMDg1NDE4NV19
+eyJoaXN0b3J5IjpbLTExNTY0NzE3OTBdfQ==
 -->
